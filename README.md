@@ -11,14 +11,10 @@ Os dois jogadores devem assumir a pele de dois repetentes e superar os desafios 
 Vocês devem enfrentar os aliens nos desafios deles para salvar os professores. Cada professor controlado possui um desafio, e os jogadores ganham pontos pela quantidade de desafios vencidos e na melhor execução deles.
 
 # Personagens:
-Professores do IFSC SJ
-Gincanáliens
-Pendente 1
-Pendente 2
+Professores do IFSC SJ; Gincanáliens; Pendente 1; Pendente 2
 
 # Artefatos:
 Chapéu de Alumínio (liberta os professores dos aliens)
 
 # Fontes de Receita:
-Minigames Extras pagos (DLC)
-Aumento de pontos ganhos
+Minigames Extras pagos (DLC); Aumento de pontos ganhos
