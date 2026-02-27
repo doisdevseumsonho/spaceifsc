@@ -17,4 +17,4 @@ Professores do IFSC SJ; Gincanáliens; Pendente 1; Pendente 2
 Chapéu de Alumínio (liberta os professores dos aliens)
 
 # Fontes de Receita:
-Minigames Extras pagos (DLC); Aumento de pontos ganhos
+Minigames Extras pagos (DLC); Aumento de pontos ganhos; Cosméticos para os jogadores
