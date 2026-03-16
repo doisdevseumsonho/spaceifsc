@@ -6,7 +6,7 @@ var config = {
   physics: { //O Phase tem física já implementada
     default: "arcade",
     arcade: {
-      gravity: { y: 300 }, //1000 é o valor básico da Terra, menor faz ele pular mais, maior faz ele pular menos
+      gravity: { x: 0, y: 0 }, //1000 é o valor básico da Terra, menor faz ele pular mais, maior faz ele pular menos
       debug: true,
     },
   },
