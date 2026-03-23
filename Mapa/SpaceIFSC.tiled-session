@@ -1,21 +1,29 @@
 {
-    "Map/SizeTest": {
-        "height": 4300,
-        "width": 2
-    },
     "activeFile": "",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "Todos os Ficheiros (*)",
     "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "ifsc.json": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1771.3333333333333,
+                "y": 1054.6666666666665
+            }
+        },
+        "ifsc.json#tileset": {
+            "scaleInDock": 1
+        }
     },
-    "last.imagePath": "/home/aluno/Downloads",
-    "map.height": 100,
-    "map.layerDataFormat": "1",
-    "map.width": 100,
     "openFiles": [
     ],
     "project": "SpaceIFSC.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
-    ],
-    "tileset.embedInMap": true
+        "ifsc.json"
+    ]
 }

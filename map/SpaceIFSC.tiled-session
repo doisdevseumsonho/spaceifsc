@@ -1,0 +1,22 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "Todos os Ficheiros (*)",
+    "fileStates": {
+    },
+    "last.imagePath": "/home/aluno/Downloads",
+    "map.height": 100,
+    "map.layerDataFormat": "1",
+    "map.width": 100,
+    "openFiles": [
+    ],
+    "project": "SpaceIFSC.tiled-project",
+    "recentFiles": [
+    ],
+    "tileset.embedInMap": true
+}

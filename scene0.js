@@ -10,12 +10,14 @@ class scene0 extends Phaser.Scene {
   }
 
   preload() {
-    this.load.spritesheet("character", "assets/placeholder_character.png", {
+    this.load.setPath("assets/");
+
+    this.load.spritesheet("character", "placeholder_character.png", {
       frameWidth: 64,
       frameHeight: 64,
     });
 
-    this.load.spritesheet("interact_buttom", "assets/interact_buttom.png", {
+    this.load.spritesheet("interact_buttom", "interact_buttom.png", {
       frameWidth: 32,
       frameHeight: 32,
     });
@@ -25,11 +27,29 @@ class scene0 extends Phaser.Scene {
       "rexvirtualjoystickplugin.min.js",
       true
     );
+
+    this.load.tilemapTiledJSON("map", "map/ifsc.json"); //preload do mapa e dos tilesets
+    this.load.image("tileset", "map/ifsc_tileset.png");
   }
 
 
 
   create() {
+    this.tilemap = this.make.tilemap({ key: "map" }); //cria o mapa
+
+    this.tilesetTileset = this.tilemap.addTilesetImage("tileset");
+
+    this.layerFloor = this.tilemap.createLayer("floor", [this.tilesetTileset]); //cria as camadas do mapa
+    this.layerStructure = this.tilemap.createLayer("structure", [this.tilesetTileset]);
+    //this.layerCharacter = this.tilemap.createLayer("character", [this.tilesetTileset]);
+    this.layerBlocks1 = this.tilemap.createLayer("blocks1", [this.tilesetTileset]);
+
+    //colisões
+    this.player.setCollideWorldBounds(true); //impede o personagem de sair da tela
+
+    this.layerStructure.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.character, this.layerStructure);
+
     this.character = this.physics.add
       .sprite(400, 225, "character", 20); //cria o personagem
 
