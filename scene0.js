@@ -12,6 +12,9 @@ class scene0 extends Phaser.Scene {
   preload() {
     this.load.setPath("assets/");
 
+    this.load.tilemapTiledJSON("map", "map/ifsc.json"); //preload do mapa e dos tilesets
+    this.load.image("tileset", "map/tileset.png");
+
     this.load.spritesheet("character", "placeholder_character.png", {
       frameWidth: 64,
       frameHeight: 64,
@@ -24,36 +27,50 @@ class scene0 extends Phaser.Scene {
 
     this.load.plugin(
       "rexvirtualjoystickplugin",
-      "rexvirtualjoystickplugin.min.js",
-      true
+      "../rexvirtualjoystickplugin.min.js",
+      true,
     );
-
-    this.load.tilemapTiledJSON("map", "map/ifsc.json"); //preload do mapa e dos tilesets
-    this.load.image("tileset", "map/ifsc_tileset.png");
   }
 
-
-
   create() {
+    //mapa
     this.tilemap = this.make.tilemap({ key: "map" }); //cria o mapa
 
-    this.tilesetTileset = this.tilemap.addTilesetImage("tileset");
+    this.tilesetTileset = this.tilemap.addTilesetImage("tileset"); //adiciona o tileset ao mapa, puxando ele pelo nome que tá no Tiled
 
     this.layerFloor = this.tilemap.createLayer("floor", [this.tilesetTileset]); //cria as camadas do mapa
-    this.layerStructure = this.tilemap.createLayer("structure", [this.tilesetTileset]);
+    this.layerStructure = this.tilemap.createLayer("structure", [
+      this.tilesetTileset,
+    ]);
     //this.layerCharacter = this.tilemap.createLayer("character", [this.tilesetTileset]);
-    this.layerBlocks1 = this.tilemap.createLayer("blocks1", [this.tilesetTileset]);
+    this.layerBlocks1 = this.tilemap.createLayer("blocks1", [
+      this.tilesetTileset,
+    ]);
+
+    this.character = this.physics.add.sprite(1800, 500, "character", 20); //cria o personagem
 
     //colisões
-    this.player.setCollideWorldBounds(true); //impede o personagem de sair da tela
+    //this.character.setCollideWorldBounds(true); //impede o personagem de sair da tela
+
+    this.cameras.main.setBounds(
+      0,
+      0,
+      this.tilemap.widthInPixels,
+      this.tilemap.heightInPixels,
+    );
+    this.cameras.main.startFollow(this.character);
+
+    this.layerFloor.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.character, this.layerFloor);
 
     this.layerStructure.setCollisionByProperty({ collides: true });
     this.physics.add.collider(this.character, this.layerStructure);
 
-    this.character = this.physics.add
-      .sprite(400, 225, "character", 20); //cria o personagem
+    this.layerBlocks1.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.character, this.layerBlocks1);
 
-    //animações de andada
+    //animações
+    //andada
     this.anims.create({
       key: "walk-right",
       frames: this.anims.generateFrameNumbers("character", {
@@ -94,7 +111,7 @@ class scene0 extends Phaser.Scene {
       repeat: -1,
     });
 
-    //animações de parada
+    //parada
     this.anims.create({
       key: "stop-right",
       frames: this.anims.generateFrameNumbers("character", {
@@ -135,8 +152,9 @@ class scene0 extends Phaser.Scene {
       repeat: -1,
     });
 
-
-    this.joystick = this.plugins.get("rexvirtualjoystickplugin").add(this, { //puxa o plugin do joystik
+    //Joystick
+    this.joystick = this.plugins.get("rexvirtualjoystickplugin").add(this, {
+      //puxa o plugin do joystick e cria ele
       x: 100,
       y: 350,
       radius: 50,
@@ -144,10 +162,11 @@ class scene0 extends Phaser.Scene {
       thumb: this.add.circle(0, 0, 25, 0xcccccc),
     });
 
-    this.joystick.on("update", () => { //faz o joystick funcionar sempre que ele é "atualizado"
+    this.joystick.on("update", () => {
+      //faz o joystick funcionar sempre que ele é atualizado/mexido
       const angle = Phaser.Math.DegToRad(this.joystick.angle);
       const force = this.joystick.force;
-      
+
       if (force > this.threshold) {
         this.direction = new Phaser.Math.Vector2(
           Math.cos(angle),
@@ -161,7 +180,9 @@ class scene0 extends Phaser.Scene {
           this.direction.y * this.speed,
         );
 
-        switch (true) { //checa a direção do joystick para tocar a animação correta
+        switch (
+          true //checa a direção do joystick para tocar a animação correta
+        ) {
           case this.joystick.angle >= -45 && this.joystick.angle < 45:
             this.character.play("walk-right");
             break;
@@ -179,19 +200,20 @@ class scene0 extends Phaser.Scene {
         this.character.setVelocity(0, 0);
         this.character.anims.stop();
       }
-
-
     });
-      this.button = this.add
-        .sprite(700, 350, "interact_buttom", 10)
-        .setInteractive()
-        .setScale(2)
-        .on("pointerdown", () => {
-          this.button.setFrame(1);
-        })
-        .on("pointerup", () => {
-          this.button.setFrame(2);
-        });
+
+    //botão de interação
+    this.button = this.add //cria o botão de interação
+      .sprite(700, 350, "interact_buttom", 10)
+      .setInteractive()
+      .setScale(2)
+      .on("pointerdown", () => {
+        //diz o que ele faz
+        this.button.setFrame(1);
+      })
+      .on("pointerup", () => {
+        this.button.setFrame(2);
+      }).setScrollFactor(0); //faz o botão ficar fixo na tela, mesmo quando a câmera se move  
   }
 }
 
