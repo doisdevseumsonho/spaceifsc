@@ -16,7 +16,7 @@ class scene0 extends Phaser.Scene {
     this.load.image("tileset", "map/tileset.png");
 
     this.load.spritesheet("character", "placeholder_character.png", {
-      frameWidth: 64,
+      frameWidth: 32,
       frameHeight: 64,
     });
 
@@ -47,10 +47,10 @@ class scene0 extends Phaser.Scene {
       this.tilesetTileset,
     ]);
 
-    this.character = this.physics.add.sprite(1800, 500, "character", 20); //cria o personagem
+    this.character = this.physics.add.sprite(1800, 1500, "character", 20); //cria o personagem
 
     //colisões
-    //this.character.setCollideWorldBounds(true); //impede o personagem de sair da tela
+    this.character.setCollideWorldBounds(true); //impede o personagem de sair da tela
 
     this.cameras.main.setBounds(
       0,
@@ -151,6 +151,13 @@ class scene0 extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
+
+    this.physics.world.setBounds(
+      0,
+      0,
+      this.tilemap.widthInPixels,
+      this.tilemap.heightInPixels,
+    );
 
     //Joystick
     this.joystick = this.plugins.get("rexvirtualjoystickplugin").add(this, {
