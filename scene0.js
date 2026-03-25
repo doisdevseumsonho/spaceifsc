@@ -220,8 +220,16 @@ class scene0 extends Phaser.Scene {
       })
       .on("pointerup", () => {
         this.button.setFrame(2);
-      }).setScrollFactor(0); //faz o botão ficar fixo na tela, mesmo quando a câmera se move  
+      })
+      .setScrollFactor(0); //faz o botão ficar fixo na tela, mesmo quando a câmera se move
+
+    // Adiciona texto na tela
+    this.add
+      .text(10, 10, "Pontuação: 0", { fontSize: "32px", fill: "#fff" })
+      .setScrollFactor(0);
   }
+
+  //texto e pontuação
 }
 
 export default scene0;
