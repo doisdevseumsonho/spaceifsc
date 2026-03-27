@@ -1,5 +1,6 @@
 class scene0 extends Phaser.Scene {
   walking = false;
+  points = 0;
 
   constructor() {
     super("scene0");
@@ -25,6 +26,11 @@ class scene0 extends Phaser.Scene {
       frameHeight: 32,
     });
 
+    this.load.spritesheet("coin", "coin.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+
     this.load.plugin(
       "rexvirtualjoystickplugin",
       "../rexvirtualjoystickplugin.min.js",
@@ -38,16 +44,17 @@ class scene0 extends Phaser.Scene {
 
     this.tilesetTileset = this.tilemap.addTilesetImage("tileset"); //adiciona o tileset ao mapa, puxando ele pelo nome que tá no Tiled
 
-    this.layerFloor = this.tilemap.createLayer("floor", [this.tilesetTileset]); //cria as camadas do mapa
+    this.layerBarriers = this.tilemap.createLayer("barriers", [
+      this.tilesetTileset,
+    ]); //cria as camadas de barreira invisível
+    this.layerFloor = this.tilemap.createLayer("floor", [this.tilesetTileset]); //cria as camadas de chão
     this.layerStructure = this.tilemap.createLayer("structure", [
       this.tilesetTileset,
-    ]);
-    //this.layerCharacter = this.tilemap.createLayer("character", [this.tilesetTileset]);
-    this.layerBlocks1 = this.tilemap.createLayer("blocks1", [
-      this.tilesetTileset,
-    ]);
-
+    ]); //cria as camadas de estrutura
     this.character = this.physics.add.sprite(1800, 1500, "character", 20); //cria o personagem
+    //this.layerCharacter = this.tilemap.createLayer("character", [this.tilesetTileset]);
+    this.coin = this.physics.add.sprite(2000, 1712, "coin", 0); //cria a moeda
+    this.layerDoors = this.tilemap.createLayer("doors", [this.tilesetTileset]); //cria as camadas de portas
 
     //colisões
     this.character.setCollideWorldBounds(true); //impede o personagem de sair da tela
@@ -60,14 +67,26 @@ class scene0 extends Phaser.Scene {
     );
     this.cameras.main.startFollow(this.character);
 
+    this.layerBarriers.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.character, this.layerBarriers);
+
     this.layerFloor.setCollisionByProperty({ collides: true });
     this.physics.add.collider(this.character, this.layerFloor);
 
     this.layerStructure.setCollisionByProperty({ collides: true });
     this.physics.add.collider(this.character, this.layerStructure);
 
-    this.layerBlocks1.setCollisionByProperty({ collides: true });
-    this.physics.add.collider(this.character, this.layerBlocks1);
+    this.layerDoors.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.character, this.layerDoors);
+
+    // Coleta de moeda - moeda desaparece quando character encostar
+    this.physics.add.overlap(
+      this.character,
+      this.coin,
+      this.collectCoin,
+      null,
+      this,
+    );
 
     //animações
     //andada
@@ -225,11 +244,24 @@ class scene0 extends Phaser.Scene {
 
     // Adiciona texto na tela
     this.add
-      .text(10, 10, "Pontuação: 0", { fontSize: "32px", fill: "#fff" })
+      .text(10, 10, "Pontuação:" + this.points, {
+        fontSize: "32px",
+        fill: "#fff",
+      })
       .setScrollFactor(0);
+  }
+
+  //Função para coletar a moeda
+  collectCoin(character, coin) {
+    coin.destroy();
+    this.points + 10;
   }
 
   //texto e pontuação
 }
+
+// update() {
+//   this.pointsText.setText("Pontuação: " += this.points)
+// }; //atualiza o texto da pontuação
 
 export default scene0;
