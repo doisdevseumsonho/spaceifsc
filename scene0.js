@@ -16,7 +16,12 @@ class scene0 extends Phaser.Scene {
     this.load.tilemapTiledJSON("map", "map/ifsc.json"); //preload do mapa e dos tilesets
     this.load.image("tileset", "map/tileset.png");
 
-    this.load.spritesheet("character", "placeholder_character.png", {
+    this.load.spritesheet("character", "characters/placeholder_character.png", {
+      frameWidth: 32,
+      frameHeight: 64,
+    });
+
+    this.load.spritesheet("professor1", "characters/tergio.png", {
       frameWidth: 32,
       frameHeight: 64,
     });
@@ -27,6 +32,11 @@ class scene0 extends Phaser.Scene {
     });
 
     this.load.spritesheet("coin", "coin.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+
+    this.load.spritesheet("selection", "characters/selection_box.png", {
       frameWidth: 32,
       frameHeight: 32,
     });
@@ -51,8 +61,16 @@ class scene0 extends Phaser.Scene {
     this.layerStructure = this.tilemap.createLayer("structure", [
       this.tilesetTileset,
     ]); //cria as camadas de estrutura
+    this.professor1 = this.physics.add.sprite(1850, 1700, "professor1", 0); //cria o professor
+    
+    const selectionScaleX = 4; // escala horizontal da seleção
+    const selectionScaleY = 4; // escala vertical da seleção
+    this.selection = this.add
+      .sprite(1850, 1700, "selection", 0) //cria a caixa de seleção
+      .setScale(selectionScaleX, selectionScaleY)
+      .setVisible(false); // torna a caixa de seleção invisível
+
     this.character = this.physics.add.sprite(1800, 1500, "character", 20); //cria o personagem
-    //this.layerCharacter = this.tilemap.createLayer("character", [this.tilesetTileset]);
     this.coin = this.physics.add.sprite(2000, 1712, "coin", 0); //cria a moeda
     this.layerDoors = this.tilemap.createLayer("doors", [this.tilesetTileset]); //cria as camadas de portas
 
@@ -79,13 +97,25 @@ class scene0 extends Phaser.Scene {
     this.layerDoors.setCollisionByProperty({ collides: true });
     this.physics.add.collider(this.character, this.layerDoors);
 
-    // Coleta de moeda - moeda desaparece quando character encostar
+    this.professor1.setImmovable(true);
+    this.physics.add.collider(this.character, this.professor1);
+
+    // Função Coleta de moeda - moeda desaparece quando character encostar
     this.physics.add.overlap(
       this.character,
       this.coin,
       this.collectCoin,
       null,
       this,
+    );
+
+    // Função Área de Interação
+    this.physics.add.overlap(
+      this.character,
+      this.selection,
+      this.interact,
+      null,
+      this
     );
 
     //animações
@@ -171,6 +201,18 @@ class scene0 extends Phaser.Scene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: "professor1-idle",
+      frames: this.anims.generateFrameNumbers("professor1", {
+        start: 0,
+        end: 2,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 1,
+      repeat: -1,
+    });
+
+    this.professor1.play("professor1-idle");
+
     this.physics.world.setBounds(
       0,
       0,
@@ -230,7 +272,7 @@ class scene0 extends Phaser.Scene {
 
     //botão de interação
     this.button = this.add //cria o botão de interação
-      .sprite(700, 350, "interact_buttom", 10)
+      .sprite(700, 350, "interact_buttom", 1)
       .setInteractive()
       .setScale(2)
       .on("pointerdown", () => {
@@ -243,8 +285,8 @@ class scene0 extends Phaser.Scene {
       .setScrollFactor(0); //faz o botão ficar fixo na tela, mesmo quando a câmera se move
 
     // Adiciona texto na tela
-    this.add
-      .text(10, 10, "Pontuação:" + this.points, {
+    this.pointsText = this.add
+      .text(300, 10, "Pontuação:" + this.points, {
         fontSize: "32px",
         fill: "#fff",
       })
@@ -254,14 +296,13 @@ class scene0 extends Phaser.Scene {
   //Função para coletar a moeda
   collectCoin(character, coin) {
     coin.destroy();
-    this.points + 10;
+    this.points = this.points + 10;
+    this.pointsText.setText("Pontuação:" + this.points);
   }
+
+  //Função para interagir com o professor
 
   //texto e pontuação
 }
-
-// update() {
-//   this.pointsText.setText("Pontuação: " += this.points)
-// }; //atualiza o texto da pontuação
 
 export default scene0;
