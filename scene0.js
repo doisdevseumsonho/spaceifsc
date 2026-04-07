@@ -54,11 +54,14 @@ class scene0 extends Phaser.Scene {
 
     this.tilesetTileset = this.tilemap.addTilesetImage("tileset"); //adiciona o tileset ao mapa, puxando ele pelo nome que tá no Tiled
 
-    this.layerBarriers = this.tilemap.createLayer("barriers", [
+    this.layerBackground = this.tilemap.createLayer("background", [
       this.tilesetTileset,
-    ]); //cria as camadas de barreira invisível
+    ]); //cria as camadas de fundo
     this.layerFloor = this.tilemap.createLayer("floor", [this.tilesetTileset]); //cria as camadas de chão
-    this.layerStructure = this.tilemap.createLayer("structure", [
+    this.layerStructure1 = this.tilemap.createLayer("structure1", [
+      this.tilesetTileset,
+    ]); //cria as camadas de estrutura
+    this.layerStructure2 = this.tilemap.createLayer("structure2", [
       this.tilesetTileset,
     ]); //cria as camadas de estrutura
     this.professor1 = this.physics.add.sprite(1850, 1700, "professor1", 0); //cria o professor
@@ -85,17 +88,17 @@ class scene0 extends Phaser.Scene {
     );
     this.cameras.main.startFollow(this.character);
 
-    this.layerBarriers.setCollisionByProperty({ collides: true });
-    this.physics.add.collider(this.character, this.layerBarriers);
+    this.layerBackground.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.character, this.layerBackground);
 
     this.layerFloor.setCollisionByProperty({ collides: true });
     this.physics.add.collider(this.character, this.layerFloor);
 
-    this.layerStructure.setCollisionByProperty({ collides: true });
-    this.physics.add.collider(this.character, this.layerStructure);
+    this.layerStructure1.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.character, this.layerStructure1);
 
-    this.layerDoors.setCollisionByProperty({ collides: true });
-    this.physics.add.collider(this.character, this.layerDoors);
+    this.layerStructure2.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.character, this.layerStructure2);
 
     this.professor1.setImmovable(true);
     this.physics.add.collider(this.character, this.professor1);
