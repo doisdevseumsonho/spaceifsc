@@ -1,6 +1,7 @@
 class scene0 extends Phaser.Scene {
   walking = false;
   points = 0;
+  caninteract = false;
 
   constructor() {
     super("scene0");
@@ -36,7 +37,7 @@ class scene0 extends Phaser.Scene {
       frameHeight: 32,
     });
 
-    this.load.spritesheet("selection", "characters/selection_box.png", {
+    this.load.spritesheet("selectionTergio", "characters/selection_box.png", {
       frameWidth: 32,
       frameHeight: 32,
     });
@@ -64,14 +65,16 @@ class scene0 extends Phaser.Scene {
     this.layerStructure2 = this.tilemap.createLayer("structure2", [
       this.tilesetTileset,
     ]); //cria as camadas de estrutura
-    this.professor1 = this.physics.add.sprite(1850, 1700, "professor1", 0); //cria o professor
-    
-    const selectionScaleX = 4; // escala horizontal da seleção
-    const selectionScaleY = 4; // escala vertical da seleção
-    this.selection = this.add
-      .sprite(1850, 1700, "selection", 0) //cria a caixa de seleção
-      .setScale(selectionScaleX, selectionScaleY)
-      .setVisible(false); // torna a caixa de seleção invisível
+    this.professor1 = this.physics.add.sprite(752, 385, "professor1", 0); //cria o professor
+
+    const selectionTergioScaleX = 4; // escala horizontal da seleção
+    const selectionTergioScaleY = 4; // escala vertical da seleção
+    const debugSelectionVisible = true; // deixa visível para debug
+    this.selectionTergio = this.add
+      .sprite(this.professor1.x, this.professor1.y, "selectionTergio", 0) //cria a caixa de seleção
+      .setScale(selectionTergioScaleX, selectionTergioScaleY)
+      .setVisible(debugSelectionVisible)
+      .setAlpha(debugSelectionVisible ? 0.5 : 0); // meio transparente para facilitar o debug
 
     this.character = this.physics.add.sprite(1800, 1500, "character", 20); //cria o personagem
     this.coin = this.physics.add.sprite(2000, 1712, "coin", 0); //cria a moeda
@@ -115,10 +118,10 @@ class scene0 extends Phaser.Scene {
     // Função Área de Interação
     this.physics.add.overlap(
       this.character,
-      this.selection,
-      this.interact,
+      this.selectionTergio,
+      this.interactTergio,
       null,
-      this
+      this,
     );
 
     //animações
@@ -281,6 +284,10 @@ class scene0 extends Phaser.Scene {
       .on("pointerdown", () => {
         //diz o que ele faz
         this.button.setFrame(1);
+        if (this.caninteract = true) {
+          this.points = this.points + 10;
+          this.pointsText.setText("Pontuação:" + this.points);
+        }
       })
       .on("pointerup", () => {
         this.button.setFrame(2);
@@ -294,6 +301,20 @@ class scene0 extends Phaser.Scene {
         fill: "#fff",
       })
       .setScrollFactor(0);
+    // Adiciona texto de posição do character
+    this.positionText = this.add
+      .text(300, 50, "X: 0 Y: 0", {
+        fontSize: "32px",
+        fill: "#fff",
+      })
+      .setScrollFactor(0);
+  }
+
+  update() {
+    // Atualiza o texto com a posição atual do character
+    this.positionText.setText(
+      `X: ${Math.round(this.character.x)} Y: ${Math.round(this.character.y)}`,
+    );
   }
 
   //Função para coletar a moeda
@@ -304,6 +325,11 @@ class scene0 extends Phaser.Scene {
   }
 
   //Função para interagir com o professor
+  interactTergio(character, selectionTergio) {
+    caninteract = true;
+  }
+  
+
 
   //texto e pontuação
 }
