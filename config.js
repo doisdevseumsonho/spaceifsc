@@ -2,6 +2,9 @@ var config = {
   type: Phaser.AUTO,
   width: 800, //Largura da tela
   height: 450, //Altura da tela
+  input : {
+    activePointers: true, //Habilita o suporte a gamepad
+  },
   parent: "game-container",
   physics: { //O Phase tem física já implementada
     default: "arcade",

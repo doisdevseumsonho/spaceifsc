@@ -17,7 +17,7 @@ class scene0 extends Phaser.Scene {
     this.load.tilemapTiledJSON("map", "map/ifsc.json"); //preload do mapa e dos tilesets
     this.load.image("tileset", "map/tileset.png");
 
-    this.load.spritesheet("character", "characters/placeholder_character.png", {
+    this.load.spritesheet("character1", "characters/characterbase_pedro.png", {
       frameWidth: 32,
       frameHeight: 64,
     });
@@ -47,6 +47,8 @@ class scene0 extends Phaser.Scene {
       "../rexvirtualjoystickplugin.min.js",
       true,
     );
+
+    this.load.audio("hubmusic", "sounds/placeholder_hubmusic.mp3");
   }
 
   create() {
@@ -70,18 +72,18 @@ class scene0 extends Phaser.Scene {
     const selectionTergioScaleX = 4; // escala horizontal da seleção
     const selectionTergioScaleY = 4; // escala vertical da seleção
     const debugSelectionVisible = true; // deixa visível para debug
-    this.selectionTergio = this.add
+    this.selectionTergio = this.physics.add
       .sprite(this.professor1.x, this.professor1.y, "selectionTergio", 0) //cria a caixa de seleção
       .setScale(selectionTergioScaleX, selectionTergioScaleY)
       .setVisible(debugSelectionVisible)
       .setAlpha(debugSelectionVisible ? 0.5 : 0); // meio transparente para facilitar o debug
 
-    this.character = this.physics.add.sprite(1800, 1500, "character", 20); //cria o personagem
+    this.character1 = this.physics.add.sprite(1800, 1500, "character1", 20); //cria o personagem
     this.coin = this.physics.add.sprite(2000, 1712, "coin", 0); //cria a moeda
     this.layerDoors = this.tilemap.createLayer("doors", [this.tilesetTileset]); //cria as camadas de portas
 
     //colisões
-    this.character.setCollideWorldBounds(true); //impede o personagem de sair da tela
+    this.character1.setCollideWorldBounds(true); //impede o personagem de sair da tela
 
     this.cameras.main.setBounds(
       0,
@@ -89,26 +91,26 @@ class scene0 extends Phaser.Scene {
       this.tilemap.widthInPixels,
       this.tilemap.heightInPixels,
     );
-    this.cameras.main.startFollow(this.character);
+    this.cameras.main.startFollow(this.character1);
 
     this.layerBackground.setCollisionByProperty({ collides: true });
-    this.physics.add.collider(this.character, this.layerBackground);
+    this.physics.add.collider(this.character1, this.layerBackground);
 
     this.layerFloor.setCollisionByProperty({ collides: true });
-    this.physics.add.collider(this.character, this.layerFloor);
+    this.physics.add.collider(this.character1, this.layerFloor);
 
     this.layerStructure1.setCollisionByProperty({ collides: true });
-    this.physics.add.collider(this.character, this.layerStructure1);
+    this.physics.add.collider(this.character1, this.layerStructure1);
 
     this.layerStructure2.setCollisionByProperty({ collides: true });
-    this.physics.add.collider(this.character, this.layerStructure2);
+    this.physics.add.collider(this.character1, this.layerStructure2);
 
     this.professor1.setImmovable(true);
-    this.physics.add.collider(this.character, this.professor1);
+    this.physics.add.collider(this.character1, this.professor1);
 
     // Função Coleta de moeda - moeda desaparece quando character encostar
     this.physics.add.overlap(
-      this.character,
+      this.character1,
       this.coin,
       this.collectCoin,
       null,
@@ -117,18 +119,23 @@ class scene0 extends Phaser.Scene {
 
     // Função Área de Interação
     this.physics.add.overlap(
-      this.character,
+      this.character1,
       this.selectionTergio,
       this.interactTergio,
       null,
       this,
     );
 
+    //música
+    this.hubmusic = this.sound
+      .add("hubmusic", { loop: true, volume: 0.5 })
+      .play();
+
     //animações
     //andada
     this.anims.create({
       key: "walk-right",
-      frames: this.anims.generateFrameNumbers("character", {
+      frames: this.anims.generateFrameNumbers("character1", {
         start: 88,
         end: 95,
       }), //sprites são um a menos que no spritesheet.
@@ -137,30 +144,10 @@ class scene0 extends Phaser.Scene {
     });
 
     this.anims.create({
-      key: "walk-back",
-      frames: this.anims.generateFrameNumbers("character", {
-        start: 62,
-        end: 68,
-      }), //sprites são um a menos que no spritesheet.
-      frameRate: 20,
-      repeat: -1,
-    });
-
-    this.anims.create({
       key: "walk-left",
-      frames: this.anims.generateFrameNumbers("character", {
+      frames: this.anims.generateFrameNumbers("character1", {
         start: 71,
         end: 77,
-      }), //sprites são um a menos que no spritesheet.
-      frameRate: 20,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: "walk-front",
-      frames: this.anims.generateFrameNumbers("character", {
-        start: 80,
-        end: 86,
       }), //sprites são um a menos que no spritesheet.
       frameRate: 20,
       repeat: -1,
@@ -169,7 +156,7 @@ class scene0 extends Phaser.Scene {
     //parada
     this.anims.create({
       key: "stop-right",
-      frames: this.anims.generateFrameNumbers("character", {
+      frames: this.anims.generateFrameNumbers("character1", {
         start: 86,
         end: 86,
       }), //sprites são um a menos que no spritesheet.
@@ -178,30 +165,10 @@ class scene0 extends Phaser.Scene {
     });
 
     this.anims.create({
-      key: "stop-back",
-      frames: this.anims.generateFrameNumbers("character", {
-        start: 60,
-        end: 60,
-      }), //sprites são um a menos que no spritesheet.
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.anims.create({
       key: "stop-left",
-      frames: this.anims.generateFrameNumbers("character", {
+      frames: this.anims.generateFrameNumbers("character1", {
         start: 69,
         end: 69,
-      }), //sprites são um a menos que no spritesheet.
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: "stop-front",
-      frames: this.anims.generateFrameNumbers("character", {
-        start: 78,
-        end: 78,
       }), //sprites são um a menos que no spritesheet.
       frameRate: 10,
       repeat: -1,
@@ -249,7 +216,7 @@ class scene0 extends Phaser.Scene {
       }
 
       if (this.joystick.force > 0) {
-        this.character.setVelocity(
+        this.character1.setVelocity(
           this.direction.x * this.speed,
           this.direction.y * this.speed,
         );
@@ -258,21 +225,21 @@ class scene0 extends Phaser.Scene {
           true //checa a direção do joystick para tocar a animação correta
         ) {
           case this.joystick.angle >= -45 && this.joystick.angle < 45:
-            this.character.play("walk-right");
+            this.character1.play("walk-right");
             break;
           case this.joystick.angle >= 45 && this.joystick.angle < 135:
-            this.character.play("walk-front");
+            this.character1.play("walk-front");
             break;
           case this.joystick.angle < -135:
-            this.character.play("walk-left");
+            this.character1.play("walk-left");
             break;
           case this.joystick.angle >= -135 && this.joystick.angle < -45:
-            this.character.play("walk-back");
+            this.character1.play("walk-back");
             break;
         }
       } else {
-        this.character.setVelocity(0, 0);
-        this.character.anims.stop();
+        this.character1.setVelocity(0, 0);
+        this.character1.anims.stop();
       }
     });
 
@@ -284,7 +251,7 @@ class scene0 extends Phaser.Scene {
       .on("pointerdown", () => {
         //diz o que ele faz
         this.button.setFrame(1);
-        if (this.caninteract = true) {
+        if (this.caninteract === true) {
           this.points = this.points + 10;
           this.pointsText.setText("Pontuação:" + this.points);
         }
@@ -313,20 +280,20 @@ class scene0 extends Phaser.Scene {
   update() {
     // Atualiza o texto com a posição atual do character
     this.positionText.setText(
-      `X: ${Math.round(this.character.x)} Y: ${Math.round(this.character.y)}`,
+      `X: ${Math.round(this.character1.x)} Y: ${Math.round(this.character1.y)}`,
     );
   }
 
   //Função para coletar a moeda
-  collectCoin(character, coin) {
+  collectCoin(character1, coin) {
     coin.destroy();
     this.points = this.points + 10;
     this.pointsText.setText("Pontuação:" + this.points);
   }
 
   //Função para interagir com o professor
-  interactTergio(character, selectionTergio) {
-    caninteract = true;
+  interactTergio(character1, selectionTergio) {
+    this.caninteract = true;
   }
   
 
