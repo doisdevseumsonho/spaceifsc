@@ -1,7 +1,7 @@
 class scene0 extends Phaser.Scene {
   walking = false;
   points = 0;
-  caninteract = false;
+  caninteractTergio = false;
 
   constructor() {
     super("scene0");
@@ -113,15 +113,6 @@ class scene0 extends Phaser.Scene {
       this.character1,
       this.coin,
       this.collectCoin,
-      null,
-      this,
-    );
-
-    // Função Área de Interação
-    this.physics.add.overlap(
-      this.character1,
-      this.selectionTergio,
-      this.interactTergio,
       null,
       this,
     );
@@ -251,9 +242,9 @@ class scene0 extends Phaser.Scene {
       .on("pointerdown", () => {
         //diz o que ele faz
         this.button.setFrame(1);
-        if (this.caninteract === true) {
-          this.points = this.points + 10;
-          this.pointsText.setText("Pontuação:" + this.points);
+        if (this.caninteractTergio === true) {
+          this.scene.stop("scene0");
+          this.scene.start("scene1");
         }
       })
       .on("pointerup", () => {
@@ -282,6 +273,17 @@ class scene0 extends Phaser.Scene {
     this.positionText.setText(
       `X: ${Math.round(this.character1.x)} Y: ${Math.round(this.character1.y)}`,
     );
+
+    //função de interação com o professor
+    const character1Bounds = this.character1.getBounds();
+    const tergioBounds = this.selectionTergio.getBounds();
+
+    if (Phaser.Geom.Intersects.RectangleToRectangle(character1Bounds, tergioBounds)) {
+      this.caninteractTergio = true;
+    } else {
+      // o que fazer quando NÃO houver sobreopsição
+      this.caninteractTergio = false;
+    }
   }
 
   //Função para coletar a moeda
@@ -290,12 +292,6 @@ class scene0 extends Phaser.Scene {
     this.points = this.points + 10;
     this.pointsText.setText("Pontuação:" + this.points);
   }
-
-  //Função para interagir com o professor
-  interactTergio(character1, selectionTergio) {
-    this.caninteract = true;
-  }
-  
 
 
   //texto e pontuação
