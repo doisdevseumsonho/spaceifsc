@@ -127,20 +127,20 @@ class scene0 extends Phaser.Scene {
     this.anims.create({
       key: "walk-right",
       frames: this.anims.generateFrameNumbers("character1", {
-        start: 88,
-        end: 95,
+        start: 1,
+        end: 4,
       }), //sprites são um a menos que no spritesheet.
-      frameRate: 20,
+      frameRate: 11,
       repeat: -1,
     });
 
     this.anims.create({
       key: "walk-left",
       frames: this.anims.generateFrameNumbers("character1", {
-        start: 71,
-        end: 77,
+        start: 6,
+        end: 9,
       }), //sprites são um a menos que no spritesheet.
-      frameRate: 20,
+      frameRate: 11,
       repeat: -1,
     });
 
