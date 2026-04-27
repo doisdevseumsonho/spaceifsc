@@ -26,7 +26,7 @@ class sceneTitle extends Phaser.Scene {
       .setAlpha(debugplaybuttonVisible ? 0.01 : 0) // meio transparente para facilitar o debug
       .on("pointerdown", () => {
         this.scene.stop("sceneTitle");
-        this.scene.start("scene0");
+        this.scene.start("sceneSelection");
       })
       .on("pointerup", () => {
       })
