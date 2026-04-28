@@ -1,6 +1,5 @@
 class scene0 extends Phaser.Scene {
   walking = false;
-  points = 0;
   caninteractTergio = false;
 
   constructor() {
@@ -17,10 +16,17 @@ class scene0 extends Phaser.Scene {
     this.load.tilemapTiledJSON("map", "map/ifsc.json"); //preload do mapa e dos tilesets
     this.load.image("tileset", "map/tileset.png");
 
-    this.load.spritesheet("character1", "characters/characterbase_pedro.png", {
-      frameWidth: 32,
-      frameHeight: 64,
-    });
+    if (this.game.characterplayer1 === 1) {
+      this.load.spritesheet("character1", "characters/characterbase_pedro.png", {
+        frameWidth: 32,
+        frameHeight: 64,
+      });
+    } else if (this.game.characterplayer1 === 2) {
+      this.load.spritesheet("character1", "characters/characterbase_pablo.png", {
+        frameWidth: 32,
+        frameHeight: 64,
+      });
+    }
 
     this.load.spritesheet("professor1", "characters/tergio.png", {
       frameWidth: 32,
@@ -254,7 +260,7 @@ class scene0 extends Phaser.Scene {
 
     // Adiciona texto na tela
     this.pointsText = this.add
-      .text(300, 10, "Pontuação:" + this.points, {
+      .text(300, 10, "Pontuação:" + this.game.points, {
         fontSize: "32px",
         fill: "#fff",
       })
@@ -289,8 +295,8 @@ class scene0 extends Phaser.Scene {
   //Função para coletar a moeda
   collectCoin(character1, coin) {
     coin.destroy();
-    this.points = this.points + 10;
-    this.pointsText.setText("Pontuação:" + this.points);
+    this.game.points = this.game.points + 10;
+    this.pointsText.setText("Pontuação:" + this.game.points);
   }
 
 
