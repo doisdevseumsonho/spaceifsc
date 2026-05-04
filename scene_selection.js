@@ -4,13 +4,13 @@ class sceneSelection extends Phaser.Scene {
   }
 
   preload() {
-    this.load.spritesheet("imagem_pedro", "assets/characters/characterbase_pedro.png", {
-      frameWidth: 32,
-      frameHeight: 64,
+    this.load.spritesheet("imagem_pedro", "assets/big_pedro.png", {
+      frameWidth: 128,
+      frameHeight: 256,
     });
-    this.load.spritesheet("imagem_pablo", "assets/characters/characterbase_pablo.png", {
-      frameWidth: 32,
-      frameHeight: 64
+    this.load.spritesheet("imagem_pablo", "assets/big_pablo.png", {
+      frameWidth: 128,
+      frameHeight: 256
     });
     this.load.spritesheet("selection_box_pedro", "assets/selection_box_pedro.png", {
       frameWidth: 32,
@@ -26,10 +26,10 @@ class sceneSelection extends Phaser.Scene {
   create() {
     this.imagemPedro = this.physics.add
       .sprite(600, 250, "imagem_pedro", 5)
-      .setScale(4);
+      .setScale(-1,1);
     this.imagemPablo = this.physics.add
       .sprite(200, 250, "imagem_pablo", 0)
-      .setScale(4);
+      .setScale(1);
 
     const selectionboxpedroScaleX = 4; // escala horizontal da seleção
     const selectionboxpedroScaleY = 8; // escala vertical da seleção
@@ -56,7 +56,7 @@ class sceneSelection extends Phaser.Scene {
       .setInteractive()
       .setScale(selectionboxpabloScaleX, selectionboxpabloScaleY)
       .setVisible(debugselectionboxpabloVisible)
-      .setAlpha(debugselectionboxpabloVisible ? 1 : 0) // meio transparente para facilitar o debug
+      .setAlpha(debugselectionboxpabloVisible ? 0.01 : 0) // meio transparente para facilitar o debug
       .on("pointerdown", () => {
         this.game.characterplayer1 = 2;
         this.scene.stop("sceneSelection");

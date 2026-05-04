@@ -82,7 +82,7 @@ class scene0 extends Phaser.Scene {
       .sprite(this.professor1.x, this.professor1.y, "selectionTergio", 0) //cria a caixa de seleção
       .setScale(selectionTergioScaleX, selectionTergioScaleY)
       .setVisible(debugSelectionVisible)
-      .setAlpha(debugSelectionVisible ? 0.5 : 0); // meio transparente para facilitar o debug
+      .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
 
     this.character1 = this.physics.add.sprite(1800, 1500, "character1", 20); //cria o personagem
     this.coin = this.physics.add.sprite(2000, 1712, "coin", 0); //cria a moeda
@@ -130,46 +130,89 @@ class scene0 extends Phaser.Scene {
 
     //animações
     //andada
-    this.anims.create({
-      key: "walk-right",
-      frames: this.anims.generateFrameNumbers("character1", {
-        start: 1,
-        end: 4,
-      }), //sprites são um a menos que no spritesheet.
-      frameRate: 11,
-      repeat: -1,
-    });
+    if (this.game.characterplayer1 === 1) {
+      this.anims.create({
+        key: "walk-right",
+        frames: this.anims.generateFrameNumbers("character1", {
+          start: 2,
+          end: 4,
+        }), //sprites são um a menos que no spritesheet.
+        frameRate: 11,
+        repeat: -1,
+      });
 
-    this.anims.create({
-      key: "walk-left",
-      frames: this.anims.generateFrameNumbers("character1", {
-        start: 6,
-        end: 9,
-      }), //sprites são um a menos que no spritesheet.
-      frameRate: 11,
-      repeat: -1,
-    });
+      this.anims.create({
+        key: "walk-left",
+        frames: this.anims.generateFrameNumbers("character1", {
+          start: 7,
+          end: 9,
+        }), //sprites são um a menos que no spritesheet.
+        frameRate: 11,
+        repeat: -1,
+      });
 
-    //parada
-    this.anims.create({
-      key: "stop-right",
-      frames: this.anims.generateFrameNumbers("character1", {
-        start: 86,
-        end: 86,
-      }), //sprites são um a menos que no spritesheet.
-      frameRate: 10,
-      repeat: -1,
-    });
+      //parada
+      this.anims.create({
+        key: "stop-right",
+        frames: this.anims.generateFrameNumbers("character1", {
+          start: 86,
+          end: 86,
+        }), //sprites são um a menos que no spritesheet.
+        frameRate: 10,
+        repeat: -1,
+      });
 
-    this.anims.create({
-      key: "stop-left",
-      frames: this.anims.generateFrameNumbers("character1", {
-        start: 69,
-        end: 69,
-      }), //sprites são um a menos que no spritesheet.
-      frameRate: 10,
-      repeat: -1,
-    });
+      this.anims.create({
+        key: "stop-left",
+        frames: this.anims.generateFrameNumbers("character1", {
+          start: 69,
+          end: 69,
+        }), //sprites são um a menos que no spritesheet.
+        frameRate: 10,
+        repeat: -1,
+      });
+    } else if (this.game.characterplayer1 === 2) {
+      this.anims.create({
+        key: "walk-right",
+        frames: this.anims.generateFrameNumbers("character1", {
+          start: 1,
+          end: 4,
+        }), //sprites são um a menos que no spritesheet.
+        frameRate: 8,
+        repeat: -1,
+      });
+
+      this.anims.create({
+        key: "walk-left",
+        frames: this.anims.generateFrameNumbers("character1", {
+          start: 6,
+          end: 9,
+        }), //sprites são um a menos que no spritesheet.
+        frameRate: 8,
+        repeat: -1,
+      });
+
+      //parada
+      this.anims.create({
+        key: "stop-right",
+        frames: this.anims.generateFrameNumbers("character1", {
+          start: 86,
+          end: 86,
+        }), //sprites são um a menos que no spritesheet.
+        frameRate: 8,
+        repeat: -1,
+      });
+
+      this.anims.create({
+        key: "stop-left",
+        frames: this.anims.generateFrameNumbers("character1", {
+          start: 69,
+          end: 69,
+        }), //sprites são um a menos que no spritesheet.
+        frameRate: 8,
+        repeat: -1,
+      });
+    }
 
     this.anims.create({
       key: "professor1-idle",
@@ -218,21 +261,11 @@ class scene0 extends Phaser.Scene {
           this.direction.y * this.speed,
         );
 
-        switch (
-          true //checa a direção do joystick para tocar a animação correta
-        ) {
-          case this.joystick.angle >= -45 && this.joystick.angle < 45:
-            this.character1.play("walk-right");
-            break;
-          case this.joystick.angle >= 45 && this.joystick.angle < 135:
-            this.character1.play("walk-front");
-            break;
-          case this.joystick.angle < -135:
-            this.character1.play("walk-left");
-            break;
-          case this.joystick.angle >= -135 && this.joystick.angle < -45:
-            this.character1.play("walk-back");
-            break;
+        const angle = this.joystick.angle;
+        if (angle > -90 && angle < 90) {
+          this.character1.play("walk-right");
+        } else {
+          this.character1.play("walk-left");
         }
       } else {
         this.character1.setVelocity(0, 0);
