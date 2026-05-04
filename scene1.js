@@ -6,7 +6,8 @@ class scene1 extends Phaser.Scene {
   }
 
   preload() {
-    this.load.spritesheet("background1", "assets/characters/tergio_text_box.png", {
+    //Fundo
+    this.load.spritesheet("background1", "assets/quiz/tergio_text_box.png", {
       frameWidth: 320,
       frameHeight: 230,
     });
@@ -15,15 +16,63 @@ class scene1 extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 64,
     });
+
+    //Interagíveis
+    this.load.spritesheet("button1", "assets/quiz/questionbox.png", {
+      frameWidth: 192,
+      frameHeight: 192,
+    });
+    this.load.spritesheet("button2", "assets/quiz/questionbox.png", {
+      frameWidth: 192,
+      frameHeight: 192,
+    });
+    this.load.spritesheet("button3", "assets/quiz/questionbox.png", {
+      frameWidth: 192,
+      frameHeight: 192,
+    });
+    this.load.spritesheet("button4", "assets/quiz/questionbox.png", {
+      frameWidth: 192,
+      frameHeight: 192,
+    });
+
   }
 
   create() {
+    //Fundo
     const backgroundScaleX = 2.55; // escala horizontal da fundo
     const backgroundScaleY = 2; // escala vertical da fundo
     this.add.image(390, 230, "background1").
       setScale(backgroundScaleX, backgroundScaleY);
     this.add.image(120, 400, "character1");
     this.add.image(770, 400, "professor1").setScale(-1, 1);
+
+    //Interagíveis
+    this.add
+      .sprite(320, 300, "button1", 0)
+      .setScale(1)
+      .setInteractive()
+      .on("pointerdown", () => {
+        // Ação a ser executada quando o botão for clicado
+      });
+    this.add
+      .sprite(560, 300, "button2", 0)
+      .setScale(1)
+      .setInteractive()
+      .on("pointerdown", () => {
+      });
+    this.add
+      .sprite(320, 150, "button3", 0)
+      .setScale(1)
+      .setInteractive()
+      .on("pointerdown", () => {
+      });
+    this.add
+      .sprite(560, 150, "button4", 0)
+      .setScale(1)
+      .setInteractive()
+      .on("pointerdown", () => {
+      });
+
 
   }
 
