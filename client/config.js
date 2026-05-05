@@ -2,6 +2,10 @@ var config = {
   type: Phaser.AUTO,
   width: 800, //Largura da tela
   height: 450, //Altura da tela
+  fps: {
+    target: 60,
+    forceSetTimeOut: true,
+  },
   input : {
     activePointers: true, //Habilita o suporte a gamepad
   },

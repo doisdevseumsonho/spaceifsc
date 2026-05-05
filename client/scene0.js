@@ -299,6 +299,20 @@ class scene0 extends Phaser.Scene {
       })
       .setScrollFactor(0);
 
+    //Sincronização de posição do personagem com o servidor
+    try {
+      this.game.socket.emit("scene0", this.game.room, {
+        player: {
+          x: this.player.body.velocity.x,
+          y: this.player.body.velocity.y,
+          key: this.player.anims.currentAnim.key,
+          frame: this.player.anims.currentFrame.index,
+        },
+      });
+    } catch (e) {
+      console.error("Error updating player:", e);
+    }
+    
   }
 
   update() {
