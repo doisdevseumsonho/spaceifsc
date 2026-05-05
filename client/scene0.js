@@ -17,15 +17,23 @@ class scene0 extends Phaser.Scene {
     this.load.image("tileset", "map/tileset.png");
 
     if (this.game.characterplayer1 === 1) {
-      this.load.spritesheet("character1", "characters/characterbase_pedro.png", {
-        frameWidth: 32,
-        frameHeight: 64,
-      });
+      this.load.spritesheet(
+        "character1",
+        "characters/characterbase_pedro.png",
+        {
+          frameWidth: 32,
+          frameHeight: 64,
+        },
+      );
     } else if (this.game.characterplayer1 === 2) {
-      this.load.spritesheet("character1", "characters/characterbase_pablo.png", {
-        frameWidth: 32,
-        frameHeight: 64,
-      });
+      this.load.spritesheet(
+        "character1",
+        "characters/characterbase_pablo.png",
+        {
+          frameWidth: 32,
+          frameHeight: 64,
+        },
+      );
     }
 
     this.load.spritesheet("professor1", "characters/tergio.png", {
@@ -298,32 +306,34 @@ class scene0 extends Phaser.Scene {
         fill: "#fff",
       })
       .setScrollFactor(0);
+  }
 
+  update() {
     //Sincronização de posição do personagem com o servidor
     try {
       this.game.socket.emit("scene0", this.game.room, {
         player: {
-          x: this.player.body.velocity.x,
-          y: this.player.body.velocity.y,
-          key: this.player.anims.currentAnim.key,
-          frame: this.player.anims.currentFrame.index,
+          x: this.character1.x,
+          y: this.character1.y,
+          key: this.character1.anims.currentAnim.key,
+          frame: this.character1.anims.currentFrame.index,
         },
       });
     } catch (e) {
       console.error("Error updating player:", e);
     }
-    
-  }
-
-  update() {
     // Atualiza o texto com a posição atual do character
-
 
     //função de interação com o professor
     const character1Bounds = this.character1.getBounds();
     const tergioBounds = this.selectionTergio.getBounds();
 
-    if (Phaser.Geom.Intersects.RectangleToRectangle(character1Bounds, tergioBounds)) {
+    if (
+      Phaser.Geom.Intersects.RectangleToRectangle(
+        character1Bounds,
+        tergioBounds,
+      )
+    ) {
       this.caninteractTergio = true;
     } else {
       // o que fazer quando NÃO houver sobreopsição
