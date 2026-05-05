@@ -48,26 +48,26 @@ class scene1 extends Phaser.Scene {
 
     //Interagíveis
     this.add
-      .sprite(320, 300, "button1", 0)
+      .sprite(320, 340, "button1", 0)
       .setScale(1)
       .setInteractive()
       .on("pointerdown", () => {
         // Ação a ser executada quando o botão for clicado
       });
     this.add
-      .sprite(560, 300, "button2", 0)
+      .sprite(560, 340, "button2", 0)
       .setScale(1)
       .setInteractive()
       .on("pointerdown", () => {
       });
     this.add
-      .sprite(320, 150, "button3", 0)
+      .sprite(320, 190, "button3", 0)
       .setScale(1)
       .setInteractive()
       .on("pointerdown", () => {
       });
     this.add
-      .sprite(560, 150, "button4", 0)
+      .sprite(560, 190, "button4", 0)
       .setScale(1)
       .setInteractive()
       .on("pointerdown", () => {

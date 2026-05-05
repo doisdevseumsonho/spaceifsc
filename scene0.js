@@ -135,7 +135,7 @@ class scene0 extends Phaser.Scene {
         key: "walk-right",
         frames: this.anims.generateFrameNumbers("character1", {
           start: 2,
-          end: 4,
+          end: 5,
         }), //sprites são um a menos que no spritesheet.
         frameRate: 11,
         repeat: -1,
@@ -144,8 +144,8 @@ class scene0 extends Phaser.Scene {
       this.anims.create({
         key: "walk-left",
         frames: this.anims.generateFrameNumbers("character1", {
-          start: 7,
-          end: 9,
+          start: 8,
+          end: 11,
         }), //sprites são um a menos que no spritesheet.
         frameRate: 11,
         repeat: -1,
@@ -175,20 +175,20 @@ class scene0 extends Phaser.Scene {
       this.anims.create({
         key: "walk-right",
         frames: this.anims.generateFrameNumbers("character1", {
-          start: 1,
-          end: 4,
+          start: 2,
+          end: 5,
         }), //sprites são um a menos que no spritesheet.
-        frameRate: 8,
+        frameRate: 5,
         repeat: -1,
       });
 
       this.anims.create({
         key: "walk-left",
         frames: this.anims.generateFrameNumbers("character1", {
-          start: 6,
-          end: 9,
+          start: 8,
+          end: 11,
         }), //sprites são um a menos que no spritesheet.
-        frameRate: 8,
+        frameRate: 5,
         repeat: -1,
       });
 
@@ -196,8 +196,8 @@ class scene0 extends Phaser.Scene {
       this.anims.create({
         key: "stop-right",
         frames: this.anims.generateFrameNumbers("character1", {
-          start: 86,
-          end: 86,
+          start: 0,
+          end: 1,
         }), //sprites são um a menos que no spritesheet.
         frameRate: 8,
         repeat: -1,
@@ -206,8 +206,8 @@ class scene0 extends Phaser.Scene {
       this.anims.create({
         key: "stop-left",
         frames: this.anims.generateFrameNumbers("character1", {
-          start: 69,
-          end: 69,
+          start: 6,
+          end: 7,
         }), //sprites são um a menos que no spritesheet.
         frameRate: 8,
         repeat: -1,
@@ -298,20 +298,12 @@ class scene0 extends Phaser.Scene {
         fill: "#fff",
       })
       .setScrollFactor(0);
-    // Adiciona texto de posição do character
-    this.positionText = this.add
-      .text(300, 50, "X: 0 Y: 0", {
-        fontSize: "32px",
-        fill: "#fff",
-      })
-      .setScrollFactor(0);
+
   }
 
   update() {
     // Atualiza o texto com a posição atual do character
-    this.positionText.setText(
-      `X: ${Math.round(this.character1.x)} Y: ${Math.round(this.character1.y)}`,
-    );
+
 
     //função de interação com o professor
     const character1Bounds = this.character1.getBounds();
@@ -331,9 +323,6 @@ class scene0 extends Phaser.Scene {
     this.game.points = this.game.points + 10;
     this.pointsText.setText("Pontuação:" + this.game.points);
   }
-
-
-  //texto e pontuação
 }
 
 export default scene0;
