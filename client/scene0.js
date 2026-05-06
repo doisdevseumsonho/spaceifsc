@@ -322,7 +322,6 @@ class scene0 extends Phaser.Scene {
     } catch (e) {
       console.error("Error updating player:", e);
     }
-    // Atualiza o texto com a posição atual do character
 
     //função de interação com o professor
     const character1Bounds = this.character1.getBounds();
