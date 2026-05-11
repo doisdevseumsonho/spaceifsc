@@ -5,9 +5,11 @@ class scene0 extends Phaser.Scene {
   constructor() {
     super("scene0");
 
+    this.remotePlayers = [];
     this.threshold = 0.1;
     this.speed = 200;
     this.direction = undefined;
+    this.remotePlayers = [];
   }
 
   preload() {
@@ -306,17 +308,55 @@ class scene0 extends Phaser.Scene {
         fill: "#fff",
       })
       .setScrollFactor(0);
+
+    this.game.socket.on("scene0", (state) => {
+      if (state.character) {
+        try {
+          if (state.character.id === this.game.socket.id) return;
+
+          let remotePlayer = this.remotePlayers.find(
+            (p) => p.id === state.character.id,
+          );
+
+          if (!remotePlayer) {
+            remotePlayer = this.add.sprite(
+              state.character.x,
+              state.character.y,
+              "character",
+              0,
+            );
+            this.remotePlayers.push({
+              id: state.character.id,
+              sprite: remotePlayer,
+            });
+          }
+
+          remotePlayer.sprite.setPosition(state.character.x, state.character.y);
+          remotePlayer.sprite.setTexture(
+            state.character.texture,
+            state.character.frame,
+          );
+        } catch (e) {
+          console.log(this.remotePlayers);
+          console.error("Error updating remote player:", e);
+        }
+      }
+    });
   }
 
   update() {
     //Sincronização de posição do personagem com o servidor
     try {
       this.game.socket.emit("scene0", this.game.room, {
-        player: {
+        character: {
+          id: this.game.socket.id,
           x: this.character1.x,
           y: this.character1.y,
-          key: this.character1.anims.currentAnim.key,
-          frame: this.character1.anims.currentFrame.index,
+          texture: "character1",
+          animation: this.character1.anims.currentAnim
+            ? this.character1.anims.currentAnim.key
+            : "stop-right",
+          frame: this.character1.anims.currentFrame.dex,
         },
       });
     } catch (e) {

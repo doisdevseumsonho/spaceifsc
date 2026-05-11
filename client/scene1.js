@@ -69,6 +69,7 @@ class scene1 extends Phaser.Scene {
     const selectionButtonScaleY = 3; // escala vertical da seleção
     const debugplaybuttonVisible = true;
 
+    //botão 1
     this.add.sprite(320, 190, "button1", 0).setScale(1);
     this.questionText1 = this.add.text(320, 190, "25", {
       fontSize: "32px",
@@ -82,9 +83,38 @@ class scene1 extends Phaser.Scene {
       .on("pointerdown", () => {
         if (this.questionNumber === 1) {
           this.wrongAnswer1();
-        } // Ação a ser executada quando o botão for clicado
+        } else if (this.questionNumber === 2) {
+          this.wrongAnswer2();
+        } else if (this.questionNumber === 3) {
+          this.correctAnswer3();
+        } else if (this.questionNumber === 4) {
+          this.wrongAnswer4();
+        } else if (this.questionNumber === 5) {
+          this.correctAnswer5();
+        } else if (this.questionNumber === 6) {
+          this.wrongAnswer6();
+        } else if (this.questionNumber === 7) {
+          this.correctAnswer7();
+        } else if (this.questionNumber === 8) {
+          this.wrongAnswer8();
+        } else if (this.questionNumber === 9) {
+          this.correctAnswer9();
+        } else if (this.questionNumber === 10) {
+          this.wrongAnswer10();
+        } else if (this.questionNumber === 11) {
+          this.correctAnswer11();
+        } else if (this.questionNumber === 12) {
+          this.wrongAnswer12();
+        } else if (this.questionNumber === 13) {
+          this.correctAnswer13();
+        } else if (this.questionNumber === 14) {
+          this.correctAnswer14();
+        } else if (this.questionNumber === 15) {
+          this.wrongAnswer15();
+        }
       });
 
+    //botão 2
     this.add.sprite(560, 190, "button2", 0).setScale(1).setInteractive();
     this.questionText2 = this.add.text(560, 190, "30", {
       fontSize: "32px",
@@ -98,9 +128,38 @@ class scene1 extends Phaser.Scene {
       .on("pointerdown", () => {
         if (this.questionNumber === 1) {
           this.wrongAnswer1();
-        } // Ação a ser executada quando o botão for clicado
+        } else if (this.questionNumber === 2) {
+          this.wrongAnswer2();
+        } else if (this.questionNumber === 3) {
+          this.wrongAnswer3();
+        } else if (this.questionNumber === 4) {
+          this.wrongAnswer4();
+        } else if (this.questionNumber === 5) {
+          this.wrongAnswer5();
+        } else if (this.questionNumber === 6) {
+          this.correctAnswer6();
+        } else if (this.questionNumber === 7) {
+          this.wrongAnswer7();
+        } else if (this.questionNumber === 8) {
+          this.wrongAnswer8();
+        } else if (this.questionNumber === 9) {
+          this.wrongAnswer9();
+        } else if (this.questionNumber === 10) {
+          this.wrongAnswer10();
+        } else if (this.questionNumber === 11) {
+          this.wrongAnswer11();
+        } else if (this.questionNumber === 12) {
+          this.correctAnswer12();
+        } else if (this.questionNumber === 13) {
+          this.wrongAnswer13();
+        } else if (this.questionNumber === 14) {
+          this.wrongAnswer14();
+        } else if (this.questionNumber === 15) {
+          this.wrongAnswer15();
+        }
       });
 
+    //botão 3
     this.add.sprite(320, 340, "button3", 0).setScale(1);
     this.questionText3 = this.add.text(320, 340, "28", {
       fontSize: "32px",
@@ -114,9 +173,38 @@ class scene1 extends Phaser.Scene {
       .on("pointerdown", () => {
         if (this.questionNumber === 1) {
           this.correctAnswer1();
+        } else if (this.questionNumber === 2) {
+          this.correctAnswer2();
+        } else if (this.questionNumber === 3) {
+          this.wrongAnswer3();
+        } else if (this.questionNumber === 4) {
+          this.correctAnswer4();
+        } else if (this.questionNumber === 5) {
+          this.wrongAnswer5();
+        } else if (this.questionNumber === 6) {
+          this.wrongAnswer6();
+        } else if (this.questionNumber === 7) {
+          this.wrongAnswer7();
+        } else if (this.questionNumber === 8) {
+          this.wrongAnswer8();
+        } else if (this.questionNumber === 9) {
+          this.wrongAnswer9();
+        } else if (this.questionNumber === 10) {
+          this.wrongAnswer10();
+        } else if (this.questionNumber === 11) {
+          this.wrongAnswer11();
+        } else if (this.questionNumber === 12) {
+          this.wrongAnswer12();
+        } else if (this.questionNumber === 13) {
+          this.wrongAnswer13();
+        } else if (this.questionNumber === 14) {
+          this.wrongAnswer14();
+        } else if (this.questionNumber === 15) {
+          this.wrongAnswer15();
         }
       });
 
+    //botão 4
     this.add.sprite(560, 340, "button4", 0).setScale(1);
     this.questionText4 = this.add.text(560, 340, "26", {
       fontSize: "32px",
@@ -130,14 +218,47 @@ class scene1 extends Phaser.Scene {
       .on("pointerdown", () => {
         if (this.questionNumber === 1) {
           this.wrongAnswer1();
-        } // Ação a ser executada quando o botão for clicado
+        } else if (this.questionNumber === 2) {
+          this.wrongAnswer2();
+        } else if (this.questionNumber === 3) {
+          this.wrongAnswer3();
+        } else if (this.questionNumber === 4) {
+          this.wrongAnswer4();
+        } else if (this.questionNumber === 5) {
+          this.wrongAnswer5();
+        } else if (this.questionNumber === 6) {
+          this.wrongAnswer6();
+        } else if (this.questionNumber === 7) {
+          this.wrongAnswer7();
+        } else if (this.questionNumber === 8) {
+          this.correctAnswer8();
+        } else if (this.questionNumber === 9) {
+          this.correctAnswer9();
+        } else if (this.questionNumber === 10) {
+          this.correctAnswer10();
+        } else if (this.questionNumber === 11) {
+          this.wrongAnswer11();
+        } else if (this.questionNumber === 12) {
+          this.wrongAnswer12();
+        } else if (this.questionNumber === 13) {
+          this.wrongAnswer13();
+        } else if (this.questionNumber === 14) {
+          this.wrongAnswer14();
+        } else if (this.questionNumber === 15) {
+          this.wrongAnswer15();
+        }
       });
 
     //textos
-    this.questionText = this.add.text(180, 30, this.questionNumberText + this.question, {
+    this.questionText = this.add.text(
+      180,
+      30,
+      this.questionNumberText + this.question,
+      {
         fontSize: "32px",
         fill: "#fff",
-      });
+      },
+    );
 
     this.pointsText = this.add
       .text(560, 30, "Pontuação:" + this.game.points, {
@@ -188,7 +309,29 @@ class scene1 extends Phaser.Scene {
     this.pointsText.setText("Pontuação:" + this.game.points);
   }
 
-
+  correctAnswer3() {
+    this.questionNumberText = "4: ";
+    this.question = "10 x 11?";
+    this.questionNumber = 4;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.game.points = this.game.points + 10;
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("13");
+    this.questionText2.setText("-1");
+    this.questionText3.setText("0");
+    this.questionText4.setText("1");
+  }
+  wrongAnswer3() {
+    this.questionNumberText = "4: ";
+    this.question = "7 x 7?";
+    this.questionNumber = 4;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("13");
+    this.questionText2.setText("-1");
+    this.questionText3.setText("0");
+    this.questionText4.setText("1");
+  }
 
   update() {}
 }
