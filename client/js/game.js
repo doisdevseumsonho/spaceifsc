@@ -3,6 +3,8 @@ import scene0 from "./scene0.js";
 import scene1 from "./scene1.js";
 import start from "./start.js";
 import sceneSelection from "./scene_selection.js";
+import preloader from "./preloader.js";
+import room from "./room.js";
 
 class Game extends Phaser.Game {
   constructor() {

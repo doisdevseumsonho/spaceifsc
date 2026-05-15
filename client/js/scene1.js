@@ -14,8 +14,8 @@ class scene1 extends Phaser.Scene {
     this.add
       .image(390, 230, "background1")
       .setScale(backgroundScaleX, backgroundScaleY);
-    this.add.image(120, 400, "character1");
-    this.add.image(770, 400, "professor1").setScale(-1, 1);
+    this.add.image(120, 400, "character");
+    this.add.image(770, 400, "professorTergio").setScale(-1, 1);
 
     //Interagíveis
     const selectionButtonScaleX = 6; // escala horizontal da seleção

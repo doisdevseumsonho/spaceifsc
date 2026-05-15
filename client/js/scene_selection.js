@@ -21,6 +21,12 @@ class sceneSelection extends Phaser.Scene {
       .setVisible(debugselectionboxpedroVisible)
       .setAlpha(debugselectionboxpedroVisible ? 0.01 : 0) // meio transparente para facilitar o debug
       .on("pointerdown", () => {
+        this.game.localPlayer = "pedro";
+        this.game.socket.emit(
+          "select-player",
+        this.game.room,
+        this.game.localPlayer
+        );
         this.game.characterplayer1 = 1;
         this.scene.stop("sceneSelection");
         this.scene.start("scene0");
@@ -38,6 +44,12 @@ class sceneSelection extends Phaser.Scene {
       .setVisible(debugselectionboxpabloVisible)
       .setAlpha(debugselectionboxpabloVisible ? 0.01 : 0) // meio transparente para facilitar o debug
       .on("pointerdown", () => {
+        this.game.localPlayer = "pablo";
+        this.game.socket.emit(
+          "select-player",
+        this.game.room,
+        this.game.localPlayer
+        );
         this.game.characterplayer1 = 2;
         this.scene.stop("sceneSelection");
         this.scene.start("scene0");
