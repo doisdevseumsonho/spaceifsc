@@ -15,8 +15,10 @@ class preloader extends Phaser.Scene {
   preload() {
     this.load.setPath("assets/");
 
+    //room
+    this.load.image("room_background", "room_background.png");
+
     //scene_selection
-    this.load.spritesheet("room-background", "room_background.png");
 
     this.load.spritesheet("imagem_pedro", "big_pedro.png", {
       frameWidth: 128,

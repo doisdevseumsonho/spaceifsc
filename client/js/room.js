@@ -5,12 +5,9 @@ class room extends Phaser.Scene {
   }
 
   create() {
-    const roombackgroundScaleX = 10; // escala horizontal da fundo
-    const roombackgroundScaleY = 10; // escala vertical da fundo
-    this.add.image(400, 225, "room-background")
-      .setScale(roombackgroundScaleX, roombackgroundScaleY);
+    this.add.image(400, 225, "room_background")
     this.game.room = (Math.random() * 10000).toString().split(".")[0];
-    this.add.text(50, 50, `Sala: ${this.game.room}`, {
+    this.add.text(50, 50, `${this.game.room}`, {
       fontSize: "32px",
       fill: "#000000",
     });
