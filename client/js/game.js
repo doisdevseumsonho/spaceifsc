@@ -1,7 +1,7 @@
 import config from "./config.js";
 import scene0 from "./scene0.js";
 import scene1 from "./scene1.js";
-import sceneTitle from "./scene_title.js";
+import start from "./start.js";
 import sceneSelection from "./scene_selection.js";
 
 class Game extends Phaser.Game {
@@ -10,8 +10,10 @@ class Game extends Phaser.Game {
     this.scene.add("scene0", scene0);
     this.scene.add("scene1", scene1);
     this.scene.add("sceneSelection", sceneSelection);
-    this.scene.add("sceneTitle", sceneTitle);
-    this.scene.start("sceneTitle");
+    this.scene.add("start", start);
+    this.scene.add("preloader", preloader);
+    this.scene.add("room", room);
+    this.scene.start("start");
 
     this.points = 0;
     this.characterplayer1 = 1;
@@ -25,13 +27,21 @@ class Game extends Phaser.Game {
       this.socket = io();
     }
 
-    this.room = "0";
     this.socket.on("connect", () => {
       console.log("Socket ID:", this.socket.id);
 
-      this.socket.emit("join-room", this.room);
-    });
+      this.socket.on("change-scene", (scene) => {
+        let currentScene = this.scene.scenes.find((s) =>
+          s.scene.isActive()
+        ).scene.key;
 
+        if (currentScene !== scene) {
+          console.log("Changing scene to:", scene);
+          this.scene.stop(currentScene);
+          this.scene.start(scene);
+        }
+      });
+    });
   }
 }
 

@@ -12,61 +12,6 @@ class scene0 extends Phaser.Scene {
     this.remotePlayers = [];
   }
 
-  preload() {
-    this.load.setPath("assets/");
-
-    this.load.tilemapTiledJSON("map", "map/ifsc.json"); //preload do mapa e dos tilesets
-    this.load.image("tileset", "map/tileset.png");
-
-    if (this.game.characterplayer1 === 1) {
-      this.load.spritesheet(
-        "character1",
-        "characters/characterbase_pedro.png",
-        {
-          frameWidth: 32,
-          frameHeight: 64,
-        },
-      );
-    } else if (this.game.characterplayer1 === 2) {
-      this.load.spritesheet(
-        "character1",
-        "characters/characterbase_pablo.png",
-        {
-          frameWidth: 32,
-          frameHeight: 64,
-        },
-      );
-    }
-
-    this.load.spritesheet("professor1", "characters/tergio.png", {
-      frameWidth: 32,
-      frameHeight: 64,
-    });
-
-    this.load.spritesheet("interact_buttom", "interact_buttom.png", {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-
-    this.load.spritesheet("coin", "coin.png", {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-
-    this.load.spritesheet("selectionTergio", "characters/selection_box.png", {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-
-    this.load.plugin(
-      "rexvirtualjoystickplugin",
-      "../rexvirtualjoystickplugin.min.js",
-      true,
-    );
-
-    this.load.audio("hubmusic", "sounds/placeholder_hubmusic.mp3");
-  }
-
   create() {
     //mapa
     this.tilemap = this.make.tilemap({ key: "map" }); //cria o mapa

@@ -3,26 +3,6 @@ class sceneSelection extends Phaser.Scene {
     super("sceneSelection");
   }
 
-  preload() {
-    this.load.spritesheet("imagem_pedro", "assets/big_pedro.png", {
-      frameWidth: 128,
-      frameHeight: 256,
-    });
-    this.load.spritesheet("imagem_pablo", "assets/big_pablo.png", {
-      frameWidth: 128,
-      frameHeight: 256
-    });
-    this.load.spritesheet("selection_box_pedro", "assets/selection_box_pedro.png", {
-      frameWidth: 32,
-      frameHeight: 64
-    });
-    this.load.spritesheet("selection_box_pablo", "assets/selection_box_pablo.png", {
-      frameWidth: 32,
-      frameHeight: 64
-    });
-
-  }
-
   create() {
     this.imagemPedro = this.physics.add
       .sprite(600, 250, "imagem_pedro", 5)

@@ -1,6 +1,11 @@
-class sceneTitle extends Phaser.Scene {
+class start extends Phaser.Scene {
   constructor() {
-    super("sceneTitle");
+    super("start");
+  }
+
+  init() {
+    let room = new URLSearchParams(location.search).get("room");
+    if (room) this.game = room;
   }
 
   preload() {
@@ -25,8 +30,8 @@ class sceneTitle extends Phaser.Scene {
       .setVisible(debugplaybuttonVisible)
       .setAlpha(debugplaybuttonVisible ? 0.01 : 0) // meio transparente para facilitar o debug
       .on("pointerdown", () => {
-        this.scene.stop("sceneTitle");
-        this.scene.start("sceneSelection");
+        this.scene.stop("start");
+        this.scene.start("preloader");
       })
       .on("pointerup", () => {
       })
@@ -34,4 +39,4 @@ class sceneTitle extends Phaser.Scene {
 
   update() {}
 }
-export default sceneTitle;
+export default start;

@@ -7,53 +7,6 @@ class scene1 extends Phaser.Scene {
     super("scene1");
   }
 
-  preload() {
-    //Fundo
-    this.load.spritesheet("background1", "assets/quiz/tergio_text_box.png", {
-      frameWidth: 320,
-      frameHeight: 230,
-    });
-    this.load.image("character1", "assets/characters/character1.png");
-    this.load.spritesheet("professor1", "assets/characters/Tergio.png", {
-      frameWidth: 32,
-      frameHeight: 64,
-    });
-
-    //Interagíveis
-    this.load.image(
-      "selectionButton1",
-      "assets/quiz/selection_box_question.png",
-    );
-    this.load.spritesheet("button1", "assets/quiz/questionbox.png", {
-      frameWidth: 192,
-      frameHeight: 192,
-    });
-    this.load.image(
-      "selectionButton2",
-      "assets/quiz/selection_box_question.png",
-    );
-    this.load.spritesheet("button2", "assets/quiz/questionbox.png", {
-      frameWidth: 192,
-      frameHeight: 192,
-    });
-    this.load.image(
-      "selectionButton3",
-      "assets/quiz/selection_box_question.png",
-    );
-    this.load.spritesheet("button3", "assets/quiz/questionbox.png", {
-      frameWidth: 192,
-      frameHeight: 192,
-    });
-    this.load.image(
-      "selectionButton4",
-      "assets/quiz/selection_box_question.png",
-    );
-    this.load.spritesheet("button4", "assets/quiz/questionbox.png", {
-      frameWidth: 192,
-      frameHeight: 192,
-    });
-  }
-
   create() {
     //Fundo
     const backgroundScaleX = 2.55; // escala horizontal da fundo
