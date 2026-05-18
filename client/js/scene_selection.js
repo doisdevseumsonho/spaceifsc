@@ -1,6 +1,6 @@
-class sceneSelection extends Phaser.Scene {
+class scene_selection extends Phaser.Scene {
   constructor() {
-    super("sceneSelection");
+    super("scene_selection");
   }
 
   create() {
@@ -61,4 +61,4 @@ class sceneSelection extends Phaser.Scene {
     
   }
 }
-export default sceneSelection;
+export default scene_selection;
