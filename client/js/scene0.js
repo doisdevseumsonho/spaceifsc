@@ -39,7 +39,11 @@ class scene0 extends Phaser.Scene {
       .setVisible(debugSelectionVisible)
       .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
 
-    this.character1 = this.physics.add.sprite(1800, 1500, "character1", 20); //cria o personagem
+    if (this.game.characterplayer1 === 1) {
+      this.character1 = this.physics.add.sprite(1800, 1500, "characterPedro", 20); //cria o personagem
+    } else if (this.game.characterplayer1 === 2) {
+      this.character1 = this.physics.add.sprite(1800, 1500, "characterPablo", 20); //cria o personagem
+    }
     this.coin = this.physics.add.sprite(2000, 1712, "coin", 0); //cria a moeda
     this.layerDoors = this.tilemap.createLayer("doors", [this.tilesetTileset]); //cria as camadas de portas
 
@@ -88,7 +92,7 @@ class scene0 extends Phaser.Scene {
     if (this.game.characterplayer1 === 1) {
       this.anims.create({
         key: "walk-right",
-        frames: this.anims.generateFrameNumbers("character1", {
+        frames: this.anims.generateFrameNumbers("characterPedro", {
           start: 2,
           end: 5,
         }), //sprites são um a menos que no spritesheet.
@@ -98,7 +102,7 @@ class scene0 extends Phaser.Scene {
 
       this.anims.create({
         key: "walk-left",
-        frames: this.anims.generateFrameNumbers("character1", {
+        frames: this.anims.generateFrameNumbers("characterPedro", {
           start: 8,
           end: 11,
         }), //sprites são um a menos que no spritesheet.
@@ -109,7 +113,7 @@ class scene0 extends Phaser.Scene {
       //parada
       this.anims.create({
         key: "stop-right",
-        frames: this.anims.generateFrameNumbers("character1", {
+        frames: this.anims.generateFrameNumbers("characterPedro", {
           start: 86,
           end: 86,
         }), //sprites são um a menos que no spritesheet.
@@ -119,7 +123,7 @@ class scene0 extends Phaser.Scene {
 
       this.anims.create({
         key: "stop-left",
-        frames: this.anims.generateFrameNumbers("character1", {
+        frames: this.anims.generateFrameNumbers("characterPedro", {
           start: 69,
           end: 69,
         }), //sprites são um a menos que no spritesheet.
@@ -129,7 +133,7 @@ class scene0 extends Phaser.Scene {
     } else if (this.game.characterplayer1 === 2) {
       this.anims.create({
         key: "walk-right",
-        frames: this.anims.generateFrameNumbers("character1", {
+        frames: this.anims.generateFrameNumbers("characterPablo", {
           start: 2,
           end: 5,
         }), //sprites são um a menos que no spritesheet.
@@ -139,7 +143,7 @@ class scene0 extends Phaser.Scene {
 
       this.anims.create({
         key: "walk-left",
-        frames: this.anims.generateFrameNumbers("character1", {
+        frames: this.anims.generateFrameNumbers("characterPablo", {
           start: 8,
           end: 11,
         }), //sprites são um a menos que no spritesheet.
@@ -150,7 +154,7 @@ class scene0 extends Phaser.Scene {
       //parada
       this.anims.create({
         key: "stop-right",
-        frames: this.anims.generateFrameNumbers("character1", {
+        frames: this.anims.generateFrameNumbers("characterPablo", {
           start: 0,
           end: 1,
         }), //sprites são um a menos que no spritesheet.
@@ -160,7 +164,7 @@ class scene0 extends Phaser.Scene {
 
       this.anims.create({
         key: "stop-left",
-        frames: this.anims.generateFrameNumbers("character1", {
+        frames: this.anims.generateFrameNumbers("characterPablo", {
           start: 6,
           end: 7,
         }), //sprites são um a menos que no spritesheet.
@@ -255,31 +259,31 @@ class scene0 extends Phaser.Scene {
       .setScrollFactor(0);
 
     this.game.socket.on("scene0", (state) => {
-      if (state.character) {
+      if (state.player) {
         try {
-          if (state.character.id === this.game.socket.id) return;
+          if (state.player.id === this.game.socket.id) return;
 
           let remotePlayer = this.remotePlayers.find(
-            (p) => p.id === state.character.id,
+            (p) => p.id === state.player.id,
           );
 
           if (!remotePlayer) {
             remotePlayer = this.add.sprite(
-              state.character.x,
-              state.character.y,
-              "character",
+              state.player.x,
+              state.player.y,
+              "player",
               0,
             );
             this.remotePlayers.push({
-              id: state.character.id,
+              id: state.player.id,
               sprite: remotePlayer,
             });
           }
 
-          remotePlayer.sprite.setPosition(state.character.x, state.character.y);
+          remotePlayer.sprite.setPosition(state.player.x, state.player.y);
           remotePlayer.sprite.setTexture(
-            state.character.texture,
-            state.character.frame,
+            state.player.texture,
+            state.player.frame,
           );
         } catch (e) {
           console.log(this.remotePlayers);
@@ -293,7 +297,7 @@ class scene0 extends Phaser.Scene {
     //Sincronização de posição do personagem com o servidor
     try {
       this.game.socket.emit("scene0", this.game.room, {
-        character: {
+        player: {
           id: this.game.socket.id,
           x: this.character1.x,
           y: this.character1.y,

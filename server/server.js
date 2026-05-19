@@ -20,6 +20,13 @@ io.on("connection", (socket) => {
     console.log(`User ${socket.id} joined room ${room}`);
   });
 
+  socket.on("select-player", (room, player) => {
+    console.log(
+      `Player ${player} selected in room ${room} by user ${socket.id}`,
+    );
+    socket.to(room).emit("player-selected", player);
+  });
+
   socket.on("scene0", (room, state) => {
     socket.to(room).emit("scene0", state);
   });

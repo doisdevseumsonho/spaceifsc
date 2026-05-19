@@ -40,17 +40,14 @@ class preloader extends Phaser.Scene {
     this.load.tilemapTiledJSON("map", "map/ifsc.json"); //preload do mapa e dos tilesets
     this.load.image("tileset", "map/tileset.png");
 
-    if (this.game.characterplayer1 === 1) {
-      this.load.spritesheet("character1", "characters/characterbase_pedro.png", {
+    this.load.spritesheet("characterPedro", "characters/characterbase_pedro.png", {
           frameWidth: 32,
           frameHeight: 64,
         });
-    } else if (this.game.characterplayer1 === 2) {
-      this.load.spritesheet("character1", "characters/characterbase_pablo.png", {
+    this.load.spritesheet("characterPablo", "characters/characterbase_pablo.png", {
           frameWidth: 32,
           frameHeight: 64,
         });
-    };
 
 //scene0
     this.load.spritesheet("professor1", "characters/tergio.png", {
@@ -85,7 +82,6 @@ class preloader extends Phaser.Scene {
       frameWidth: 320,
       frameHeight: 230,
     });
-    this.load.image("character", "characters/character1.png");
     this.load.spritesheet("professorTergio", "characters/Tergio.png", {
       frameWidth: 32,
       frameHeight: 64,
@@ -116,6 +112,7 @@ class preloader extends Phaser.Scene {
 
   create() {
     this.scene.stop("preloader");
+
     if (this.game.room) {
       this.scene.start("scene_selection");
     } else {

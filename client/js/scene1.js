@@ -15,8 +15,12 @@ class scene1 extends Phaser.Scene {
     this.add
       .image(390, 230, "background1")
       .setScale(backgroundScaleX, backgroundScaleY);
-    this.add.image(120, 400, "character");
-    this.add.image(770, 400, "professorTergio").setScale(-1, 1);
+    if (this.game.characterplayer1 === 1) {
+      this.add.image(120, 400, "characterPedro");
+    } else if (this.game.characterplayer1 === 2) {
+      this.add.image(120, 400, "characterPablo");
+    }
+    this.add.image(770, 400, "professor1").setScale(-1, 1);
 
     //Interagíveis
     const selectionButtonScaleX = 6; // escala horizontal da seleção
@@ -154,7 +158,7 @@ class scene1 extends Phaser.Scene {
         } else if (this.questionNumber === 14) {
           this.wrongAnswer14();
         } else if (this.questionNumber === 15) {
-          this.wrongAnswer15();
+          this.correctAnswer15();
         }
       });
 
@@ -216,7 +220,7 @@ class scene1 extends Phaser.Scene {
     );    
 
     this.pointsText = this.add
-      .text(560, 30, "Pontuação:" + this.game.points, {
+      .text(300, 30, "Pontuação:" + this.game.points, {
         fontSize: "32px",
         fill: "#fff",
       })
@@ -424,7 +428,10 @@ class scene1 extends Phaser.Scene {
   correctAnswer9() {
     this.questionNumberText = "10: ";
     this.question =
-      "Se um inocente matar um assassino, o número de assassinos no mundo fica quanto?";
+      "Se um inocente matar um";
+    this.questionParagraph2.setText(
+      "assassino, quantos temos?",
+    );
     this.questionNumber = 10;
     this.questionText.setText(this.questionNumberText + this.question);
     this.game.points = this.game.points + 10;
@@ -437,7 +444,10 @@ class scene1 extends Phaser.Scene {
   wrongAnswer9() {
     this.questionNumberText = "10: ";
     this.question =
-      "Se um inocente matar um assassino, o número de assassinos no mundo fica quanto?";
+      "Se um inocente matar um";
+    this.questionParagraph2.setText(
+      "assassino, quantos temos?",
+    );
     this.questionNumber = 10;
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.points);
@@ -450,6 +460,7 @@ class scene1 extends Phaser.Scene {
   correctAnswer10() {
     this.questionNumberText = "11: ";
     this.question = "2^-3 x 2^9";
+    this.questionParagraph2.setText("  ");
     this.questionNumber = 11;
     this.questionText.setText(this.questionNumberText + this.question);
     this.game.points = this.game.points + 10;
@@ -462,6 +473,7 @@ class scene1 extends Phaser.Scene {
   wrongAnswer10() {
     this.questionNumberText = "11: ";
     this.question = "2^-3 x 2^9";
+    this.questionParagraph2.setText("  ");
     this.questionNumber = 11;
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.points);
@@ -473,7 +485,8 @@ class scene1 extends Phaser.Scene {
 
   correctAnswer11() {
     this.questionNumberText = "12: ";
-    this.question = "Qual o nome do professor que você está lutando";
+    this.question = "Qual o nome do professor que";
+    this.questionParagraph2.setText("você está lutando");
     this.questionNumber = 12;
     this.questionText.setText(this.questionNumberText + this.question);
     this.game.points = this.game.points + 10;
@@ -485,7 +498,8 @@ class scene1 extends Phaser.Scene {
   }
   wrongAnswer11() {
     this.questionNumberText = "12: ";
-    this.question = "Qual o nome do professor que você está lutando";
+    this.question = "Qual o nome do professor que";
+    this.questionParagraph2.setText("você está lutando");
     this.questionNumber = 12;
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.points);
@@ -498,6 +512,7 @@ class scene1 extends Phaser.Scene {
   correctAnswer12() {
     this.questionNumberText = "13: ";
     this.question = "0 % 0?";
+    this.questionParagraph2.setText("  ");
     this.questionNumber = 13;
     this.questionText.setText(this.questionNumberText + this.question);
     this.game.points = this.game.points + 10;
@@ -510,6 +525,7 @@ class scene1 extends Phaser.Scene {
   wrongAnswer12() {
     this.questionNumberText = "13: ";
     this.question = "0 % 0?";
+    this.questionParagraph2.setText("  ");
     this.questionNumber = 13;
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.points);
