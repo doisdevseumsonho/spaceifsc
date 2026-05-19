@@ -1,6 +1,7 @@
 class scene1 extends Phaser.Scene {
   questionNumberText = "1: ";
   question = "15 + 13?";
+  question2 = "  ";
   questionNumber = 1;
 
   constructor() {
@@ -61,13 +62,13 @@ class scene1 extends Phaser.Scene {
         } else if (this.questionNumber === 13) {
           this.correctAnswer13();
         } else if (this.questionNumber === 14) {
-          this.correctAnswer14();
+          this.wrongAnswer14();
         } else if (this.questionNumber === 15) {
           this.wrongAnswer15();
         }
       });
 
-    //botão 2
+    //botão 3
     this.add.sprite(560, 190, "button3", 0).setScale(1).setInteractive();
     this.questionText3 = this.add.text(560, 190, "30", {
       fontSize: "32px",
@@ -86,7 +87,7 @@ class scene1 extends Phaser.Scene {
         } else if (this.questionNumber === 3) {
           this.wrongAnswer3();
         } else if (this.questionNumber === 4) {
-          this.wrongAnswer4();
+          this.correctAnswer4();
         } else if (this.questionNumber === 5) {
           this.wrongAnswer5();
         } else if (this.questionNumber === 6) {
@@ -196,22 +197,23 @@ class scene1 extends Phaser.Scene {
         } else if (this.questionNumber === 13) {
           this.wrongAnswer13();
         } else if (this.questionNumber === 14) {
-          this.wrongAnswer14();
+          this.correctAnswer14();
         } else if (this.questionNumber === 15) {
           this.wrongAnswer15();
         }
       });
 
     //textos
-    this.questionText = this.add.text(
-      180,
-      30,
-      this.questionNumberText + this.question,
-      {
+    this.questionText = this.add.text(180, 60, this.questionNumberText + this.question, {
         fontSize: "32px",
         fill: "#fff",
       },
     );
+    this.questionParagraph2 = this.add.text(180, 90, this.question2, {
+        fontSize: "32px",
+       fill: "#fff",
+      },
+    );    
 
     this.pointsText = this.add
       .text(560, 30, "Pontuação:" + this.game.points, {
@@ -320,31 +322,35 @@ class scene1 extends Phaser.Scene {
 
   correctAnswer5() {
     this.questionNumberText = "6: ";
-    this.question = "Quais os três primeiros números primos?";
+    this.question = "Quais os três primeiros";
+    this.questionParagraph2.setText("números primos?");
     this.questionNumber = 6;
     this.questionText.setText(this.questionNumberText + this.question);
+
     this.game.points = this.game.points + 10;
     this.pointsText.setText("Pontuação:" + this.game.points);
     this.questionText1.setText("1,2,3");
-    this.questionText2.setText("2,3,5");
-    this.questionText3.setText("2,4,6");
+    this.questionText2.setText("2,4,6");
+    this.questionText3.setText("2,3,5");
     this.questionText4.setText("3,5,7");
   }
   wrongAnswer5() {
     this.questionNumberText = "6: ";
-    this.question = "Quais os três primeiros números primos?";
+    this.question = "Quais os três primeiros";
+    this.questionParagraph2.setText("números primos?");
     this.questionNumber = 6;
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.points);
     this.questionText1.setText("1,2,3");
-    this.questionText2.setText("2,3,5");
-    this.questionText3.setText("2,4,6");
+    this.questionText2.setText("2,4,6");
+    this.questionText3.setText("2,3,5");
     this.questionText4.setText("3,5,7");
   }
 
   correctAnswer6() {
     this.questionNumberText = "7: ";
     this.question = "Qual o seno de 90 graus?";
+    this.questionParagraph2.setText("  ");
     this.questionNumber = 7;
     this.questionText.setText(this.questionNumberText + this.question);
     this.game.points = this.game.points + 10;
@@ -357,6 +363,7 @@ class scene1 extends Phaser.Scene {
   wrongAnswer6() {
     this.questionNumberText = "7: ";
     this.question = "Qual o seno de 90 graus?";
+    this.questionParagraph2.setText("  ");
     this.questionNumber = 7;
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.points);
@@ -472,10 +479,10 @@ class scene1 extends Phaser.Scene {
     this.game.points = this.game.points + 10;
     this.pointsText.setText("Pontuação:" + this.game.points);
     this.questionText1.setText("Pedro");
-    this.questionText2.setText("Térgio");
-    this.questionText3.setText("Pablo");
+    this.questionText2.setText("Pablo");
+    this.questionText3.setText("Térgio");
     this.questionText4.setText("Sérgio");
-    }
+  }
   wrongAnswer11() {
     this.questionNumberText = "12: ";
     this.question = "Qual o nome do professor que você está lutando";
@@ -483,10 +490,214 @@ class scene1 extends Phaser.Scene {
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.points);
     this.questionText1.setText("Pedro");
-    this.questionText2.setText("Térgio");
-    this.questionText3.setText("Pablo");
+    this.questionText2.setText("Pablo");
+    this.questionText3.setText("Térgio");
     this.questionText4.setText("Sérgio");
-    }
+  }
+
+  correctAnswer12() {
+    this.questionNumberText = "13: ";
+    this.question = "0 % 0?";
+    this.questionNumber = 13;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.game.points = this.game.points + 10;
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("Erro");
+    this.questionText2.setText("1");
+    this.questionText3.setText("0");
+    this.questionText4.setText("Infinito");
+  }
+  wrongAnswer12() {
+    this.questionNumberText = "13: ";
+    this.question = "0 % 0?";
+    this.questionNumber = 13;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("Erro");
+    this.questionText2.setText("1");
+    this.questionText3.setText("0");
+    this.questionText4.setText("Infinito");
+  }
+
+  correctAnswer13() {
+    this.questionNumberText = "14: ";
+    this.question = "6! ?";
+    this.questionNumber = 14;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.game.points = this.game.points + 10;
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("120");
+    this.questionText2.setText("6");
+    this.questionText3.setText("36");
+    this.questionText4.setText("720");
+  }
+  wrongAnswer13() {
+    this.questionNumberText = "14: ";
+    this.question = "6! ?";
+    this.questionNumber = 14;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("120");
+    this.questionText2.setText("6");
+    this.questionText3.setText("36");
+    this.questionText4.setText("720");
+  }
+
+  correctAnswer14() {
+    this.questionNumberText = "15: ";
+    this.question = "10000000000 ?";
+    this.questionNumber = 15;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.game.points = this.game.points + 10;
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("1^10");
+    this.questionText2.setText("1 x 10^9");
+    this.questionText3.setText("1 x 10^10");
+    this.questionText4.setText("1 x 10^8");
+  }
+  wrongAnswer14() {
+    this.questionNumberText = "15: ";
+    this.question = "10000000000 ?";
+    this.questionNumber = 15;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("1^10");
+    this.questionText2.setText("1 x 10^9");
+    this.questionText3.setText("1 x 10^10");
+    this.questionText4.setText("1 x 10^8");
+  }
+
+  correctAnswer15() {
+    this.questionNumberText = "16: ";
+    this.question = "Qual o NOSSO nome?";
+    this.questionNumber = 16;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.game.points = this.game.points + 10;
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("Aliens");
+    this.questionText2.setText("Gincanaliens");
+    this.questionText3.setText("Invasores");
+    this.questionText4.setText("Amongus");
+  }
+  wrongAnswer15() {
+    this.questionNumberText = "16: ";
+    this.question = "Qual o NOSSO nome?";
+    this.questionNumber = 16;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("Aliens");
+    this.questionText2.setText("Gincanaliens");
+    this.questionText3.setText("Invasores");
+    this.questionText4.setText("Amongus");
+  }
+
+  correctAnswer16() {
+    this.questionNumberText = "17: ";
+    this.question = "Como se inicia um conto?";
+    this.questionNumber = 17;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.game.points = this.game.points + 10;
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("bom dia...");
+    this.questionText2.setText("e do nada...");
+    this.questionText3.setText("naquele dia...");
+    this.questionText4.setText("Era uma vez...");
+  }
+  wrongAnswer16() {
+    this.questionNumberText = "17: ";
+    this.question = "Como se inicia um conto?";
+    this.questionNumber = 17;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("bom dia...");
+    this.questionText2.setText("e do nada...");
+    this.questionText3.setText("naquele dia...");
+    this.questionText4.setText("Era uma vez...");
+  }
+
+  correctAnswer17() {
+    this.questionNumberText = "18: ";
+    this.question = "Quantas formigas estima-se que existiam na terra de 2022?";
+    this.questionNumber = 18;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.game.points = this.game.points + 10;
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("20 bilhões");
+    this.questionText2.setText("20 quatrilhões");
+    this.questionText3.setText("20 trilhões");
+    this.questionText4.setText("20 quintilhões");
+  }
+  wrongAnswer17() {
+    this.questionNumberText = "18: ";
+    this.question = "Quantas formigas estima-se que existiam na terra de 2022?";
+    this.questionNumber = 18;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("20 bilhões");
+    this.questionText2.setText("20 quatrilhões");
+    this.questionText3.setText("20 trilhões");
+    this.questionText4.setText("20 quintilhões");
+  }
+
+  correctAnswer18() {
+    this.questionNumberText = "19: ";
+    this.question = "Qual a marca da air fryer na sala do Zio Té?";
+    this.questionNumber = 19;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.game.points = this.game.points + 10;
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("Oniversal");
+    this.questionText2.setText("Equipe Rocket");
+    this.questionText3.setText("Sailo");
+    this.questionText4.setText("Indústrias Estarque");
+  }
+  wrongAnswer18() {
+    this.questionNumberText = "19: ";
+    this.question = "Qual a marca da air fryer na sala do Zio Té?";
+    this.questionNumber = 19;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("Oniversal");
+    this.questionText2.setText("Equipe Rocket");
+    this.questionText3.setText("Sailo");
+    this.questionText4.setText("Indústrias Estarque");
+  }
+
+  correctAnswer19() {
+    this.questionNumberText = "20: ";
+    this.question = "Em qual pergunta eu disse meu nome";
+    this.questionNumber = 20;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.game.points = this.game.points + 10;
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("12");
+    this.questionText2.setText("19");
+    this.questionText3.setText("9");
+    this.questionText4.setText("15");
+  }
+  wrongAnswer19() {
+    this.questionNumberText = "20: ";
+    this.question = "Em qual pergunta eu disse meu nome";
+    this.questionNumber = 20;
+    this.questionText.setText(this.questionNumberText + this.question);
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.questionText1.setText("12");
+    this.questionText2.setText("19");
+    this.questionText3.setText("9");
+    this.questionText4.setText("15");
+  }
+
+  correctAnswer20() {
+    this.game.points = this.game.points + 10;
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.scene.stop("scene1");
+    this.scene.start("scene0");
+  }
+  wrongAnswer20() {
+    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.scene.stop("scene1");
+    this.scene.start("scene0");
+  }
 
   update() {}
 }
