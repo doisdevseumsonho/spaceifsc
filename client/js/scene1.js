@@ -13,7 +13,7 @@ class scene1 extends Phaser.Scene {
     const backgroundScaleX = 2.55; // escala horizontal da fundo
     const backgroundScaleY = 2; // escala vertical da fundo
     this.add
-      .image(390, 230, "background1")
+      .image(390, 230, "backgroundtergio1")
       .setScale(backgroundScaleX, backgroundScaleY);
     if (this.game.characterplayer1 === 1) {
       this.add.image(120, 400, "characterPedro");
@@ -56,7 +56,7 @@ class scene1 extends Phaser.Scene {
         } else if (this.questionNumber === 8) {
           this.wrongAnswer8();
         } else if (this.questionNumber === 9) {
-          this.correctAnswer9();
+          this.wrongAnswer9();
         } else if (this.questionNumber === 10) {
           this.wrongAnswer10();
         } else if (this.questionNumber === 11) {
@@ -69,6 +69,16 @@ class scene1 extends Phaser.Scene {
           this.wrongAnswer14();
         } else if (this.questionNumber === 15) {
           this.wrongAnswer15();
+        } else if (this.questionNumber === 16) {
+          this.wrongAnswer16();
+        } else if (this.questionNumber === 17) {
+          this.wrongAnswer17();
+        } else if (this.questionNumber === 18) {
+          this.wrongAnswer18();
+        } else if (this.questionNumber === 19) {
+          this.wrongAnswer19();
+        } else if (this.questionNumber === 20) {
+          this.correctAnswer20();
         }
       });
 
@@ -113,7 +123,17 @@ class scene1 extends Phaser.Scene {
         } else if (this.questionNumber === 14) {
           this.wrongAnswer14();
         } else if (this.questionNumber === 15) {
-          this.wrongAnswer15();
+          this.correctAnswer15();
+        } else if (this.questionNumber === 16) {
+          this.correctAnswer16();
+        } else if (this.questionNumber === 17) {
+          this.wrongAnswer17();
+        } else if (this.questionNumber === 18) {
+          this.wrongAnswer18();
+        } else if (this.questionNumber === 19) {
+          this.wrongAnswer19();
+        } else if (this.questionNumber === 20) {
+          this.wrongAnswer20();
         }
       });
 
@@ -136,7 +156,7 @@ class scene1 extends Phaser.Scene {
         } else if (this.questionNumber === 3) {
           this.wrongAnswer3();
         } else if (this.questionNumber === 4) {
-          this.correctAnswer4();
+          this.wrongAnswer4();
         } else if (this.questionNumber === 5) {
           this.wrongAnswer5();
         } else if (this.questionNumber === 6) {
@@ -158,7 +178,17 @@ class scene1 extends Phaser.Scene {
         } else if (this.questionNumber === 14) {
           this.wrongAnswer14();
         } else if (this.questionNumber === 15) {
-          this.correctAnswer15();
+          this.wrongAnswer15();
+        } else if (this.questionNumber === 16) {
+          this.correctAnswer16();
+        } else if (this.questionNumber === 17) {
+          this.wrongAnswer17();
+        } else if (this.questionNumber === 18) {
+          this.correctAnswer18();
+        } else if (this.questionNumber === 19) {
+          this.correctAnswer19();
+        } else if (this.questionNumber === 20) {
+          this.wrongAnswer20();
         }
       });
 
@@ -204,6 +234,16 @@ class scene1 extends Phaser.Scene {
           this.correctAnswer14();
         } else if (this.questionNumber === 15) {
           this.wrongAnswer15();
+        } else if (this.questionNumber === 16) {
+          this.wrongAnswer16();
+        } else if (this.questionNumber === 17) {
+          this.correctAnswer17();
+        } else if (this.questionNumber === 18) {
+          this.wrongAnswer18();
+        } else if (this.questionNumber === 19) {
+          this.wrongAnswer19();
+        } else if (this.questionNumber === 20) {
+          this.wrongAnswer20();
         }
       });
 
@@ -294,10 +334,10 @@ class scene1 extends Phaser.Scene {
     this.questionNumber = 4;
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.points);
-    this.questionText1.setText("13");
-    this.questionText2.setText("-1");
-    this.questionText3.setText("0");
-    this.questionText4.setText("1");
+    this.questionText1.setText("51");
+    this.questionText2.setText("14");
+    this.questionText3.setText("49");
+    this.questionText4.setText("53");
   }
 
   correctAnswer4() {
@@ -707,12 +747,12 @@ class scene1 extends Phaser.Scene {
     this.game.points = this.game.points + 10;
     this.pointsText.setText("Pontuação:" + this.game.points);
     this.scene.stop("scene1");
-    this.scene.start("scene0");
+    this.scene.start("endscene1");
   }
   wrongAnswer20() {
     this.pointsText.setText("Pontuação:" + this.game.points);
     this.scene.stop("scene1");
-    this.scene.start("scene0");
+    this.scene.start("endscene1");
   }
 
   update() {}

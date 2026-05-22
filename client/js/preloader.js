@@ -78,36 +78,44 @@ class preloader extends Phaser.Scene {
 
 //scene1
     //Fundo
-    this.load.spritesheet("background1", "quiz/tergio_text_box.png", {
+    this.load.spritesheet("backgroundtergio1", "quiz/tergio_text_box.png", {
       frameWidth: 320,
       frameHeight: 230,
+    });
+    this.load.spritesheet("backgroundtergio0", "quiz/tergio_background.png", {
+      frameWidth: 4000,
+      frameHeight: 2500,
     });
     this.load.spritesheet("professorTergio", "characters/Tergio.png", {
       frameWidth: 32,
       frameHeight: 64,
     });
+    this.load.spritesheet("tergiosleep", "characters/Tergio_sleep.png", {
+      frameWidth:240,
+      frameHeight: 240,
+    });
 
-    //Interagíveis
-    this.load.image("selectionButton1", "quiz/selection_box_question.png");
-    this.load.spritesheet("button1", "quiz/questionbox.png", {
+      //Interagíveis scene1
+      this.load.image("selectionButton1", "quiz/selection_box_question.png");
+      this.load.spritesheet("button1", "quiz/questionbox.png", {
       frameWidth: 192,
       frameHeight: 192,
-    });
-    this.load.image("selectionButton2", "quiz/selection_box_question.png");
-    this.load.spritesheet("button2", "quiz/questionbox.png", {
+      });
+      this.load.image("selectionButton2", "quiz/selection_box_question.png");
+      this.load.spritesheet("button2", "quiz/questionbox.png", {
       frameWidth: 192,
       frameHeight: 192,
-    });
-    this.load.image("selectionButton3", "quiz/selection_box_question.png");
-    this.load.spritesheet("button3", "quiz/questionbox.png", {
+      });
+      this.load.image("selectionButton3", "quiz/selection_box_question.png");
+      this.load.spritesheet("button3", "quiz/questionbox.png", {
       frameWidth: 192,
       frameHeight: 192,
-    });
-    this.load.image("selectionButton4", "quiz/selection_box_question.png");
-    this.load.spritesheet("button4", "quiz/questionbox.png", {
+      });
+      this.load.image("selectionButton4", "quiz/selection_box_question.png");
+      this.load.spritesheet("button4", "quiz/questionbox.png", {
       frameWidth: 192,
       frameHeight: 192,
-    });
+      });
   }
 
   create() {
