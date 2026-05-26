@@ -83,14 +83,14 @@ class preloader extends Phaser.Scene {
       frameHeight: 230,
     });
     this.load.spritesheet("backgroundtergio0", "quiz/tergio_background.png", {
-      frameWidth: 4000,
-      frameHeight: 2500,
+      frameWidth: 840,
+      frameHeight: 600,
     });
-    this.load.spritesheet("professorTergio", "characters/Tergio.png", {
+    this.load.spritesheet("professorTergio", "characters/tergio.png", {
       frameWidth: 32,
       frameHeight: 64,
     });
-    this.load.spritesheet("tergiosleep", "characters/Tergio_sleep.png", {
+    this.load.spritesheet("tergiosleep", "quiz/tergio_sleep.png", {
       frameWidth:240,
       frameHeight: 240,
     });

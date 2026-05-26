@@ -10,6 +10,8 @@ class scene1 extends Phaser.Scene {
 
   create() {
     //Fundo
+    this.add.image(400, 300, "backgroundtergio0");
+
     const backgroundScaleX = 2.55; // escala horizontal da fundo
     const backgroundScaleY = 2; // escala vertical da fundo
     this.add
