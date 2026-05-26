@@ -65,6 +65,16 @@ class preloader extends Phaser.Scene {
       frameHeight: 32,
     });
 
+    this.load.spritesheet("key", "ziotekey.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    }); 
+
+    this.load.spritesheet("airfryer", "airfryer.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+
     this.load.spritesheet("selectionTergio", "characters/selection_box.png", {
       frameWidth: 32,
       frameHeight: 32,

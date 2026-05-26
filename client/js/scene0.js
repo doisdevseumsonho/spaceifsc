@@ -55,6 +55,9 @@ class scene0 extends Phaser.Scene {
       ); //cria o personagem
     }
     this.coin = this.physics.add.sprite(2000, 1712, "coin", 0); //cria a moeda
+    this.key = this.physics.add.sprite(1650, 1150, "key", 0); //cria a chave
+    this.airfryer = this.physics.add.sprite(1650, 1200, "airfryer", 0); //cria a airfryer
+    
     this.layerDoors = this.tilemap.createLayer("doors", [this.tilesetTileset]); //cria as camadas de portas
 
     //colisões
@@ -92,96 +95,103 @@ class scene0 extends Phaser.Scene {
       this,
     );
 
+    // Função Coleta de chave - chave desaparece quando character encostar
+    this.physics.add.overlap(
+      this.character1,
+      this.key,
+      this.collectKey,
+      null,
+      this,
+    );
+
     //música
     this.hubmusic = this.sound
       .add("hubmusic", { loop: true, volume: 0.5 })
       .play();
 
     //animações
-      //andada
-      this.anims.create({
-        key: "characterPedro-walk-right",
-        frames: this.anims.generateFrameNumbers("characterPedro", {
-          start: 2,
-          end: 5,
-        }), //sprites são um a menos que no spritesheet.
-        frameRate: 11,
-        repeat: -1,
-      });
+    //andada
+    this.anims.create({
+      key: "characterPedro-walk-right",
+      frames: this.anims.generateFrameNumbers("characterPedro", {
+        start: 2,
+        end: 5,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 11,
+      repeat: -1,
+    });
 
-      this.anims.create({
-        key: "characterPedro-walk-left",
-        frames: this.anims.generateFrameNumbers("characterPedro", {
-          start: 8,
-          end: 11,
-        }), //sprites são um a menos que no spritesheet.
-        frameRate: 11,
-        repeat: -1,
-      });
+    this.anims.create({
+      key: "characterPedro-walk-left",
+      frames: this.anims.generateFrameNumbers("characterPedro", {
+        start: 8,
+        end: 11,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 11,
+      repeat: -1,
+    });
 
-      //parada
-      this.anims.create({
-        key: "characterPedro-stop-right",
-        frames: this.anims.generateFrameNumbers("characterPedro", {
-          start: 86,
-          end: 86,
-        }), //sprites são um a menos que no spritesheet.
-        frameRate: 10,
-        repeat: -1,
-      });
+    //parada
+    this.anims.create({
+      key: "characterPedro-stop-right",
+      frames: this.anims.generateFrameNumbers("characterPedro", {
+        start: 86,
+        end: 86,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 10,
+      repeat: -1,
+    });
 
-      this.anims.create({
-        key: "characterPedro-stop-left",
-        frames: this.anims.generateFrameNumbers("characterPedro", {
-          start: 69,
-          end: 69,
-        }), //sprites são um a menos que no spritesheet.
-        frameRate: 10,
-        repeat: -1,
-      });
+    this.anims.create({
+      key: "characterPedro-stop-left",
+      frames: this.anims.generateFrameNumbers("characterPedro", {
+        start: 69,
+        end: 69,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 10,
+      repeat: -1,
+    });
 
-    
-      this.anims.create({
-        key: "characterPablo-walk-right",
-        frames: this.anims.generateFrameNumbers("characterPablo", {
-          start: 2,
-          end: 5,
-        }), //sprites são um a menos que no spritesheet.
-        frameRate: 5,
-        repeat: -1,
-      });
+    this.anims.create({
+      key: "characterPablo-walk-right",
+      frames: this.anims.generateFrameNumbers("characterPablo", {
+        start: 2,
+        end: 5,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 5,
+      repeat: -1,
+    });
 
-      this.anims.create({
-        key: "characterPablo-walk-left",
-        frames: this.anims.generateFrameNumbers("characterPablo", {
-          start: 8,
-          end: 11,
-        }), //sprites são um a menos que no spritesheet.
-        frameRate: 5,
-        repeat: -1,
-      });
+    this.anims.create({
+      key: "characterPablo-walk-left",
+      frames: this.anims.generateFrameNumbers("characterPablo", {
+        start: 8,
+        end: 11,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 5,
+      repeat: -1,
+    });
 
-      //parada
-      this.anims.create({
-        key: "characterPablo-stop-right",
-        frames: this.anims.generateFrameNumbers("characterPablo", {
-          start: 0,
-          end: 1,
-        }), //sprites são um a menos que no spritesheet.
-        frameRate: 8,
-        repeat: -1,
-      });
+    //parada
+    this.anims.create({
+      key: "characterPablo-stop-right",
+      frames: this.anims.generateFrameNumbers("characterPablo", {
+        start: 0,
+        end: 1,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 8,
+      repeat: -1,
+    });
 
-      this.anims.create({
-        key: "characterPablo-stop-left",
-        frames: this.anims.generateFrameNumbers("characterPablo", {
-          start: 6,
-          end: 7,
-        }), //sprites são um a menos que no spritesheet.
-        frameRate: 8,
-        repeat: -1,
-      });
-    
+    this.anims.create({
+      key: "characterPablo-stop-left",
+      frames: this.anims.generateFrameNumbers("characterPablo", {
+        start: 6,
+        end: 7,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 8,
+      repeat: -1,
+    });
 
     this.anims.create({
       key: "professor1-idle",
@@ -232,9 +242,17 @@ class scene0 extends Phaser.Scene {
 
         const angle = this.joystick.angle;
         if (angle > -90 && angle < 90) {
-          this.character1.play((this.game.characterplayer1 === 1) ? "characterPedro-walk-right" : "characterPablo-walk-right");
+          this.character1.play(
+            this.game.characterplayer1 === 1
+              ? "characterPedro-walk-right"
+              : "characterPablo-walk-right",
+          );
         } else {
-          this.character1.play((this.game.characterplayer1 === 1) ? "characterPedro-walk-left" : "characterPablo-walk-left");
+          this.character1.play(
+            this.game.characterplayer1 === 1
+              ? "characterPedro-walk-left"
+              : "characterPablo-walk-left",
+          );
         }
       } else {
         this.character1.setVelocity(0, 0);
@@ -358,6 +376,11 @@ class scene0 extends Phaser.Scene {
     coin.destroy();
     this.game.points = this.game.points + 10;
     this.pointsText.setText("Pontuação:" + this.game.points);
+  }
+
+  //Função para coletar a chave
+  collectKey(character1, key) {
+    key.destroy();
   }
 }
 
