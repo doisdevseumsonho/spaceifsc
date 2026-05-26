@@ -15,6 +15,7 @@ class scene0 extends Phaser.Scene {
 
   create() {
     //mapa
+
     this.tilemap = this.make.tilemap({ key: "map" }); //cria o mapa
 
     this.tilesetTileset = this.tilemap.addTilesetImage("tileset"); //adiciona o tileset ao mapa, puxando ele pelo nome que tá no Tiled
@@ -58,6 +59,8 @@ class scene0 extends Phaser.Scene {
     this.coin = this.physics.add.sprite(2000, 1712, "coin", 0); //cria a moeda
     this.key = this.physics.add.sprite(1650, 1150, "key", 0); //cria a chave
     this.airfryer = this.physics.add.sprite(1360, 1200, "airfryer", 0); //cria a airfryer
+    this.board1 = this.physics.add.sprite(1584, 657, "board", 0); //cria a placa de segurança
+    this.board2 = this.physics.add.sprite(1616, 657, "board", 0); //cria a placa de segurança
 
     this.selectionAirfryer = this.physics.add
       .sprite(this.airfryer.x, this.airfryer.y, "selectionAirfryer", 0) //cria a caixa de seleção
@@ -94,6 +97,12 @@ class scene0 extends Phaser.Scene {
 
     this.airfryer.setImmovable(true);
     this.physics.add.collider(this.character1, this.airfryer);
+
+    this.board1.setImmovable(true);
+    this.physics.add.collider(this.character1, this.board1);
+
+    this.board2.setImmovable(true);
+    this.physics.add.collider(this.character1, this.board2);
 
     // Função Coleta de moeda - moeda desaparece quando character encostar
     this.physics.add.overlap(
@@ -281,11 +290,15 @@ class scene0 extends Phaser.Scene {
           this.scene.stop("scene0");
           this.scene.start("scene1");
         } else if (this.caninteractAirfryer === true) {
-          this.interactionText = this.add.text(this.character1.x, this.character1.y - 50, "Uma airfryer da Equipe Rocket!", {
-            fontSize: "16px",
-            fill: "#fff",
-          },
-          )
+          this.interactionText = this.add.text(
+            this.character1.x,
+            this.character1.y - 50,
+            "Uma airfryer da Equipe Rocket!",
+            {
+              fontSize: "16px",
+              fill: "#fff",
+            },
+          );
 
           this.time.delayedCall(3000, () => {
             this.interactionText.setText("  ");
@@ -350,6 +363,8 @@ class scene0 extends Phaser.Scene {
         }
       }
     });
+
+//    this.cameras.main.setZoom(2); //aumenta o zoom da câmera para 2x, deixando o mapa maior e mais visível
   }
 
   update() {
@@ -412,6 +427,8 @@ class scene0 extends Phaser.Scene {
   //Função para coletar a chave
   collectKey(character1, key) {
     key.destroy();
+    this.board1.destroy();
+    this.board2.destroy();
   }
 }
 
