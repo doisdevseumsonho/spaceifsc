@@ -4,13 +4,14 @@ class scene_selection extends Phaser.Scene {
   }
 
   create() {
-    this.imagemPedro = this.physics.add
-      .sprite(600, 250, "imagem_pedro", 5)
-      .setScale(-1,1);
-    this.imagemPablo = this.physics.add
-      .sprite(200, 250, "imagem_pablo", 0)
-      .setScale(1);
-
+ //   this.imagemPedro = this.physics.add
+  //    .sprite(600, 250, "imagem_pedro", 5)
+ //     .setScale(-1,1);
+//    this.imagemPablo = this.physics.add
+ //     .sprite(200, 250, "imagem_pablo", 0)
+ //     .setScale(1);
+    this.selectionMenu = this.add.sprite(400, 240, "selectionmenu", 0);
+    
     const selectionboxpedroScaleX = 4; // escala horizontal da seleção
     const selectionboxpedroScaleY = 8; // escala vertical da seleção
     const debugselectionboxpedroVisible = true;

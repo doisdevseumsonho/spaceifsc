@@ -20,6 +20,11 @@ class preloader extends Phaser.Scene {
 
     //scene_selection
 
+    this.load.spritesheet("selectionmenu", "selectionMenu.png", {
+      frameWidth: 800,
+      frameHeight: 500,
+    });
+
     this.load.spritesheet("imagem_pedro", "big_pedro.png", {
       frameWidth: 128,
       frameHeight: 256,
