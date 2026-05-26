@@ -80,6 +80,11 @@ class preloader extends Phaser.Scene {
       frameHeight: 32,
     });
 
+    this.load.spritesheet("selectionAirfryer", "characters/selection_box.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+
     this.load.plugin("rexvirtualjoystickplugin", "../js/rexvirtualjoystickplugin.min.js",
       true,
     );

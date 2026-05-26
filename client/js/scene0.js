@@ -1,6 +1,7 @@
 class scene0 extends Phaser.Scene {
   walking = false;
   caninteractTergio = false;
+  caninteractAirfryer = false;
 
   constructor() {
     super("scene0");
@@ -56,8 +57,13 @@ class scene0 extends Phaser.Scene {
     }
     this.coin = this.physics.add.sprite(2000, 1712, "coin", 0); //cria a moeda
     this.key = this.physics.add.sprite(1650, 1150, "key", 0); //cria a chave
-    this.airfryer = this.physics.add.sprite(1650, 1200, "airfryer", 0); //cria a airfryer
-    
+    this.airfryer = this.physics.add.sprite(1360, 1200, "airfryer", 0); //cria a airfryer
+
+    this.selectionAirfryer = this.physics.add
+      .sprite(this.airfryer.x, this.airfryer.y, "selectionAirfryer", 0) //cria a caixa de seleção
+      .setScale(3)
+      .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
+
     this.layerDoors = this.tilemap.createLayer("doors", [this.tilesetTileset]); //cria as camadas de portas
 
     //colisões
@@ -85,6 +91,9 @@ class scene0 extends Phaser.Scene {
 
     this.professor1.setImmovable(true);
     this.physics.add.collider(this.character1, this.professor1);
+
+    this.airfryer.setImmovable(true);
+    this.physics.add.collider(this.character1, this.airfryer);
 
     // Função Coleta de moeda - moeda desaparece quando character encostar
     this.physics.add.overlap(
@@ -271,6 +280,16 @@ class scene0 extends Phaser.Scene {
         if (this.caninteractTergio === true) {
           this.scene.stop("scene0");
           this.scene.start("scene1");
+        } else if (this.caninteractAirfryer === true) {
+          this.interactionText = this.add.text(this.character1.x, this.character1.y - 50, "Uma airfryer da Equipe Rocket!", {
+            fontSize: "16px",
+            fill: "#fff",
+          },
+          )
+
+          this.time.delayedCall(3000, () => {
+            this.interactionText.setText("  ");
+          });
         }
       })
       .on("pointerup", () => {
@@ -357,6 +376,7 @@ class scene0 extends Phaser.Scene {
     //função de interação com o professor
     const character1Bounds = this.character1.getBounds();
     const tergioBounds = this.selectionTergio.getBounds();
+    const airfryerBounds = this.selectionAirfryer.getBounds();
 
     if (
       Phaser.Geom.Intersects.RectangleToRectangle(
@@ -368,6 +388,17 @@ class scene0 extends Phaser.Scene {
     } else {
       // o que fazer quando NÃO houver sobreopsição
       this.caninteractTergio = false;
+    }
+
+    if (
+      Phaser.Geom.Intersects.RectangleToRectangle(
+        character1Bounds,
+        airfryerBounds,
+      )
+    ) {
+      this.caninteractAirfryer = true;
+    } else {
+      this.caninteractAirfryer = false;
     }
   }
 
