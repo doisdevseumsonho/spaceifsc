@@ -23,6 +23,11 @@ class endscene1 extends Phaser.Scene {
       fontSize: "40px",
       fill: "#fff",
     });
+
+    this.time.delayedCall(5000, () => {
+      this.scene.stop("endscene1");
+      this.scene.start("scene0");
+    });
   }
 
   update() {}

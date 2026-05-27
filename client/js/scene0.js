@@ -311,7 +311,7 @@ class scene0 extends Phaser.Scene {
         this.button.setFrame(1);
         if (this.caninteractTergio === true) {
           this.scene.stop("scene0");
-          this.scene.start("scene2");
+          this.scene.start("scene1");
         } else if (this.caninteractTaulo === true) {
           this.scene.stop("scene0");
           this.scene.start("scene2");
