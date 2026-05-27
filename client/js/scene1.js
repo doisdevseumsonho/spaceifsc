@@ -748,11 +748,13 @@ class scene1 extends Phaser.Scene {
   correctAnswer20() {
     this.game.points = this.game.points + 10;
     this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergioalive = false;
     this.scene.stop("scene1");
     this.scene.start("endscene1");
   }
   wrongAnswer20() {
     this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergioalive = false;
     this.scene.stop("scene1");
     this.scene.start("endscene1");
   }

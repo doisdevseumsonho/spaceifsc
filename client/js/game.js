@@ -24,6 +24,8 @@ class Game extends Phaser.Game {
     this.points = 0;
     this.characterplayer1 = 1;
     this.characterplayer2 = 1;
+    this.tergioalive = true;
+    this.tauloalive = true;
 
     if (location.hostname.match(/localhost|127\.0\.0\.1/)) {
       this.socket = io("http://localhost:3000");

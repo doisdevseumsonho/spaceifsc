@@ -12,6 +12,8 @@ class scene0 extends Phaser.Scene {
     this.speed = 200;
     this.direction = undefined;
     this.remotePlayers = [];
+    this.tergioalive = true;
+    this.tauloalive = true;
   }
 
   create() {
@@ -309,10 +311,10 @@ class scene0 extends Phaser.Scene {
       .on("pointerdown", () => {
         //diz o que ele faz
         this.button.setFrame(1);
-        if (this.caninteractTergio === true) {
+        if (this.caninteractTergio === true && this.game.tergioalive === true) {
           this.scene.stop("scene0");
           this.scene.start("scene1");
-        } else if (this.caninteractTaulo === true) {
+        } else if (this.caninteractTaulo === true && this.game.tauloalive === true) {
           this.scene.stop("scene0");
           this.scene.start("scene2");
         } else if (this.caninteractAirfryer === true) {
