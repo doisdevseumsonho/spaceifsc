@@ -41,7 +41,7 @@ class scene0 extends Phaser.Scene {
       .setScale(selectionTergioScaleX, selectionTergioScaleY)
       .setVisible(debugSelectionVisible)
       .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
-    
+
     if (this.game.characterplayer1 === 1) {
       this.character1 = this.physics.add.sprite(
         1800,
@@ -223,8 +223,8 @@ class scene0 extends Phaser.Scene {
     });
 
     this.professor1.play("professor1-idle");
-    
-   // this.professor2.play("professor2-idle");
+
+    // this.professor2.play("professor2-idle");
 
     this.physics.world.setBounds(
       0,
@@ -293,11 +293,11 @@ class scene0 extends Phaser.Scene {
           this.scene.stop("scene0");
           this.scene.start("scene2");
         }
-       //   else if (this.caninteractPaulo === true) {
+        //   else if (this.caninteractPaulo === true) {
         //  this.scene.stop("scene0");
-         // this.scene.start("scene2");
-      //}
-         else if (this.caninteractAirfryer === true) {
+        // this.scene.start("scene2");
+        //}
+        else if (this.caninteractAirfryer === true) {
           this.interactionText = this.add.text(
             this.character1.x,
             this.character1.y - 50,
@@ -311,7 +311,6 @@ class scene0 extends Phaser.Scene {
             this.interactionText.setText("  ");
           });
         }
-    
       })
       .on("pointerup", () => {
         this.button.setFrame(2);
@@ -372,7 +371,7 @@ class scene0 extends Phaser.Scene {
       }
     });
 
-//    this.cameras.main.setZoom(2); //aumenta o zoom da câmera para 2x, deixando o mapa maior e mais visível
+    //    this.cameras.main.setZoom(2); //aumenta o zoom da câmera para 2x, deixando o mapa maior e mais visível
   }
 
   update() {
