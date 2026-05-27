@@ -60,6 +60,11 @@ class preloader extends Phaser.Scene {
       frameHeight: 64,
     });
 
+    this.load.spritesheet("professor2", "characters/taulo.png", {
+      frameWidth: 32,
+      frameHeight: 64,
+    });
+
     this.load.spritesheet("interact_buttom", "interact_buttom.png", {
       frameWidth: 32,
       frameHeight: 32,

@@ -2,7 +2,7 @@ class scene0 extends Phaser.Scene {
   walking = false;
   caninteractTergio = false;
   caninteractAirfryer = false;
-  caninteractPaulo = false;
+  caninteractTaulo = false;
 
   constructor() {
     super("scene0");
@@ -31,7 +31,8 @@ class scene0 extends Phaser.Scene {
     this.layerStructure2 = this.tilemap.createLayer("structure2", [
       this.tilesetTileset,
     ]); //cria as camadas de estrutura
-    this.professor1 = this.physics.add.sprite(1300, 449, "professor1", 0); //cria o professor
+    this.professor1 = this.physics.add.sprite(1300, 449, "professor1", 0); //cria o professor térgio
+    this.professor2 = this.physics.add.sprite(1904, 449, "professor2", 0); //cria o professor taulo
 
     const selectionTergioScaleX = 4; // escala horizontal da seleção
     const selectionTergioScaleY = 4; // escala vertical da seleção
@@ -39,7 +40,13 @@ class scene0 extends Phaser.Scene {
     this.selectionTergio = this.physics.add
       .sprite(this.professor1.x, this.professor1.y, "selectionTergio", 0) //cria a caixa de seleção
       .setScale(selectionTergioScaleX, selectionTergioScaleY)
-      .setVisible(debugSelectionVisible)
+      .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
+
+    const selectionTauloScaleX = 4; // escala horizontal da seleção
+    const selectionTauloScaleY = 4; // escala vertical da seleção
+    this.selectionTaulo = this.physics.add
+      .sprite(this.professor2.x, this.professor2.y, "selectionTaulo", 0) //cria a caixa de seleção
+      .setScale(selectionTauloScaleX, selectionTauloScaleY)
       .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
 
     if (this.game.characterplayer1 === 1) {
@@ -95,6 +102,9 @@ class scene0 extends Phaser.Scene {
 
     this.professor1.setImmovable(true);
     this.physics.add.collider(this.character1, this.professor1);
+
+    this.professor2.setImmovable(true);
+    this.physics.add.collider(this.character1, this.professor2);
 
     this.airfryer.setImmovable(true);
     this.physics.add.collider(this.character1, this.airfryer);
@@ -224,7 +234,17 @@ class scene0 extends Phaser.Scene {
 
     this.professor1.play("professor1-idle");
 
-    // this.professor2.play("professor2-idle");
+    this.anims.create({
+      key: "professor2-idle",
+      frames: this.anims.generateFrameNumbers("professor2", {
+        start: 0,
+        end: 2,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 1,
+      repeat: -1,
+    });
+
+    this.professor2.play("professor2-idle");
 
     this.physics.world.setBounds(
       0,
@@ -292,12 +312,10 @@ class scene0 extends Phaser.Scene {
         if (this.caninteractTergio === true) {
           this.scene.stop("scene0");
           this.scene.start("scene2");
-        }
-        //   else if (this.caninteractPaulo === true) {
-        //  this.scene.stop("scene0");
-        // this.scene.start("scene2");
-        //}
-        else if (this.caninteractAirfryer === true) {
+        } else if (this.caninteractTaulo === true) {
+          this.scene.stop("scene0");
+          this.scene.start("scene2");
+        } else if (this.caninteractAirfryer === true) {
           this.interactionText = this.add.text(
             this.character1.x,
             this.character1.y - 50,
@@ -398,26 +416,22 @@ class scene0 extends Phaser.Scene {
     //função de interação com o professor
     const character1Bounds = this.character1.getBounds();
     const tergioBounds = this.selectionTergio.getBounds();
+    const tauloBounds = this.selectionTaulo.getBounds();
     const airfryerBounds = this.selectionAirfryer.getBounds();
 
-    if (
-      Phaser.Geom.Intersects.RectangleToRectangle(
-        character1Bounds,
-        tergioBounds,
-      )
-    ) {
+    if (Phaser.Geom.Intersects.RectangleToRectangle(character1Bounds, tergioBounds)) {
       this.caninteractTergio = true;
     } else {
-      // o que fazer quando NÃO houver sobreopsição
       this.caninteractTergio = false;
     }
 
-    if (
-      Phaser.Geom.Intersects.RectangleToRectangle(
-        character1Bounds,
-        airfryerBounds,
-      )
-    ) {
+    if (Phaser.Geom.Intersects.RectangleToRectangle(character1Bounds, tauloBounds)) {
+      this.caninteractTaulo = true;
+    } else {
+      this.caninteractTaulo = false;
+    }
+
+    if (Phaser.Geom.Intersects.RectangleToRectangle(character1Bounds, airfryerBounds)) {
       this.caninteractAirfryer = true;
     } else {
       this.caninteractAirfryer = false;
