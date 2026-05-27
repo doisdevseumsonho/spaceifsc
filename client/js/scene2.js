@@ -1,17 +1,17 @@
 class scene2 extends Phaser.Scene {
+  flagmode = false;
+
   constructor() {
     super("scene2");
   }
 
- 
-  //  SPRITES — troque as keys aqui sem mexer em mais nada
   static get SPRITES() {
     return {
       HIDDEN: "hidden_field",
-      EMPTY:  "field_0",
-      FLAG:   "flag_field",
+      EMPTY: "field_0",
+      FLAG: "flag_field",
       NUMBER: [
-        null,        // 0 — usa EMPTY
+        null, // 0 — usa EMPTY
         "field_1",
         "field_2",
         "field_3",
@@ -38,36 +38,47 @@ class scene2 extends Phaser.Scene {
     };
   }
 
-  // ============================================================
-  //  CONFIGURAÇÃO
-  // ============================================================
   static get CFG() {
     return {
-      COLS:       8,
-      ROWS:       8,
-      BOMBS:      10,
-      CELL:       32,
+      COLS: 8,
+      ROWS: 8,
+      BOMBS: 10,
+      CELL: 32,
       POINTS_WIN: 100,
     };
   }
 
-  // ============================================================
-  //  init — recebe a cena de origem
-  // ============================================================
   init(data) {
     this._from = data?.from ?? "scene0";
   }
 
-  // ============================================================
-  //  create
-  // ============================================================
   create() {
+    this.flagmode = false;
+
+    this.button = this.add //cria o botão de interação
+      .sprite(700, 350, "interact_buttom", 1)
+      .setInteractive()
+      .setScale(2)
+      .on("pointerdown", () => {
+        //diz o que ele faz
+        this.button.setFrame(1);
+        if (this.flagmode === false) {
+          this.flagmode = true;
+        } else {
+          this.flagmode = false;
+        }
+      })
+      .on("pointerup", () => {
+        this.button.setFrame(2);
+      })
+      .setScrollFactor(0);
+
     this._done = false;
 
     const { COLS, ROWS, CELL } = scene2.CFG;
 
     // Centraliza o tabuleiro na tela
-    this._ox = Math.floor((this.scale.width  - COLS * CELL) / 2);
+    this._ox = Math.floor((this.scale.width - COLS * CELL) / 2);
     this._oy = Math.floor((this.scale.height - ROWS * CELL) / 2);
 
     this._buildGrid();
@@ -87,23 +98,23 @@ class scene2 extends Phaser.Scene {
       this._grid[r] = [];
       for (let c = 0; c < COLS; c++) {
         this._grid[r][c] = {
-          bomb:     false,
+          bomb: false,
           revealed: false,
-          count:    0,
-          bombId:   0,    // qual sprite de bomba (1-10)
-          img:      null,
+          count: 0,
+          bombId: 0, // qual sprite de bomba (1-10)
+          img: null,
         };
       }
     }
 
     // Sorteia posições das bombas
     let placed = 0;
-    let bombId  = 1;
+    let bombId = 1;
     while (placed < BOMBS) {
       const r = Phaser.Math.Between(0, ROWS - 1);
       const c = Phaser.Math.Between(0, COLS - 1);
       if (!this._grid[r][c].bomb) {
-        this._grid[r][c].bomb   = true;
+        this._grid[r][c].bomb = true;
         this._grid[r][c].bombId = bombId++;
         placed++;
       }
@@ -122,7 +133,8 @@ class scene2 extends Phaser.Scene {
   _neighborBombs(r, c) {
     let n = 0;
     for (const [dr, dc] of this._dirs()) {
-      const nr = r + dr, nc = c + dc;
+      const nr = r + dr,
+        nc = c + dc;
       if (this._ok(nr, nc) && this._grid[nr][nc].bomb) n++;
     }
     return n;
@@ -130,15 +142,19 @@ class scene2 extends Phaser.Scene {
 
   _dirs() {
     return [
-      [-1,-1],[-1,0],[-1,1],
-      [ 0,-1],       [ 0,1],
-      [ 1,-1],[ 1,0],[ 1,1],
+      [-1, -1],
+      [-1, 0],
+      [-1, 1],
+      [0, -1],
+      [0, 1],
+      [1, -1],
+      [1, 0],
+      [1, 1],
     ];
   }
 
   _ok(r, c) {
-    return r >= 0 && r < scene2.CFG.ROWS &&
-           c >= 0 && c < scene2.CFG.COLS;
+    return r >= 0 && r < scene2.CFG.ROWS && c >= 0 && c < scene2.CFG.COLS;
   }
 
   // ============================================================
@@ -153,7 +169,8 @@ class scene2 extends Phaser.Scene {
         const x = this._ox + c * CELL + CELL / 2;
         const y = this._oy + r * CELL + CELL / 2;
 
-        const img = this.add.image(x, y, S.HIDDEN)
+        const img = this.add
+          .image(x, y, S.HIDDEN)
           .setDisplaySize(CELL, CELL)
           .setInteractive();
 
@@ -199,7 +216,8 @@ class scene2 extends Phaser.Scene {
     // Cascata
     if (cell.count === 0) {
       for (const [dr, dc] of this._dirs()) {
-        const nr = r + dr, nc = c + dc;
+        const nr = r + dr,
+          nc = c + dc;
         if (this._ok(nr, nc) && !this._grid[nr][nc].revealed) {
           this._reveal(nr, nc);
         }
@@ -214,7 +232,7 @@ class scene2 extends Phaser.Scene {
   // ============================================================
   _setSprite(r, c) {
     const cell = this._grid[r][c];
-    const S    = scene2.SPRITES;
+    const S = scene2.SPRITES;
     const CELL = scene2.CFG.CELL;
     let key;
 
@@ -269,7 +287,7 @@ class scene2 extends Phaser.Scene {
   //  Resultado — igual ao padrão da scene0
   // ============================================================
   _showResult(won) {
-    const cx = this.scale.width  / 2;
+    const cx = this.scale.width / 2;
     const cy = this.scale.height / 2;
 
     if (won) {
@@ -277,23 +295,32 @@ class scene2 extends Phaser.Scene {
     }
 
     // Painel de resultado
-    this.add.rectangle(cx, cy, 260, 120, 0x000000, 0.85)
+    this.add
+      .rectangle(cx, cy, 260, 120, 0x000000, 0.85)
       .setStrokeStyle(2, won ? 0x00ff88 : 0xff4444);
 
-    this.add.text(cx, cy - 20,
-      won ? "🌍 PLANETAS SALVOS!" : "💥 MISSÃO FALHOU!",
-      { fontSize: "18px", fill: won ? "#00ff88" : "#ff4444" }
-    ).setOrigin(0.5);
+    this.add
+      .text(cx, cy - 20, won ? "🌍 PLANETAS SALVOS!" : "💥 MISSÃO FALHOU!", {
+        fontSize: "18px",
+        fill: won ? "#00ff88" : "#ff4444",
+      })
+      .setOrigin(0.5);
 
-    this.add.text(cx, cy + 10,
-      won ? `+${scene2.CFG.POINTS_WIN} pontos` : "Tente novamente...",
-      { fontSize: "14px", fill: "#ffffff" }
-    ).setOrigin(0.5);
+    this.add
+      .text(
+        cx,
+        cy + 10,
+        won ? `+${scene2.CFG.POINTS_WIN} pontos` : "Tente novamente...",
+        { fontSize: "14px", fill: "#ffffff" },
+      )
+      .setOrigin(0.5);
 
-    this.add.text(cx, cy + 36,
-      "Voltando ao mapa...",
-      { fontSize: "11px", fill: "#aaaaaa" }
-    ).setOrigin(0.5);
+    this.add
+      .text(cx, cy + 36, "Voltando ao mapa...", {
+        fontSize: "11px",
+        fill: "#aaaaaa",
+      })
+      .setOrigin(0.5);
 
     // Retorna para a cena anterior após 2.5s — mesmo padrão da scene0
     this.time.delayedCall(2500, () => {
@@ -303,8 +330,7 @@ class scene2 extends Phaser.Scene {
   }
 
   // ============================================================
-  preload() {}
-  update()  {}
+  update() {}
 }
 
 export default scene2;
