@@ -141,6 +141,92 @@ class preloader extends Phaser.Scene {
       frameWidth: 192,
       frameHeight: 192,
       });
+    
+    //scene2
+    this.load.spritesheet("hidden", "minesweeper/hidden_field.png",{
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("bomb_1", "minesweeper/bomb_1.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("bomb_2", "minesweeper/bomb_2.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("bomb_3", "minesweeper/bomb_3.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("bomb_4", "minesweeper/bomb_4.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("bomb_5", "minesweeper/bomb_5.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("bomb_6", "minesweeper/bomb_6.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("bomb_7", "minesweeper/bomb_7.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("bomb_8", "minesweeper/bomb_8.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("bomb_9", "minesweeper/bomb_9.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("bomb_10", "minesweeper/bomb_10.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("field_0", "minesweeper/field_0.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("field_1", "minesweeper/field_1.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("field_2", "minesweeper/field_2.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("field_3", "minesweeper/field_3.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("field_4", "minesweeper/field_4.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("field_5", "minesweeper/field_5.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("field_6", "minesweeper/field_6.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("field_7", "minesweeper/field_7.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("field_8", "minesweeper/field_8.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("flag_field", "minesweeper/flag_field.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
   }
 
   create() {

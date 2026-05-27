@@ -1,6 +1,7 @@
 import config from "./config.js";
 import scene0 from "./scene0.js";
 import scene1 from "./scene1.js";
+import scene2 from "./scene2.js";
 import endscene1 from "./endscene1.js";
 import start from "./start.js";
 import scene_selection from "./scene_selection.js";
