@@ -291,7 +291,7 @@ class scene0 extends Phaser.Scene {
         this.button.setFrame(1);
         if (this.caninteractTergio === true) {
           this.scene.stop("scene0");
-          this.scene.start("scene1");
+          this.scene.start("scene2");
         }
        //   else if (this.caninteractPaulo === true) {
         //  this.scene.stop("scene0");
@@ -331,39 +331,39 @@ class scene0 extends Phaser.Scene {
         try {
           if (state.player.id === this.game.socket.id) return;
 
+          const textureKey = state.player.texture || "player";
+          const frameIndex = state.player.frame || 0;
+          const animationKey = state.player.animation;
+
           let remotePlayer = this.remotePlayers.find(
             (p) => p.id === state.player.id,
           );
 
-          if (!remotePlayer) {
-            let sprite = this.add.sprite(
+          if (!remotePlayer || !remotePlayer.sprite) {
+            const sprite = this.add.sprite(
               state.player.x,
               state.player.y,
-              "player",
-              0,
+              textureKey,
+              frameIndex,
             );
 
-            this.remotePlayers.push({
+            remotePlayer = {
               id: state.player.id,
-              sprite: sprite,
-            });
+              sprite,
+            };
 
-            remotePlayer = this.remotePlayers.find(
-              (p) => p.id === state.player.id,
-            );
+            this.remotePlayers.push(remotePlayer);
           }
 
           remotePlayer.sprite.setPosition(state.player.x, state.player.y);
+          remotePlayer.sprite.setTexture(textureKey, frameIndex);
 
-          if (state.player.animation) {
-            remotePlayer.sprite.play(state.player.animation, true);
+          if (animationKey && this.anims.exists(animationKey)) {
+            remotePlayer.sprite.play(animationKey, true);
           } else {
-            remotePlayer.sprite.anims.stop();
-
-            remotePlayer.sprite.setTexture(
-              state.player.texture,
-              state.player.frame,
-            );
+            if (remotePlayer.sprite.anims) {
+              remotePlayer.sprite.anims.stop();
+            }
           }
         } catch (e) {
           console.log(this.remotePlayers);

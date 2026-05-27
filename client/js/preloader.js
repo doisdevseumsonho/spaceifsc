@@ -143,7 +143,7 @@ class preloader extends Phaser.Scene {
       });
     
     //scene2
-    this.load.spritesheet("hidden", "minesweeper/hidden_field.png",{
+    this.load.spritesheet("hidden_field", "minesweeper/hidden_field.png",{
       frameWidth: 32,
       frameHeight: 32,
     });
