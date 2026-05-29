@@ -376,6 +376,7 @@ class scene1 extends Phaser.Scene {
     this.game.points = this.game.points + 10;
     this.pointsText.setText("Pontuação:" + this.game.points);
     this.questionText1.setText("1,2,3");
+    this.questionText1.setPosition(280, 190);
     this.questionText2.setText("2,4,6");
     this.questionText3.setText("2,3,5");
     this.questionText4.setText("3,5,7");
@@ -388,8 +389,11 @@ class scene1 extends Phaser.Scene {
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.points);
     this.questionText1.setText("1,2,3");
+    this.questionText1.setPosition(280, 190);
     this.questionText2.setText("2,4,6");
+    this.questionText3.setPosition(280, 340);
     this.questionText3.setText("2,3,5");
+    this.questionText3.setPosition(520, 190);
     this.questionText4.setText("3,5,7");
   }
 
@@ -451,6 +455,7 @@ class scene1 extends Phaser.Scene {
     this.game.points = this.game.points + 10;
     this.pointsText.setText("Pontuação:" + this.game.points);
     this.questionText1.setText("Depende");
+    this.questionText1.setPosition (255, 190);
     this.questionText2.setText("4");
     this.questionText3.setText("5");
     this.questionText4.setText("6");
@@ -462,6 +467,7 @@ class scene1 extends Phaser.Scene {
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.points);
     this.questionText1.setText("Depende");
+    this.questionText1.setPosition(255, 190);
     this.questionText2.setText("4");
     this.questionText3.setText("5");
     this.questionText4.setText("6");
@@ -479,6 +485,7 @@ class scene1 extends Phaser.Scene {
     this.game.points = this.game.points + 10;
     this.pointsText.setText("Pontuação:" + this.game.points);
     this.questionText1.setText("N + 2");
+    this.questionText1.setPosition(320, 190);
     this.questionText2.setText("N + 1");
     this.questionText3.setText("N - 1");
     this.questionText4.setText("N + 0");
@@ -494,6 +501,7 @@ class scene1 extends Phaser.Scene {
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.points);
     this.questionText1.setText("N + 2");
+    this.questionText1.setPosition(320, 190);
     this.questionText2.setText("N + 1");
     this.questionText3.setText("N - 1");
     this.questionText4.setText("N + 0");
