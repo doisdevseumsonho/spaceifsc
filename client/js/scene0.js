@@ -72,14 +72,14 @@ class scene0 extends Phaser.Scene {
       .setScale(selectionTauloScaleX, selectionTauloScaleY)
       .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
 
-    if (this.game.characterplayer1 === 1) {
+    if (this.game.localPlayer === "pedro") {
       this.character1 = this.physics.add.sprite(
         1800,
         1500,
         "characterPedro",
         20,
       ); //cria o personagem
-    } else if (this.game.characterplayer1 === 2) {
+    } else if (this.game.localPlayer === "pablo") {
       this.character1 = this.physics.add.sprite(
         1800,
         1500,
@@ -294,20 +294,20 @@ class scene0 extends Phaser.Scene {
       repeat: -1,
     });
 
-// toca animação do Térgio
-if (this.game.tergioalive === true) {
-  this.professor1.play("professor1-idle");
-} else {
-  this.professor1.play("professor1-salvo-idle");
-}
+    // toca animação do Térgio
+    if (this.game.tergioalive === true) {
+      this.professor1.play("professor1-idle");
+    } else {
+      this.professor1.play("professor1-salvo-idle");
+    }
 
-// toca animação do Taulo
-if (this.game.tauloalive === true) {
-  this.professor2.play("professor2-idle");
-} else {
-  this.professor2.play("professor2-salvo-idle");
-}
-    
+    // toca animação do Taulo
+    if (this.game.tauloalive === true) {
+      this.professor2.play("professor2-idle");
+    } else {
+      this.professor2.play("professor2-salvo-idle");
+    }
+
     this.physics.world.setBounds(
       0,
       0,
@@ -346,13 +346,13 @@ if (this.game.tauloalive === true) {
         const angle = this.joystick.angle;
         if (angle > -90 && angle < 90) {
           this.character1.play(
-            this.game.characterplayer1 === 1
+            this.game.localPlayer === "pedro"
               ? "characterPedro-walk-right"
               : "characterPablo-walk-right",
           );
         } else {
           this.character1.play(
-            this.game.characterplayer1 === 1
+            this.game.localPlayer === "pedro"
               ? "characterPedro-walk-left"
               : "characterPablo-walk-left",
           );
@@ -493,40 +493,32 @@ if (this.game.tauloalive === true) {
         try {
           if (state.player.id === this.game.socket.id) return;
 
-          const textureKey = state.player.texture || "player";
-          const frameIndex = state.player.frame || 0;
           const animationKey = state.player.animation;
 
           let remotePlayer = this.remotePlayers.find(
             (p) => p.id === state.player.id,
           );
 
-          if (!remotePlayer || !remotePlayer.sprite) {
+          if (!remotePlayer) {
             const sprite = this.add.sprite(
               state.player.x,
               state.player.y,
-              textureKey,
-              frameIndex,
+              state.player.texture,
+              state.player.frame,
             );
 
             remotePlayer = {
               id: state.player.id,
               sprite,
             };
-
             this.remotePlayers.push(remotePlayer);
           }
 
           remotePlayer.sprite.setPosition(state.player.x, state.player.y);
-          remotePlayer.sprite.setTexture(textureKey, frameIndex);
 
-          if (animationKey && this.anims.exists(animationKey)) {
-            remotePlayer.sprite.play(animationKey, true);
-          } else {
-            if (remotePlayer.sprite.anims) {
-              remotePlayer.sprite.anims.stop();
-            }
-          }
+          if (state.player.animation)
+            remotePlayer.sprite.play(state.player.animation, true);
+          else remotePlayer.sprite.anims.stop();
         } catch (e) {
           console.log(this.remotePlayers);
           console.error("Error updating remote player:", e);
@@ -546,11 +538,8 @@ if (this.game.tauloalive === true) {
           x: this.character1.x,
           y: this.character1.y,
           texture: this.character1.texture.key,
-          animation: this.character1.anims.currentAnim
+          animation: this.character1.anims.isPlaying
             ? this.character1.anims.currentAnim.key
-            : "stop-right",
-          frame: this.character1.anims.currentFrame
-            ? this.character1.anims.currentFrame.index
             : null,
         },
       });

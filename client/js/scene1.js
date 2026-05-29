@@ -17,9 +17,9 @@ class scene1 extends Phaser.Scene {
     this.add
       .image(390, 230, "backgroundtergio1")
       .setScale(backgroundScaleX, backgroundScaleY);
-    if (this.game.characterplayer1 === 1) {
+    if (this.game.localPlayer === "pedro") {
       this.add.image(120, 400, "characterPedro");
-    } else if (this.game.characterplayer1 === 2) {
+    } else if (this.game.localPlayer === "pablo") {
       this.add.image(120, 400, "characterPablo");
     }
     this.add.image(770, 400, "professor1").setScale(-1, 1);

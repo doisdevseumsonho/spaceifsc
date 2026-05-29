@@ -5,7 +5,7 @@ class room extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(400, 225, "room_background")
+    this.add.image(400, 225, "room_background");
     this.game.room = (Math.random() * 10000).toString().split(".")[0];
     this.add.text(50, 50, `${this.game.room}`, {
       fontSize: "32px",
@@ -41,4 +41,5 @@ class room extends Phaser.Scene {
     });
   }
 }
+
 export default room;
