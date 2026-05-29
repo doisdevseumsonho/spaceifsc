@@ -135,10 +135,15 @@ class scene0 extends Phaser.Scene {
       this,
     );
 
-    //música
-    this.hubmusic = this.sound
-      .add("hubmusic", { loop: true, volume: 0.5 })
-      .play();
+  // música
+if (!this.sound.get("hubmusic")) {
+  this.hubmusic = this.sound.add("hubmusic", {
+    loop: true,
+    volume: 0.5,
+  });
+
+  this.hubmusic.play();
+}
 
     //animações
     //andada
@@ -303,40 +308,135 @@ class scene0 extends Phaser.Scene {
       }
     });
 
-    //botão de interação
-    this.button = this.add //cria o botão de interação
-      .sprite(700, 350, "interact_buttom", 1)
-      .setInteractive()
-      .setScale(2)
-      .on("pointerdown", () => {
-        //diz o que ele faz
-        this.button.setFrame(1);
-        if (this.caninteractTergio === true && this.game.tergioalive === true) {
-          this.scene.stop("scene0");
-          this.scene.start("scene1");
-        } else if (this.caninteractTaulo === true && this.game.tauloalive === true) {
-          this.scene.stop("scene0");
-          this.scene.start("scene2");
-        } else if (this.caninteractAirfryer === true) {
-          this.interactionText = this.add.text(
-            this.character1.x,
-            this.character1.y - 50,
-            "Uma airfryer da Equipe Rocket!",
-            {
-              fontSize: "16px",
-              fill: "#fff",
-            },
-          );
-          this.time.delayedCall(3000, () => {
-            this.interactionText.setText("  ");
-          });
-        }
-      })
-      .on("pointerup", () => {
-        this.button.setFrame(2);
-      })
-      .setScrollFactor(0); //faz o botão ficar fixo na tela, mesmo quando a câmera se move
+   //botão de interação
+this.button = this.add
+  .sprite(700, 350, "interact_buttom", 1)
+  .setInteractive()
+  .setScale(2)
+  .on("pointerdown", () => {
 
+    this.button.setFrame(1);
+
+    // TÉRGIO VIVO
+    if (this.caninteractTergio === true && this.game.tergioalive === true) {
+
+      this.scene.stop("scene0");
+      this.scene.start("scene1");
+
+    }
+
+    // TÉRGIO DERROTADO
+    else if (
+      this.caninteractTergio === true &&
+      this.game.tergioalive === false
+    ) {
+
+      if (this.dialogCooldown) return;
+      this.dialogCooldown = true;
+
+      const dialog = this.add.text(
+        this.professor1.x + 60,
+        this.professor1.y - 67,
+        "Térgio:\n'Obrigado por me ajudar.\nE lembrem...\no poder é de vocês.'",
+        {
+          fontSize: "16px",
+          fill: "#ffffff",
+          backgroundColor: "#000000",
+          padding: {
+            x: 10,
+            y: 10,
+          },
+          wordWrap: { width: 220 },
+        },
+      );
+
+      this.time.delayedCall(5000, () => {
+        dialog.destroy();
+        this.dialogCooldown = false;
+      });
+
+    }
+
+    // TAULO VIVO
+    else if (
+      this.caninteractTaulo === true &&
+      this.game.tauloalive === true
+    ) {
+
+      this.scene.stop("scene0");
+      this.scene.start("scene2");
+
+    }
+
+    // TAULO DERROTADO
+    else if (
+      this.caninteractTaulo === true &&
+      this.game.tauloalive === false
+    ) {
+
+      if (this.dialogCooldown) return;
+      this.dialogCooldown = true;
+
+      const dialog = this.add.text(
+        this.professor2.x - 167,
+        this.professor2.y - 120,
+        "Taulo:\n'Tentarei não explodir\nmais nada por aqui.\nObrigado pela ajuda.'",
+        {
+          fontSize: "16px",
+          fill: "#ffffff",
+          backgroundColor: "#000000",
+          padding: {
+            x: 10,
+            y: 10,
+          },
+          wordWrap: { width: 220 },
+        },
+      );
+
+      this.time.delayedCall(5000, () => {
+        dialog.destroy();
+        this.dialogCooldown = false;
+      });
+
+    }
+
+    // AIRFRYER
+    else if (this.caninteractAirfryer === true) {
+
+      if (this.dialogCooldown) return;
+      this.dialogCooldown = true;
+
+      const dialog = this.add.text(
+        this.character1.x + 6.7,
+        this.character1.y - 67,
+        "Uma airfryer\nda Equipe Rocket!",
+        {
+          fontSize: "16px",
+          fill: "#ffffff",
+          backgroundColor: "#000000",
+          padding: {
+            x: 10,
+            y: 10,
+          },
+          align: "center",
+        },
+      );
+
+      this.time.delayedCall(3000, () => {
+        dialog.destroy();
+        this.dialogCooldown = false;
+      });
+
+    }
+
+  })
+
+  .on("pointerup", () => {
+    this.button.setFrame(2);
+  })
+
+      .setScrollFactor(0); // faz o botão ficar fixo na tela, não seguindo a câmera
+    
     // Adiciona texto na tela
     this.pointsText = this.add
       .text(300, 10, "Pontuação:" + this.game.points, {
