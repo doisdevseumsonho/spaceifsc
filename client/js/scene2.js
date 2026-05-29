@@ -43,7 +43,7 @@ class scene2 extends Phaser.Scene {
       COLS: 8,
       ROWS: 8,
       BOMBS: 10,
-      CELL: 32,
+      CELL: 48,
       POINTS_WIN: 100,
     };
   }
@@ -54,6 +54,8 @@ class scene2 extends Phaser.Scene {
 
   create() {
     this.flagmode = false;
+
+    this.add.image(400, 300, "backgroundtergio0");
 
     this.button = this.add //cria o botão de interação
       .sprite(700, 350, "interact_buttom", 1)
@@ -172,8 +174,7 @@ class scene2 extends Phaser.Scene {
         const img = this.add
           .image(x, y, S.HIDDEN)
           .setDisplaySize(CELL, CELL)
-          .setInteractive();
-
+          .setInteractive()
         img.setData("r", r);
         img.setData("c", c);
 
