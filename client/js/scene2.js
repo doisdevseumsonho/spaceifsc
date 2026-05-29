@@ -74,6 +74,9 @@ class scene2 extends Phaser.Scene {
         this.button.setFrame(2);
       })
       .setScrollFactor(0);
+    
+    this.inator = this.add.sprite(100, 250, "inator").setScale(1.25);
+    this.professor2 = this.add.sprite(130, 300, "professor2");
 
     this._done = false;
 

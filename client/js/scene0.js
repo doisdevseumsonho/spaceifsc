@@ -46,16 +46,19 @@ class scene0 extends Phaser.Scene {
     } //cria o professor térgio salvo, caso ele já tenha sido derrotado
 
     if (this.game.tauloalive === true) {
-      this.professor2 = this.physics.add.sprite(1904, 449, "professor2", 0);
+      this.professor2 = this.physics.add.sprite(1704, 449, "professor2", 0);
     } //cria o professor taulo
     else {
       this.professor2 = this.physics.add.sprite(
-        1904,
+        1704,
         449,
         "professor2_salvo",
         0,
       );
     } //cria o professor taulo salvo, caso ele já tenha sido derrotado
+
+    this.inator = this.physics.add.sprite(1854, 449, "inator", 0); //cria o taulo-inator
+
 
     const selectionTergioScaleX = 4; // escala horizontal da seleção
     const selectionTergioScaleY = 4; // escala vertical da seleção
@@ -128,6 +131,9 @@ class scene0 extends Phaser.Scene {
 
     this.professor2.setImmovable(true);
     this.physics.add.collider(this.character1, this.professor2);
+
+    this.inator.setImmovable(true);
+    this.physics.add.collider(this.character1, this.inator);
 
     this.airfryer.setImmovable(true);
     this.physics.add.collider(this.character1, this.airfryer);
@@ -482,7 +488,7 @@ class scene0 extends Phaser.Scene {
 
     // Adiciona texto na tela
     this.pointsText = this.add
-      .text(300, 10, "Pontuação:" + this.game.points, {
+      .text(300, 10, "Pontuação:" + (this.game.points + this.game.tergiopoints), {
         fontSize: "32px",
         fill: "#fff",
       })

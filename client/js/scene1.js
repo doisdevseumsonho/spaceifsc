@@ -3,6 +3,7 @@ class scene1 extends Phaser.Scene {
   question = "15 + 13?";
   question2 = "  ";
   questionNumber = 1;
+  tergiopoints = 0;
 
   constructor() {
     super("scene1");
@@ -262,7 +263,7 @@ class scene1 extends Phaser.Scene {
     );    
 
     this.pointsText = this.add
-      .text(300, 30, "Pontuação:" + this.game.points, {
+      .text(300, 30, "Pontuação:" + this.game.tergiopoints, {
         fontSize: "32px",
         fill: "#fff",
       })
@@ -275,8 +276,8 @@ class scene1 extends Phaser.Scene {
     this.question = "6 - 7?";
     this.questionNumber = 2;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("13");
     this.questionText2.setText("-1");
     this.questionText3.setText("0");
@@ -287,7 +288,7 @@ class scene1 extends Phaser.Scene {
     this.question = "6 - 7?";
     this.questionNumber = 2;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("13");
     this.questionText2.setText("-1");
     this.questionText3.setText("0");
@@ -299,8 +300,8 @@ class scene1 extends Phaser.Scene {
     this.question = "10 x 11?";
     this.questionNumber = 3;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("110");
     this.questionText2.setText("111");
     this.questionText3.setText("101");
@@ -311,7 +312,7 @@ class scene1 extends Phaser.Scene {
     this.question = "10 x 11?";
     this.questionNumber = 3;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("110");
     this.questionText2.setText("111");
     this.questionText3.setText("101");
@@ -323,8 +324,8 @@ class scene1 extends Phaser.Scene {
     this.question = "7 x 7?";
     this.questionNumber = 4;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("51");
     this.questionText2.setText("14");
     this.questionText3.setText("49");
@@ -335,7 +336,7 @@ class scene1 extends Phaser.Scene {
     this.question = "7 x 7?";
     this.questionNumber = 4;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("51");
     this.questionText2.setText("14");
     this.questionText3.setText("49");
@@ -347,8 +348,8 @@ class scene1 extends Phaser.Scene {
     this.question = "24 % 3?";
     this.questionNumber = 5;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("8");
     this.questionText2.setText("9");
     this.questionText3.setText("21");
@@ -359,7 +360,7 @@ class scene1 extends Phaser.Scene {
     this.question = "24 % 3?";
     this.questionNumber = 5;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("8");
     this.questionText2.setText("9");
     this.questionText3.setText("21");
@@ -373,8 +374,8 @@ class scene1 extends Phaser.Scene {
     this.questionNumber = 6;
     this.questionText.setText(this.questionNumberText + this.question);
 
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("1,2,3");
     this.questionText1.setPosition(280, 190);
     this.questionText2.setText("2,4,6");
@@ -387,7 +388,7 @@ class scene1 extends Phaser.Scene {
     this.questionParagraph2.setText("números primos?");
     this.questionNumber = 6;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("1,2,3");
     this.questionText1.setPosition(280, 190);
     this.questionText2.setText("2,4,6");
@@ -403,8 +404,8 @@ class scene1 extends Phaser.Scene {
     this.questionParagraph2.setText("  ");
     this.questionNumber = 7;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("1");
     this.questionText2.setText("0");
     this.questionText3.setText("-1");
@@ -416,7 +417,7 @@ class scene1 extends Phaser.Scene {
     this.questionParagraph2.setText("  ");
     this.questionNumber = 7;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("1");
     this.questionText2.setText("0");
     this.questionText3.setText("-1");
@@ -428,8 +429,8 @@ class scene1 extends Phaser.Scene {
     this.question = "3 - 2 x 4?";
     this.questionNumber = 8;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("5");
     this.questionText2.setText("4");
     this.questionText3.setText("-4");
@@ -440,7 +441,7 @@ class scene1 extends Phaser.Scene {
     this.question = "3 - 2 x 4?";
     this.questionNumber = 8;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("5");
     this.questionText2.setText("4");
     this.questionText3.setText("-4");
@@ -452,8 +453,8 @@ class scene1 extends Phaser.Scene {
     this.question = "Um cubo tem quantos lados?";
     this.questionNumber = 9;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("Depende");
     this.questionText1.setPosition (255, 190);
     this.questionText2.setText("4");
@@ -465,7 +466,7 @@ class scene1 extends Phaser.Scene {
     this.question = "Um cubo tem quantos lados?";
     this.questionNumber = 9;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("Depende");
     this.questionText1.setPosition(255, 190);
     this.questionText2.setText("4");
@@ -482,8 +483,8 @@ class scene1 extends Phaser.Scene {
     );
     this.questionNumber = 10;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("N + 2");
     this.questionText1.setPosition(320, 190);
     this.questionText2.setText("N + 1");
@@ -499,7 +500,7 @@ class scene1 extends Phaser.Scene {
     );
     this.questionNumber = 10;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("N + 2");
     this.questionText1.setPosition(320, 190);
     this.questionText2.setText("N + 1");
@@ -513,8 +514,8 @@ class scene1 extends Phaser.Scene {
     this.questionParagraph2.setText("  ");
     this.questionNumber = 11;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("2^6");
     this.questionText2.setText("2^8");
     this.questionText3.setText("2^5");
@@ -526,7 +527,7 @@ class scene1 extends Phaser.Scene {
     this.questionParagraph2.setText("  ");
     this.questionNumber = 11;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("2^6");
     this.questionText2.setText("2^8");
     this.questionText3.setText("2^5");
@@ -539,8 +540,8 @@ class scene1 extends Phaser.Scene {
     this.questionParagraph2.setText("você está lutando");
     this.questionNumber = 12;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("Pedro");
     this.questionText2.setText("Pablo");
     this.questionText3.setText("Térgio");
@@ -552,7 +553,7 @@ class scene1 extends Phaser.Scene {
     this.questionParagraph2.setText("você está lutando");
     this.questionNumber = 12;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("Pedro");
     this.questionText2.setText("Pablo");
     this.questionText3.setText("Térgio");
@@ -565,8 +566,8 @@ class scene1 extends Phaser.Scene {
     this.questionParagraph2.setText("  ");
     this.questionNumber = 13;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("Erro");
     this.questionText2.setText("1");
     this.questionText3.setText("0");
@@ -578,7 +579,7 @@ class scene1 extends Phaser.Scene {
     this.questionParagraph2.setText("  ");
     this.questionNumber = 13;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("Erro");
     this.questionText2.setText("1");
     this.questionText3.setText("0");
@@ -590,8 +591,8 @@ class scene1 extends Phaser.Scene {
     this.question = "6! ?";
     this.questionNumber = 14;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("120");
     this.questionText2.setText("6");
     this.questionText3.setText("36");
@@ -602,7 +603,7 @@ class scene1 extends Phaser.Scene {
     this.question = "6! ?";
     this.questionNumber = 14;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("120");
     this.questionText2.setText("6");
     this.questionText3.setText("36");
@@ -614,8 +615,8 @@ class scene1 extends Phaser.Scene {
     this.question = "10000000000 ?";
     this.questionNumber = 15;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("1^10");
     this.questionText2.setText("1 x 10^9");
     this.questionText3.setText("1 x 10^10");
@@ -626,7 +627,7 @@ class scene1 extends Phaser.Scene {
     this.question = "10000000000 ?";
     this.questionNumber = 15;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("1^10");
     this.questionText2.setText("1 x 10^9");
     this.questionText3.setText("1 x 10^10");
@@ -638,8 +639,8 @@ class scene1 extends Phaser.Scene {
     this.question = "Qual o NOSSO nome?";
     this.questionNumber = 16;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("Aliens");
     this.questionText2.setText("Gincanaliens");
     this.questionText3.setText("Invasores");
@@ -650,7 +651,7 @@ class scene1 extends Phaser.Scene {
     this.question = "Qual o NOSSO nome?";
     this.questionNumber = 16;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("Aliens");
     this.questionText2.setText("Gincanaliens");
     this.questionText3.setText("Invasores");
@@ -662,8 +663,8 @@ class scene1 extends Phaser.Scene {
     this.question = "Como se inicia um conto?";
     this.questionNumber = 17;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("bom dia...");
     this.questionText2.setText("e do nada...");
     this.questionText3.setText("naquele dia...");
@@ -674,7 +675,7 @@ class scene1 extends Phaser.Scene {
     this.question = "Como se inicia um conto?";
     this.questionNumber = 17;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("bom dia...");
     this.questionText2.setText("e do nada...");
     this.questionText3.setText("naquele dia...");
@@ -686,8 +687,8 @@ class scene1 extends Phaser.Scene {
     this.question = "Quantas formigas estima-se que existiam na terra de 2022?";
     this.questionNumber = 18;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("20 bilhões");
     this.questionText2.setText("20 quatrilhões");
     this.questionText3.setText("20 trilhões");
@@ -698,7 +699,7 @@ class scene1 extends Phaser.Scene {
     this.question = "Quantas formigas estima-se que existiam na terra de 2022?";
     this.questionNumber = 18;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("20 bilhões");
     this.questionText2.setText("20 quatrilhões");
     this.questionText3.setText("20 trilhões");
@@ -710,8 +711,8 @@ class scene1 extends Phaser.Scene {
     this.question = "Qual a marca da air fryer na sala do Zio Té?";
     this.questionNumber = 19;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("Oniversal");
     this.questionText2.setText("Equipe Rocket");
     this.questionText3.setText("Sailo");
@@ -719,10 +720,10 @@ class scene1 extends Phaser.Scene {
   }
   wrongAnswer18() {
     this.questionNumberText = "19: ";
-    this.question = "Qual a marca da air fryer na sala do Zio Té?";
+    this.question = "Qual a marca da air fryer na sala do Toi?";
     this.questionNumber = 19;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("Oniversal");
     this.questionText2.setText("Equipe Rocket");
     this.questionText3.setText("Sailo");
@@ -734,8 +735,8 @@ class scene1 extends Phaser.Scene {
     this.question = "Em qual pergunta eu disse meu nome";
     this.questionNumber = 20;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("12");
     this.questionText2.setText("19");
     this.questionText3.setText("9");
@@ -746,7 +747,7 @@ class scene1 extends Phaser.Scene {
     this.question = "Em qual pergunta eu disse meu nome";
     this.questionNumber = 20;
     this.questionText.setText(this.questionNumberText + this.question);
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.questionText1.setText("12");
     this.questionText2.setText("19");
     this.questionText3.setText("9");
@@ -754,14 +755,14 @@ class scene1 extends Phaser.Scene {
   }
 
   correctAnswer20() {
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.game.tergiopoints = this.game.tergiopoints + 10;
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.game.tergioalive = false;
     this.scene.stop("scene1");
     this.scene.start("endscene1");
   }
   wrongAnswer20() {
-    this.pointsText.setText("Pontuação:" + this.game.points);
+    this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
     this.game.tergioalive = false;
     this.scene.stop("scene1");
     this.scene.start("endscene1");

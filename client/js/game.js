@@ -22,6 +22,7 @@ class Game extends Phaser.Game {
     this.scene.start("start");
 
     this.points = 0;
+    this.tergiopoints = 0;
     this.characterplayer1 = 1;
     this.characterplayer2 = 1;
     this.tergioalive = true;
