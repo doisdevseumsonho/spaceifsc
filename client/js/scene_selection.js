@@ -28,9 +28,8 @@ class scene_selection extends Phaser.Scene {
         this.game.room,
         this.game.localPlayer
         );
-        this.game.characterplayer1 = 1;
         this.scene.stop("sceneSelection");
-        this.scene.start("scene1");
+        this.scene.start("scene0");
       })
       .on("pointerup", () => {
       })
@@ -51,9 +50,8 @@ class scene_selection extends Phaser.Scene {
         this.game.room,
         this.game.localPlayer
         );
-        this.game.characterplayer1 = 2;
         this.scene.stop("sceneSelection");
-        this.scene.start("scene1");
+        this.scene.start("scene0");
       })
       .on("pointerup", () => {});
   }
