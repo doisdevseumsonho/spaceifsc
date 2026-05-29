@@ -292,6 +292,7 @@ class scene2 extends Phaser.Scene {
 
     if (won) {
       this.game.points += scene2.CFG.POINTS_WIN;
+      this.game.tauloalive = false;
     }
 
     // Painel de resultado
@@ -324,7 +325,6 @@ class scene2 extends Phaser.Scene {
 
     // Retorna para a cena anterior após 2.5s — mesmo padrão da scene0
     this.time.delayedCall(2500, () => {
-      this.game.tauloalive = false;
       this.scene.stop("scene2");
       this.scene.start(this._from);
     });

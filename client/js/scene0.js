@@ -87,8 +87,8 @@ class scene0 extends Phaser.Scene {
         20,
       ); //cria o personagem
     }
-    this.coin = this.physics.add.sprite(2000, 1712, "coin", 0); //cria a moeda
-    this.key = this.physics.add.sprite(1650, 1150, "key", 0); //cria a chave
+    this.coin = this.physics.add.sprite(1648, 1040, "coin", 0); //cria a moeda
+    this.key = this.physics.add.sprite(1648, 1135, "key", 0); //cria a chave
     this.airfryer = this.physics.add.sprite(1360, 1200, "airfryer", 0); //cria a airfryer
     this.board1 = this.physics.add.sprite(1584, 657, "board", 0); //cria a placa de segurança
     this.board2 = this.physics.add.sprite(1616, 657, "board", 0); //cria a placa de segurança
