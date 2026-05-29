@@ -33,8 +33,29 @@ class scene0 extends Phaser.Scene {
     this.layerStructure2 = this.tilemap.createLayer("structure2", [
       this.tilesetTileset,
     ]); //cria as camadas de estrutura
-    this.professor1 = this.physics.add.sprite(1300, 449, "professor1", 0); //cria o professor térgio
-    this.professor2 = this.physics.add.sprite(1904, 449, "professor2", 0); //cria o professor taulo
+    if (this.game.tergioalive === true) {
+      this.professor1 = this.physics.add.sprite(1300, 449, "professor1", 0);
+    } //cria o professor térgio
+    else {
+      this.professor1 = this.physics.add.sprite(
+        1300,
+        449,
+        "professor1_salvo",
+        0,
+      );
+    } //cria o professor térgio salvo, caso ele já tenha sido derrotado
+
+    if (this.game.tauloalive === true) {
+      this.professor2 = this.physics.add.sprite(1904, 449, "professor2", 0);
+    } //cria o professor taulo
+    else {
+      this.professor2 = this.physics.add.sprite(
+        1904,
+        449,
+        "professor2_salvo",
+        0,
+      );
+    } //cria o professor taulo salvo, caso ele já tenha sido derrotado
 
     const selectionTergioScaleX = 4; // escala horizontal da seleção
     const selectionTergioScaleY = 4; // escala vertical da seleção
@@ -135,15 +156,15 @@ class scene0 extends Phaser.Scene {
       this,
     );
 
-  // música
-if (!this.sound.get("hubmusic")) {
-  this.hubmusic = this.sound.add("hubmusic", {
-    loop: true,
-    volume: 0.5,
-  });
+    // música
+    if (!this.sound.get("hubmusic")) {
+      this.hubmusic = this.sound.add("hubmusic", {
+        loop: true,
+        volume: 0.5,
+      });
 
-  this.hubmusic.play();
-}
+      this.hubmusic.play();
+    }
 
     //animações
     //andada
@@ -229,30 +250,64 @@ if (!this.sound.get("hubmusic")) {
       repeat: -1,
     });
 
+    // TÉRGIO NORMAL
     this.anims.create({
       key: "professor1-idle",
       frames: this.anims.generateFrameNumbers("professor1", {
         start: 0,
         end: 2,
-      }), //sprites são um a menos que no spritesheet.
+      }),
       frameRate: 1,
       repeat: -1,
     });
 
-    this.professor1.play("professor1-idle");
+    // TÉRGIO SALVO
+    this.anims.create({
+      key: "professor1-salvo-idle",
+      frames: this.anims.generateFrameNumbers("professor1_salvo", {
+        start: 0,
+        end: 2,
+      }),
+      frameRate: 1,
+      repeat: -1,
+    });
 
+    // TAULO NORMAL
     this.anims.create({
       key: "professor2-idle",
       frames: this.anims.generateFrameNumbers("professor2", {
         start: 0,
         end: 2,
-      }), //sprites são um a menos que no spritesheet.
+      }),
       frameRate: 1,
       repeat: -1,
     });
 
-    this.professor2.play("professor2-idle");
+    // TAULO SALVO
+    this.anims.create({
+      key: "professor2-salvo-idle",
+      frames: this.anims.generateFrameNumbers("professor2_salvo", {
+        start: 0,
+        end: 2,
+      }),
+      frameRate: 1,
+      repeat: -1,
+    });
 
+// toca animação do Térgio
+if (this.game.tergioalive === true) {
+  this.professor1.play("professor1-idle");
+} else {
+  this.professor1.play("professor1-salvo-idle");
+}
+
+// toca animação do Taulo
+if (this.game.tauloalive === true) {
+  this.professor2.play("professor2-idle");
+} else {
+  this.professor2.play("professor2-salvo-idle");
+}
+    
     this.physics.world.setBounds(
       0,
       0,
@@ -308,135 +363,123 @@ if (!this.sound.get("hubmusic")) {
       }
     });
 
-   //botão de interação
-this.button = this.add
-  .sprite(700, 350, "interact_buttom", 1)
-  .setInteractive()
-  .setScale(2)
-  .on("pointerdown", () => {
+    //botão de interação
+    this.button = this.add
+      .sprite(700, 350, "interact_buttom", 1)
+      .setInteractive()
+      .setScale(2)
+      .on("pointerdown", () => {
+        this.button.setFrame(1);
 
-    this.button.setFrame(1);
+        // TÉRGIO VIVO
+        if (this.caninteractTergio === true && this.game.tergioalive === true) {
+          this.scene.stop("scene0");
+          this.scene.start("scene1");
+        }
 
-    // TÉRGIO VIVO
-    if (this.caninteractTergio === true && this.game.tergioalive === true) {
+        // TÉRGIO DERROTADO
+        else if (
+          this.caninteractTergio === true &&
+          this.game.tergioalive === false
+        ) {
+          if (this.dialogCooldown) return;
+          this.dialogCooldown = true;
 
-      this.scene.stop("scene0");
-      this.scene.start("scene1");
+          const dialog = this.add.text(
+            this.professor1.x + 60,
+            this.professor1.y - 67,
+            "Térgio:\n'Obrigado por me ajudar.\nE lembrem...\no poder é de vocês.'",
+            {
+              fontSize: "16px",
+              fill: "#ffffff",
+              backgroundColor: "#000000",
+              padding: {
+                x: 10,
+                y: 10,
+              },
+              wordWrap: { width: 220 },
+            },
+          );
 
-    }
+          this.time.delayedCall(5000, () => {
+            dialog.destroy();
+            this.dialogCooldown = false;
+          });
+        }
 
-    // TÉRGIO DERROTADO
-    else if (
-      this.caninteractTergio === true &&
-      this.game.tergioalive === false
-    ) {
+        // TAULO VIVO
+        else if (
+          this.caninteractTaulo === true &&
+          this.game.tauloalive === true
+        ) {
+          this.scene.stop("scene0");
+          this.scene.start("scene2");
+        }
 
-      if (this.dialogCooldown) return;
-      this.dialogCooldown = true;
+        // TAULO DERROTADO
+        else if (
+          this.caninteractTaulo === true &&
+          this.game.tauloalive === false
+        ) {
+          if (this.dialogCooldown) return;
+          this.dialogCooldown = true;
 
-      const dialog = this.add.text(
-        this.professor1.x + 60,
-        this.professor1.y - 67,
-        "Térgio:\n'Obrigado por me ajudar.\nE lembrem...\no poder é de vocês.'",
-        {
-          fontSize: "16px",
-          fill: "#ffffff",
-          backgroundColor: "#000000",
-          padding: {
-            x: 10,
-            y: 10,
-          },
-          wordWrap: { width: 220 },
-        },
-      );
+          const dialog = this.add.text(
+            this.professor2.x - 167,
+            this.professor2.y - 120,
+            "Taulo:\n'Tentarei não explodir\nmais nada por aqui.\nObrigado pela ajuda.'",
+            {
+              fontSize: "16px",
+              fill: "#ffffff",
+              backgroundColor: "#000000",
+              padding: {
+                x: 10,
+                y: 10,
+              },
+              wordWrap: { width: 220 },
+            },
+          );
 
-      this.time.delayedCall(5000, () => {
-        dialog.destroy();
-        this.dialogCooldown = false;
-      });
+          this.time.delayedCall(5000, () => {
+            dialog.destroy();
+            this.dialogCooldown = false;
+          });
+        }
 
-    }
+        // AIRFRYER
+        else if (this.caninteractAirfryer === true) {
+          if (this.dialogCooldown) return;
+          this.dialogCooldown = true;
 
-    // TAULO VIVO
-    else if (
-      this.caninteractTaulo === true &&
-      this.game.tauloalive === true
-    ) {
+          const dialog = this.add.text(
+            this.character1.x + 6.7,
+            this.character1.y - 67,
+            "Uma airfryer\nda Equipe Rocket!",
+            {
+              fontSize: "16px",
+              fill: "#ffffff",
+              backgroundColor: "#000000",
+              padding: {
+                x: 10,
+                y: 10,
+              },
+              align: "center",
+            },
+          );
 
-      this.scene.stop("scene0");
-      this.scene.start("scene2");
+          this.time.delayedCall(3000, () => {
+            dialog.destroy();
+            this.dialogCooldown = false;
+          });
+        }
+      })
 
-    }
-
-    // TAULO DERROTADO
-    else if (
-      this.caninteractTaulo === true &&
-      this.game.tauloalive === false
-    ) {
-
-      if (this.dialogCooldown) return;
-      this.dialogCooldown = true;
-
-      const dialog = this.add.text(
-        this.professor2.x - 167,
-        this.professor2.y - 120,
-        "Taulo:\n'Tentarei não explodir\nmais nada por aqui.\nObrigado pela ajuda.'",
-        {
-          fontSize: "16px",
-          fill: "#ffffff",
-          backgroundColor: "#000000",
-          padding: {
-            x: 10,
-            y: 10,
-          },
-          wordWrap: { width: 220 },
-        },
-      );
-
-      this.time.delayedCall(5000, () => {
-        dialog.destroy();
-        this.dialogCooldown = false;
-      });
-
-    }
-
-    // AIRFRYER
-    else if (this.caninteractAirfryer === true) {
-
-      if (this.dialogCooldown) return;
-      this.dialogCooldown = true;
-
-      const dialog = this.add.text(
-        this.character1.x + 6.7,
-        this.character1.y - 67,
-        "Uma airfryer\nda Equipe Rocket!",
-        {
-          fontSize: "16px",
-          fill: "#ffffff",
-          backgroundColor: "#000000",
-          padding: {
-            x: 10,
-            y: 10,
-          },
-          align: "center",
-        },
-      );
-
-      this.time.delayedCall(3000, () => {
-        dialog.destroy();
-        this.dialogCooldown = false;
-      });
-
-    }
-
-  })
-
-  .on("pointerup", () => {
-    this.button.setFrame(2);
-  })
+      .on("pointerup", () => {
+        this.button.setFrame(2);
+      })
 
       .setScrollFactor(0); // faz o botão ficar fixo na tela, não seguindo a câmera
-    
+
     // Adiciona texto na tela
     this.pointsText = this.add
       .text(300, 10, "Pontuação:" + this.game.points, {
@@ -521,19 +564,31 @@ this.button = this.add
     const tauloBounds = this.selectionTaulo.getBounds();
     const airfryerBounds = this.selectionAirfryer.getBounds();
 
-    if (Phaser.Geom.Intersects.RectangleToRectangle(character1Bounds, tergioBounds)) {
+    if (
+      Phaser.Geom.Intersects.RectangleToRectangle(
+        character1Bounds,
+        tergioBounds,
+      )
+    ) {
       this.caninteractTergio = true;
     } else {
       this.caninteractTergio = false;
     }
 
-    if (Phaser.Geom.Intersects.RectangleToRectangle(character1Bounds, tauloBounds)) {
+    if (
+      Phaser.Geom.Intersects.RectangleToRectangle(character1Bounds, tauloBounds)
+    ) {
       this.caninteractTaulo = true;
     } else {
       this.caninteractTaulo = false;
     }
 
-    if (Phaser.Geom.Intersects.RectangleToRectangle(character1Bounds, airfryerBounds)) {
+    if (
+      Phaser.Geom.Intersects.RectangleToRectangle(
+        character1Bounds,
+        airfryerBounds,
+      )
+    ) {
       this.caninteractAirfryer = true;
     } else {
       this.caninteractAirfryer = false;
