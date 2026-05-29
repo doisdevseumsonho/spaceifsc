@@ -13,11 +13,11 @@ class scene1 extends Phaser.Scene {
     //Fundo
     this.add.image(400, 300, "backgroundtergio0");
 
-    const backgroundScaleX = 2.55; // escala horizontal da fundo
-    const backgroundScaleY = 2; // escala vertical da fundo
+    const backgroundScaleX = 2.2; // escala horizontal do fundo
+    const backgroundScaleY = 2; // escala vertical do fundo
     this.add
-      .image(390, 230, "backgroundtergio1")
-      .setScale(backgroundScaleX, backgroundScaleY);
+      .image(410, 230, "backgroundtergio1")
+      .setScale(2.15, backgroundScaleY);
     if (this.game.localPlayer === "pedro") {
       this.add.image(120, 400, "characterPedro");
     } else if (this.game.localPlayer === "pablo") {
@@ -31,9 +31,10 @@ class scene1 extends Phaser.Scene {
     const debugplaybuttonVisible = true;
 
     //botão 1
-    this.add.sprite(320, 190, "button1", 0).setScale(1);
+    this.add.sprite(320, 190, "button1", 0).setScale(1.9);
     this.questionText1 = this.add.text(320, 190, "25", {
       fontSize: "32px",
+      Textstyle: "bold",
       fill: "#fff",
     });
     this.selectionButton1 = this.physics.add
@@ -86,9 +87,10 @@ class scene1 extends Phaser.Scene {
       });
 
     //botão 3
-    this.add.sprite(560, 190, "button3", 0).setScale(1).setInteractive();
+    this.add.sprite(560, 190, "button3", 0).setScale(1.9).setInteractive();
     this.questionText3 = this.add.text(560, 190, "30", {
       fontSize: "32px",
+        Textstyle: "bold",
       fill: "#fff",
     });
     this.selectionButton3 = this.physics.add
@@ -141,9 +143,10 @@ class scene1 extends Phaser.Scene {
       });
 
     //botão 2
-    this.add.sprite(320, 340, "button2", 0).setScale(1);
+    this.add.sprite(320, 340, "button2", 0).setScale(1.9);
     this.questionText2 = this.add.text(320, 340, "28", {
       fontSize: "32px",
+        Textstyle: "bold",
       fill: "#fff",
     });
     this.selectionButton2 = this.physics.add
@@ -196,9 +199,10 @@ class scene1 extends Phaser.Scene {
       });
 
     //botão 4
-    this.add.sprite(560, 340, "button4", 0).setScale(1);
+    this.add.sprite(560, 340, "button4", 0).setScale(1.9);
     this.questionText4 = this.add.text(560, 340, "26", {
       fontSize: "32px",
+        Textstyle: "bold",
       fill: "#fff",
     });
     this.selectionButton4 = this.physics.add
@@ -251,20 +255,23 @@ class scene1 extends Phaser.Scene {
       });
 
     //textos
-    this.questionText = this.add.text(180, 60, this.questionNumberText + this.question, {
-        fontSize: "32px",
+    this.questionText = this.add.text(110,60,this.questionNumberText + this.question,
+      {
+        fontSize: "40px",
+        fontStyle: "bold",
         fill: "#fff",
       },
     );
     this.questionParagraph2 = this.add.text(180, 90, this.question2, {
-        fontSize: "32px",
-       fill: "#fff",
-      },
-    );    
+      fontSize: "40px",
+      fontStyle: "bold",
+      fill: "#fff",
+    });    
 
     this.pointsText = this.add
       .text(300, 30, "Pontuação:" + this.game.tergiopoints, {
         fontSize: "32px",
+        fontStyle: "bold",
         fill: "#fff",
       })
       .setScrollFactor(0);
@@ -278,7 +285,7 @@ class scene1 extends Phaser.Scene {
     this.questionText.setText(this.questionNumberText + this.question);
     this.game.tergiopoints = this.game.tergiopoints + 10;
     this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
-    this.questionText1.setText("13");
+    this.questionText1.setText("13").setPosition(220, 190);
     this.questionText2.setText("-1");
     this.questionText3.setText("0");
     this.questionText4.setText("1");
@@ -450,7 +457,7 @@ class scene1 extends Phaser.Scene {
 
   correctAnswer8() {
     this.questionNumberText = "9: ";
-    this.question = "Um cubo tem quantos lados?";
+    this.question = "Um cubo tem quantos\n lados?";
     this.questionNumber = 9;
     this.questionText.setText(this.questionNumberText + this.question);
     this.game.tergiopoints = this.game.tergiopoints + 10;
@@ -463,7 +470,7 @@ class scene1 extends Phaser.Scene {
   }
   wrongAnswer8() {
     this.questionNumberText = "9: ";
-    this.question = "Um cubo tem quantos lados?";
+    this.question = "Um cubo tem quantos\n lados?";
     this.questionNumber = 9;
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
@@ -475,37 +482,37 @@ class scene1 extends Phaser.Scene {
   }
 
   correctAnswer9() {
-    this.questionNumberText = "10: ";
+    this.questionNumberText = "10:";
     this.question =
       "Se um inocente matar um";
     this.questionParagraph2.setText(
-      "assassino, quantos temos?",
+      "assassino, quantos teremos?",
     );
     this.questionNumber = 10;
     this.questionText.setText(this.questionNumberText + this.question);
     this.game.tergiopoints = this.game.tergiopoints + 10;
     this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
-    this.questionText1.setText("N + 2");
+    this.questionText1.setText("X + 2");
     this.questionText1.setPosition(320, 190);
-    this.questionText2.setText("N + 1");
-    this.questionText3.setText("N - 1");
-    this.questionText4.setText("N + 0");
+    this.questionText2.setText("X + 1");
+    this.questionText3.setText("X - 1");
+    this.questionText4.setText("X + 0");
   }
   wrongAnswer9() {
-    this.questionNumberText = "10: ";
+    this.questionNumberText = "10:";
     this.question =
       "Se um inocente matar um";
     this.questionParagraph2.setText(
-      "assassino, quantos temos?",
+      "assassino, quantos teremos?",
     );
     this.questionNumber = 10;
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
-    this.questionText1.setText("N + 2");
+    this.questionText1.setText("X + 2");
     this.questionText1.setPosition(320, 190);
-    this.questionText2.setText("N + 1");
-    this.questionText3.setText("N - 1");
-    this.questionText4.setText("N + 0");
+    this.questionText2.setText("X + 1");
+    this.questionText3.setText("X - 1");
+    this.questionText4.setText("X + 0");
   }
 
   correctAnswer10() {
@@ -684,7 +691,7 @@ class scene1 extends Phaser.Scene {
 
   correctAnswer17() {
     this.questionNumberText = "18: ";
-    this.question = "Quantas formigas estima-se que existiam na terra de 2022?";
+    this.question = "Quantas formigas que\nexistiam na terra de 2022?";
     this.questionNumber = 18;
     this.questionText.setText(this.questionNumberText + this.question);
     this.game.tergiopoints = this.game.tergiopoints + 10;
@@ -696,7 +703,7 @@ class scene1 extends Phaser.Scene {
   }
   wrongAnswer17() {
     this.questionNumberText = "18: ";
-    this.question = "Quantas formigas estima-se que existiam na terra de 2022?";
+    this.question = "Quantas formigas que\nexistiam na terra de 2022?";
     this.questionNumber = 18;
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
@@ -708,7 +715,7 @@ class scene1 extends Phaser.Scene {
 
   correctAnswer18() {
     this.questionNumberText = "19: ";
-    this.question = "Qual a marca da air fryer na sala do Zio Té?";
+    this.question = "Qual a marca da air\n fryer na sala do Toi?";
     this.questionNumber = 19;
     this.questionText.setText(this.questionNumberText + this.question);
     this.game.tergiopoints = this.game.tergiopoints + 10;
@@ -720,7 +727,7 @@ class scene1 extends Phaser.Scene {
   }
   wrongAnswer18() {
     this.questionNumberText = "19: ";
-    this.question = "Qual a marca da air fryer na sala do Toi?";
+    this.question = "Qual a marca da air\n fryer na sala do Toi?";
     this.questionNumber = 19;
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
@@ -732,7 +739,7 @@ class scene1 extends Phaser.Scene {
 
   correctAnswer19() {
     this.questionNumberText = "20: ";
-    this.question = "Em qual pergunta eu disse meu nome";
+    this.question = "Em qual pergunta eu\ndisse meu nome";
     this.questionNumber = 20;
     this.questionText.setText(this.questionNumberText + this.question);
     this.game.tergiopoints = this.game.tergiopoints + 10;
@@ -744,7 +751,7 @@ class scene1 extends Phaser.Scene {
   }
   wrongAnswer19() {
     this.questionNumberText = "20: ";
-    this.question = "Em qual pergunta eu disse meu nome";
+    this.question = "Em qual pergunta eu\ndisse meu nome";
     this.questionNumber = 20;
     this.questionText.setText(this.questionNumberText + this.question);
     this.pointsText.setText("Pontuação:" + this.game.tergiopoints);
