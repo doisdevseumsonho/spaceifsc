@@ -52,8 +52,11 @@ class preloader extends Phaser.Scene {
     this.load.spritesheet("characterPablo", "characters/characterbase_pablo.png", {
           frameWidth: 32,
           frameHeight: 64,
-        });
-
+    });
+    
+    //scene_intro
+    this.load.image("space", "space.png");
+    this.load.audio("imperial8bit", "sounds/imperial8bit.mp3");
 //scene0
     this.load.spritesheet("professor1", "characters/tergio.png", {
       frameWidth: 32,
@@ -130,6 +133,12 @@ class preloader extends Phaser.Scene {
     );
 
     this.load.audio("hubmusic", "sounds/placeholder_hubmusic.mp3");
+
+    this.load.audio("coinSound", "sounds/Pickup_Coin2.mp3");
+
+    this.load.audio("selectSound", "sounds/Blip_Select.mp3");
+
+    this.load.audio("Explosion", "sounds/Explosion.mp3");
 
 //scene1
     //Fundo

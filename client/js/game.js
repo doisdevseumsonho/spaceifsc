@@ -1,4 +1,5 @@
 import config from "./config.js";
+import scene_intro from "./scene_intro.js";
 import scene0 from "./scene0.js";
 import scene1 from "./scene1.js";
 import scene2 from "./scene2.js";
@@ -11,6 +12,7 @@ import room from "./room.js";
 class Game extends Phaser.Game {
   constructor() {
     super(config);
+    this.scene.add("scene_intro", scene_intro);
     this.scene.add("scene0", scene0);
     this.scene.add("scene1", scene1);
     this.scene.add("scene2", scene2);
