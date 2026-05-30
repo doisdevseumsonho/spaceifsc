@@ -14,6 +14,8 @@ class scene0 extends Phaser.Scene {
     this.remotePlayers = [];
     this.tergioalive = true;
     this.tauloalive = true;
+    this.coincollected = false;
+    this.keycollected = false;
   }
 
   create() {
@@ -59,7 +61,6 @@ class scene0 extends Phaser.Scene {
 
     this.inator = this.physics.add.sprite(1854, 449, "inator", 0); //cria o taulo-inator
 
-
     const selectionTergioScaleX = 4; // escala horizontal da seleção
     const selectionTergioScaleY = 4; // escala vertical da seleção
     const debugSelectionVisible = true; // deixa visível para debug
@@ -90,11 +91,39 @@ class scene0 extends Phaser.Scene {
         20,
       ); //cria o personagem
     }
-    this.coin = this.physics.add.sprite(1648, 1040, "coin", 0); //cria a moeda
-    this.key = this.physics.add.sprite(1648, 1135, "key", 0); //cria a chave
+    if (!this.game.coinCollected) {
+      this.coin = this.physics.add.sprite(1648, 1040, "coin", 0);
+
+      this.physics.add.overlap(
+        this.character1,
+        this.coin,
+        this.collectCoin,
+        null,
+        this,
+      );
+    }
+    if (!this.game.keyCollected) {
+      this.key = this.physics.add.sprite(1648, 1135, "key", 0);
+
+      this.physics.add.overlap(
+        this.character1,
+        this.key,
+        this.collectKey,
+        null,
+        this,
+      );
+    }
     this.airfryer = this.physics.add.sprite(1360, 1200, "airfryer", 0); //cria a airfryer
-    this.board1 = this.physics.add.sprite(1584, 657, "board", 0); //cria a placa de segurança
-    this.board2 = this.physics.add.sprite(1616, 657, "board", 0); //cria a placa de segurança
+   if (!this.game.keyCollected) {
+     this.board1 = this.physics.add.sprite(1584, 657, "board", 0);
+     this.board2 = this.physics.add.sprite(1616, 657, "board", 0);
+
+     this.board1.setImmovable(true);
+     this.board2.setImmovable(true);
+
+     this.physics.add.collider(this.character1, this.board1);
+     this.physics.add.collider(this.character1, this.board2);
+   } //cria as placas de segurança se a chave não tiver sido coletada
 
     this.selectionAirfryer = this.physics.add
       .sprite(this.airfryer.x, this.airfryer.y, "selectionAirfryer", 0) //cria a caixa de seleção
@@ -137,13 +166,7 @@ class scene0 extends Phaser.Scene {
 
     this.airfryer.setImmovable(true);
     this.physics.add.collider(this.character1, this.airfryer);
-
-    this.board1.setImmovable(true);
-    this.physics.add.collider(this.character1, this.board1);
-
-    this.board2.setImmovable(true);
-    this.physics.add.collider(this.character1, this.board2);
-
+    
     // Função Coleta de moeda - moeda desaparece quando character encostar
     this.physics.add.overlap(
       this.character1,
@@ -488,10 +511,15 @@ class scene0 extends Phaser.Scene {
 
     // Adiciona texto na tela
     this.pointsText = this.add
-      .text(300, 10, "Pontuação:" + (this.game.points + this.game.tergiopoints), {
-        fontSize: "32px",
-        fill: "#fff",
-      })
+      .text(
+        300,
+        10,
+        "Pontuação:" + (this.game.points + this.game.tergiopoints),
+        {
+          fontSize: "32px",
+          fill: "#fff",
+        },
+      )
       .setScrollFactor(0);
 
     this.game.socket.on("scene0", (state) => {
@@ -592,16 +620,46 @@ class scene0 extends Phaser.Scene {
 
   //Função para coletar a moeda
   collectCoin(character1, coin) {
+    this.game.coinCollected = true;
+
     coin.destroy();
-    this.game.points = this.game.points + 10;
-    this.pointsText.setText("Pontuação:" + this.game.points);
+
+    this.game.points += 10;
+
+    this.pointsText.setText(
+      "Pontuação:" + (this.game.points + this.game.tergiopoints),
+    );
   }
 
   //Função para coletar a chave
   collectKey(character1, key) {
+    this.game.keyCollected = true;
+
     key.destroy();
-    this.board1.destroy();
-    this.board2.destroy();
+
+     this.board1.destroy();
+     this.board2.destroy();
+
+    if (!this.game.keyCollected) {
+      this.key = this.physics.add.sprite(1648, 1135, "key", 0);
+
+      this.board1 = this.physics.add.sprite(1584, 657, "board", 0);
+      this.board2 = this.physics.add.sprite(1616, 657, "board", 0);
+
+      this.board1.setImmovable(true);
+      this.board2.setImmovable(true);
+
+      this.physics.add.collider(this.character1, this.board1);
+      this.physics.add.collider(this.character1, this.board2);
+
+      this.physics.add.overlap(
+        this.character1,
+        this.key,
+        this.collectKey,
+        null,
+        this,
+      );
+    }
   }
 }
 
