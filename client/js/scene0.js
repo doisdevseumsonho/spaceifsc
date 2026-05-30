@@ -3,6 +3,7 @@ class scene0 extends Phaser.Scene {
   caninteractTergio = false;
   caninteractAirfryer = false;
   caninteractTaulo = false;
+  caninteractToi = false;
 
   constructor() {
     super("scene0");
@@ -14,6 +15,7 @@ class scene0 extends Phaser.Scene {
     this.remotePlayers = [];
     this.tergioalive = true;
     this.tauloalive = true;
+    this.toialive = true;
     this.coincollected = false;
     this.keycollected = false;
   }
@@ -59,6 +61,9 @@ class scene0 extends Phaser.Scene {
       );
     } //cria o professor taulo salvo, caso ele já tenha sido derrotado
 
+    this.professor3 = this.physics.add.sprite(1740, 1040, "professor3", 0);//cria o professor toi
+    this.professor3.setFlipX(true);
+
     this.inator = this.physics.add.sprite(1854, 449, "inator", 0); //cria o taulo-inator
 
     const selectionTergioScaleX = 4; // escala horizontal da seleção
@@ -75,7 +80,14 @@ class scene0 extends Phaser.Scene {
       .sprite(this.professor2.x, this.professor2.y, "selectionTaulo", 0) //cria a caixa de seleção
       .setScale(selectionTauloScaleX, selectionTauloScaleY)
       .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
-
+    
+    const selectionToiScaleX = 4; // escala horizontal da seleção
+    const selectionToiScaleY = 4; // escala vertical da seleção
+    this.selectionToi = this.physics.add
+      .sprite(this.professor3.x, this.professor3.y, "selectionToi", 0) //cria a caixa de seleção
+      .setScale(selectionToiScaleX, selectionToiScaleY)
+      .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
+    
     if (this.game.localPlayer === "pedro") {
       this.character1 = this.physics.add.sprite(
         1800,
@@ -166,7 +178,10 @@ class scene0 extends Phaser.Scene {
 
     this.airfryer.setImmovable(true);
     this.physics.add.collider(this.character1, this.airfryer);
-    
+
+    this.professor3.setImmovable(true);
+    this.physics.add.collider(this.character1, this.professor3);
+
     // Função Coleta de moeda - moeda desaparece quando character encostar
     this.physics.add.overlap(
       this.character1,
@@ -323,7 +338,17 @@ class scene0 extends Phaser.Scene {
       repeat: -1,
     });
 
-    // toca animação do Térgio
+    // TOI NORMAL
+    this.anims.create({
+      key: "professor3-idle",
+      frames: this.anims.generateFrameNumbers("professor3", {
+        start: 0,
+        end: 2,
+      }),
+      frameRate: 1,
+      repeat: -1,
+    }); 
+      
     if (this.game.tergioalive === true) {
       this.professor1.play("professor1-idle");
     } else {
@@ -336,6 +361,9 @@ class scene0 extends Phaser.Scene {
     } else {
       this.professor2.play("professor2-salvo-idle");
     }
+
+    // toca animação do Toi
+ this.professor3.play("professor3-idle");
 
     this.physics.world.setBounds(
       0,
@@ -445,36 +473,138 @@ class scene0 extends Phaser.Scene {
           this.scene.start("scene2");
         }
 
-        // TAULO DERROTADO
-        else if (
-          this.caninteractTaulo === true &&
-          this.game.tauloalive === false
-        ) {
-          if (this.dialogCooldown) return;
+          // TAULO DERROTADO
+          else if (
+  this.caninteractTaulo === true &&
+  this.game.tauloalive === false
+) {
+  if (this.dialogCooldown) return;
+  this.dialogCooldown = true;
+
+  const dialog = this.add.text(
+    this.professor2.x - 167,
+    this.professor2.y - 120,
+    "Taulo:\n'Tentarei não explodir\nmais nada por aqui.\nObrigado pela ajuda.'",
+    {
+      fontSize: "16px",
+      fill: "#ffffff",
+      backgroundColor: "#000000",
+      padding: {
+        x: 10,
+        y: 10,
+      },
+      wordWrap: { width: 220 },
+    },
+  );
+
+  this.time.delayedCall(5000, () => {
+    dialog.destroy();
+    this.dialogCooldown = false;
+  });
+}
+
+       // TOI
+else if (this.caninteractToi === true) {
+  if (this.dialogCooldown) return;
           this.dialogCooldown = true;
 
-          const dialog = this.add.text(
-            this.professor2.x - 167,
-            this.professor2.y - 120,
-            "Taulo:\n'Tentarei não explodir\nmais nada por aqui.\nObrigado pela ajuda.'",
-            {
-              fontSize: "16px",
-              fill: "#ffffff",
-              backgroundColor: "#000000",
-              padding: {
-                x: 10,
-                y: 10,
-              },
-              wordWrap: { width: 220 },
-            },
-          );
 
-          this.time.delayedCall(5000, () => {
-            dialog.destroy();
-            this.dialogCooldown = false;
-          });
+          console.log(this.game.tergioalive, this.game.tauloalive);
+
+  let dialogs = [];
+
+  // Nenhum professor derrotado
+  if (
+    this.game.tergioalive === true &&
+    this.game.tauloalive === true
+  ) {
+    dialogs = [
+      "Toi:\nOlá alunos!",
+      "Nosso campus foi invadido por alienígenas controladores de mentes.",
+      "Descobri que chapéus de alumínio quebram o controle mental.",
+      "Derrotem os professores nos desafios deles.",
+      "Quando estiverem fracos, coloquem os chapéus neles.",
+      "Boa sorte!"
+    ];
+  }
+
+  // Apenas Térgio derrotado
+  else if (
+    this.game.tergioalive === false &&
+    this.game.tauloalive === true
+  ) {
+    dialogs = [
+      "Toi:\nVocês derrotaram o Térgio?",
+      "Aluno:\nSim, mas no meio do quiz ele começou a fazer perguntas estranhas.",
+      "Perguntas que nem eram de matemática.",
+      "Toi:\n...Estranho.",
+      "Esse realmente deveria ser apenas um quiz para gênios.",
+      "Agora vão derrotar o Taulo!"
+    ];
+  }
+
+  // Apenas Taulo derrotado
+  else if (
+    this.game.tergioalive === true &&
+    this.game.tauloalive === false
+  ) {
+    dialogs = [
+      "Toi:\nDerrotaram o Taulo?",
+      "Aluno:\nSim, ele estava completamente maluco tentando explodir planetas.",
+      "Toi:\nNossa.",
+      "Espero que vocês não tenham explodido a Terra.",
+      "Agora vão derrotar o Térgio!"
+    ];
+  }
+
+  // Ambos derrotados
+  else if (
+    this.game.tergioalive === false &&
+    this.game.tauloalive === false
+  ) {
+    dialogs = [
+      "Toi:\nVocês conseguiram!",
+      "Os dois professores estão livres do controle mental.",
+      "Parece que os chapéus de alumínio realmente funcionaram.",
+      "Obrigado por salvarem eles!",
+      "E lembrem...\no poder é de vocês."
+    ];
+  }
+
+  let index = 0;
+
+  const dialog = this.add.text(
+    this.professor3.x - 170,
+    this.professor3.y - 120,
+    dialogs[index],
+    {
+      fontSize: "16px",
+      fill: "#ffffff",
+      backgroundColor: "#000000",
+      padding: {
+        x: 10,
+        y: 10,
+      },
+      wordWrap: { width: 260 },
+    },
+  );
+
+  const nextDialog = () => {
+    index++;
+
+    if (index >= dialogs.length) {
+      dialog.destroy();
+      this.dialogCooldown = false;
+      return;
+    }
+
+    dialog.setText(dialogs[index]);
+
+    this.time.delayedCall(5000, nextDialog);
+  };
+
+  this.time.delayedCall(5000, nextDialog);
         }
-
         // AIRFRYER
         else if (this.caninteractAirfryer === true) {
           if (this.dialogCooldown) return;
@@ -585,6 +715,7 @@ class scene0 extends Phaser.Scene {
     const character1Bounds = this.character1.getBounds();
     const tergioBounds = this.selectionTergio.getBounds();
     const tauloBounds = this.selectionTaulo.getBounds();
+    const toiBounds = this.selectionToi.getBounds();
     const airfryerBounds = this.selectionAirfryer.getBounds();
 
     if (
@@ -606,6 +737,14 @@ class scene0 extends Phaser.Scene {
       this.caninteractTaulo = false;
     }
 
+    if (
+      Phaser.Geom.Intersects.RectangleToRectangle(character1Bounds, toiBounds)
+    ) {
+      this.caninteractToi = true;
+    } else {
+      this.caninteractToi = false;
+    }
+    
     if (
       Phaser.Geom.Intersects.RectangleToRectangle(
         character1Bounds,
