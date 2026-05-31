@@ -23,6 +23,10 @@ class scene0 extends Phaser.Scene {
   create() {
     //mapa
 
+    console.log("TAULO:", this.game.tauloalive);
+    console.log("TERGIO:", this.game.tergioalive);
+    this.dialogCooldown = false;
+
     this.tilemap = this.make.tilemap({ key: "map" }); //cria o mapa
 
     this.tilesetTileset = this.tilemap.addTilesetImage("tileset"); //adiciona o tileset ao mapa, puxando ele pelo nome que tá no Tiled

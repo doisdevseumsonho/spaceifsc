@@ -182,6 +182,12 @@ class preloader extends Phaser.Scene {
       });
     
     //scene2
+
+    this.load.spritesheet("aimflag", "minesweeper/aimflag.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+
     this.load.spritesheet("hidden_field", "minesweeper/hidden_field.png",{
       frameWidth: 32,
       frameHeight: 32,
