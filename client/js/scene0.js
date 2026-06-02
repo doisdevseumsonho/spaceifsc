@@ -474,7 +474,7 @@ class scene0 extends Phaser.Scene {
           this.game.tauloalive === true
         ) {
           this.scene.stop("scene0");
-          this.scene.start("scenetutorial2");
+          this.scene.start("scenetutorial3");
         }
 
           // TAULO DERROTADO
