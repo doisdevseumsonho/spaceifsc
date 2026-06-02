@@ -106,7 +106,7 @@ antes que algo pior aconteça.`;
          this.introMusic.stop();
        }
 
-       this.scene.start("scene0");
+       this.scene.start("scenetutorial1");
      });
    });
   }

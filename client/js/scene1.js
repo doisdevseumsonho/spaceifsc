@@ -93,9 +93,9 @@ class scene1 extends Phaser.Scene {
       {
         text: "17: Como se inicia um conto?",
         answers: [
-          "Bom dia.",
-          "E do\nnada.",
-          "Naquele\ndia...",
+          "bom dia.",
+          "e do\nnada.",
+          "naquele\ndia...",
           "Era uma\nvez...",
         ],
         correct: 3,
