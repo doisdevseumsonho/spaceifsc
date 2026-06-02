@@ -435,7 +435,7 @@ class scene0 extends Phaser.Scene {
         // TÉRGIO VIVO
         if (this.caninteractTergio === true && this.game.tergioalive === true) {
           this.scene.stop("scene0");
-          this.scene.start("scene1");
+          this.scene.start("scenetutorial2");
         }
 
         // TÉRGIO DERROTADO
@@ -474,7 +474,7 @@ class scene0 extends Phaser.Scene {
           this.game.tauloalive === true
         ) {
           this.scene.stop("scene0");
-          this.scene.start("scene2");
+          this.scene.start("scenetutorial2");
         }
 
           // TAULO DERROTADO

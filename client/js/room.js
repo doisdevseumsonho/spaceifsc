@@ -37,7 +37,7 @@ class room extends Phaser.Scene {
       this.qrcodeContainer.remove();
 
       this.scene.stop("room");
-      this.scene.start("scenetutorial1");
+      this.scene.start("scene_intro");
     });
   }
 }
