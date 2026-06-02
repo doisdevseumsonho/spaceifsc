@@ -8,6 +8,9 @@ import start from "./start.js";
 import scene_selection from "./scene_selection.js";
 import preloader from "./preloader.js";
 import room from "./room.js";
+import scenetutorial1 from "./scenetutorial1.js";
+import scenetutorial2 from "./scenetutorial2.js";
+import scenetutorial3 from "./scenetutorial3.js";
 
 class Game extends Phaser.Game {
   constructor() {
@@ -21,7 +24,11 @@ class Game extends Phaser.Game {
     this.scene.add("start", start);
     this.scene.add("preloader", preloader);
     this.scene.add("room", room);
+    this.scene.add("scenetutorial1", scenetutorial1);
+    this.scene.add("scenetutorial2", scenetutorial2);
+    this.scene.add("scenetutorial3", scenetutorial3);
     this.scene.start("start");
+
 
     this.points = 0;
     this.tergiopoints = 0;
