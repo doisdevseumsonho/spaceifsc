@@ -560,8 +560,8 @@ class scene2 extends Phaser.Scene {
     };
 
     const subStyle = {
-      fontSize:        "13px",
-      fill:            "#aaaaaa",
+      fontSize:        "17px",
+      fill:            "#ffffff",
       stroke:          "#000000",
       strokeThickness: 2,
       align:           "center",
@@ -573,18 +573,18 @@ class scene2 extends Phaser.Scene {
     if (allDestroyed) {
       // ── Final alternativo: todos os planetas destruídos ────
       titleText = "🌑 UNIVERSO DESTRUÍDO";
-      bodyText  = "Todos os planetas foram destruídos.\nO universo não pode mais ser salvo.";
-      subText   = "+0 pontos\nVoltando ao mapa...";
+      bodyText  = "Todos os planetas foram destruídos.\nO fim está próximo.\nVolte aqui para completar a luta.";
+      subText   = "+0 pontos\nVoltando ao IFSC...";
     } else if (won) {
       // ── Vitória normal ────────────────────────────────────
       titleText = "🌍 PLANETAS SALVOS!";
       bodyText  = `${salvos} planeta${salvos !== 1 ? "s" : ""} salvo${salvos !== 1 ? "s" : ""}!`;
-      subText   = `+${pontos} pontos\nVoltando ao mapa...`;
+      subText   = `+${pontos} pontos\nVoltando ao IFSC...`;
     } else {
       // ── Derrota ───────────────────────────────────────────
       titleText = `💥 Você explodiu ${planetName ?? "um planeta"}!`;
-      bodyText  = "Volte para a fase para tentar\nsalvar os planetas restantes.";
-      subText   = "Voltando ao mapa...";
+      bodyText  = "Volte para a luta para tentar\nsalvar os planetas restantes.";
+      subText   = "Voltando ao IFSC...";
     }
 
     const offsetY = allDestroyed ? -60 : -70;

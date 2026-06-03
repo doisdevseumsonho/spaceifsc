@@ -103,14 +103,14 @@ class scene0 extends Phaser.Scene {
       ); //cria o pedro
     } else if (this.game.localPlayer === "pedro" && this.game.tergioalive === false && this.game.tauloalive === true) {
       this.character1 = this.physics.add.sprite(
-        this.professor1.x + 60,
+        this.professor1.x + 64,
         this.professor1.y,
         "characterPedro",
         20,
       ); //cria o pedro perto do tergio
     } else if (this.game.localPlayer === "pedro" && this.game.tergioalive === true && this.game.tauloalive === false) {
       this.character1 = this.physics.add.sprite(
-        this.professor2.x + 60,
+        this.professor2.x + 64,
         this.professor2.y,
         "characterPedro",
         20,
@@ -125,13 +125,34 @@ class scene0 extends Phaser.Scene {
 
 
 
-    } else if (this.game.localPlayer === "pablo" && this.tergioalive === true && this.tauloalive === true) {
+    } else if (this.game.localPlayer === "pablo" && this.game.tergioalive === true && this.game.tauloalive === true) {
       this.character1 = this.physics.add.sprite(
         1800,
         1500,
         "characterPablo",
         20,
-      ) ; //cria o personagem
+      ); //cria o pablo
+    } else if (this.game.localPlayer === "pablo" && this.game.tergioalive === false && this.game.tauloalive === true) {
+      this.character1 = this.physics.add.sprite(
+        this.professor1.x + 64,
+        this.professor1.y,
+        "characterPablo",
+        20,
+      ); //cria o pablo perto do tergio
+    } else if (this.game.localPlayer === "pablo" && this.game.tergioalive === true && this.game.tauloalive === false) {
+      this.character1 = this.physics.add.sprite(
+        this.professor2.x + 64,
+        this.professor2.y,
+        "characterPablo",
+        20,
+      ); //cria o pablo perto do taulo
+    } else if (this.game.localPlayer === "pablo" && this.game.tergioalive === false && this.game.tauloalive === false) {
+      this.character1 = this.physics.add.sprite(
+        this.professor2.x - 200,
+        this.professor2.y,
+        "characterPablo",
+        20,
+      );
     }
 
     if (!this.game.keyCollected) {
@@ -779,8 +800,6 @@ class scene0 extends Phaser.Scene {
     this.game.coinCollected = true;
 
     coin.destroy();
-
-    this.game.points += 10;
 
     this.pointsText.setText(
       "Pontuação:" + (this.game.points + this.game.tergiopoints),
