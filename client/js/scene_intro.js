@@ -25,17 +25,17 @@ class scene_intro extends Phaser.Scene {
     const texto = `Em um campus muito, muito distante...
 
 O primeiro Instituto Federal ESPACIAL
-foi lançado no ano de 2XXX.
+foi lançado, no ano de 2XXX.
 
 Em sua primeira expedição
-em um planeta desconhecido,
+a um planeta desconhecido,
 algo inesperado aconteceu.
 
 A tripulação encontrou
-uma nova raça inteligente:
+uma raça inteligente desconhecida:
 os Gincanáliens.
 
-Esses seres possuíam
+Seres que possuíam
 uma paixão incontrolável
 por gincanas e competições.
 
@@ -43,14 +43,14 @@ Os professores aceitaram participar,
 sem conhecer o verdadeiro poder
 de seus adversários.
 
-Todo aquele que perde
+Todos aqueles que perdem
 um desafio contra um Gincanálien
-tem sua mente dominada.
+têm sua mente dominada.
 
 Os professores Térgio e Taulo
 foram as primeiras vítimas.
 
-Os demais professores
+E os demais professores
 fugiram em suas naves.
 
 Mas, na pressa...
