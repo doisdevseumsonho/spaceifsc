@@ -11,6 +11,7 @@ import room from "./room.js";
 import scenetutorial1 from "./scenetutorial1.js";
 import scenetutorial2 from "./scenetutorial2.js";
 import scenetutorial3 from "./scenetutorial3.js";
+import finalFeliz from "./final-feliz.js";
 
 class Game extends Phaser.Game {
   constructor() {
@@ -27,6 +28,7 @@ class Game extends Phaser.Game {
     this.scene.add("scenetutorial1", scenetutorial1);
     this.scene.add("scenetutorial2", scenetutorial2);
     this.scene.add("scenetutorial3", scenetutorial3);
+    this.scene.add("finalFeliz", finalFeliz);
     this.scene.start("start");
 
 
