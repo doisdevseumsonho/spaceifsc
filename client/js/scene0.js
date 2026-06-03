@@ -18,6 +18,8 @@ class scene0 extends Phaser.Scene {
     this.toialive = true;
     this.coincollected = false;
     this.keycollected = false;
+    this.index = 0;
+    this.dialogs = []
   }
 
   create() {
@@ -65,7 +67,7 @@ class scene0 extends Phaser.Scene {
       );
     } //cria o professor taulo salvo, caso ele já tenha sido derrotado
 
-    this.professor3 = this.physics.add.sprite(1740, 1040, "professor3", 0);//cria o professor toi
+    this.professor3 = this.physics.add.sprite(1740, 1040, "professor3", 0); //cria o professor toi
     this.professor3.setFlipX(true);
 
     this.inator = this.physics.add.sprite(1854, 449, "inator", 0); //cria o taulo-inator
@@ -84,40 +86,54 @@ class scene0 extends Phaser.Scene {
       .sprite(this.professor2.x, this.professor2.y, "selectionTaulo", 0) //cria a caixa de seleção
       .setScale(selectionTauloScaleX, selectionTauloScaleY)
       .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
-    
+
     const selectionToiScaleX = 4; // escala horizontal da seleção
     const selectionToiScaleY = 4; // escala vertical da seleção
     this.selectionToi = this.physics.add
       .sprite(this.professor3.x, this.professor3.y, "selectionToi", 0) //cria a caixa de seleção
       .setScale(selectionToiScaleX, selectionToiScaleY)
       .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
-    
-    if (this.game.localPlayer === "pedro") {
+
+    if (this.game.localPlayer === "pedro" && this.game.tergioalive === true && this.game.tauloalive === true) {
       this.character1 = this.physics.add.sprite(
         1800,
         1500,
         "characterPedro",
         20,
-      ); //cria o personagem
-    } else if (this.game.localPlayer === "pablo") {
+      ); //cria o pedro
+    } else if (this.game.localPlayer === "pedro" && this.game.tergioalive === false && this.game.tauloalive === true) {
+      this.character1 = this.physics.add.sprite(
+        this.professor1.x + 60,
+        this.professor1.y,
+        "characterPedro",
+        20,
+      ); //cria o pedro perto do tergio
+    } else if (this.game.localPlayer === "pedro" && this.game.tergioalive === true && this.game.tauloalive === false) {
+      this.character1 = this.physics.add.sprite(
+        this.professor2.x + 60,
+        this.professor2.y,
+        "characterPedro",
+        20,
+      ); //cria o pedro perto do taulo
+    } else if (this.game.localPlayer === "pedro" && this.game.tergioalive === false && this.game.tauloalive === false) {
+      this.character1 = this.physics.add.sprite(
+        this.professor2.x - 200,
+        this.professor2.y,
+        "characterPedro",
+        20,
+      ); //cria o pedro entre os dois professores.
+
+
+
+    } else if (this.game.localPlayer === "pablo" && this.tergioalive === true && this.tauloalive === true) {
       this.character1 = this.physics.add.sprite(
         1800,
         1500,
         "characterPablo",
         20,
-      ); //cria o personagem
+      ) ; //cria o personagem
     }
-    if (!this.game.coinCollected) {
-      this.coin = this.physics.add.sprite(1648, 1040, "coin", 0);
 
-      this.physics.add.overlap(
-        this.character1,
-        this.coin,
-        this.collectCoin,
-        null,
-        this,
-      );
-    }
     if (!this.game.keyCollected) {
       this.key = this.physics.add.sprite(1648, 1135, "key", 0);
 
@@ -130,16 +146,16 @@ class scene0 extends Phaser.Scene {
       );
     }
     this.airfryer = this.physics.add.sprite(1360, 1200, "airfryer", 0); //cria a airfryer
-   if (!this.game.keyCollected) {
-     this.board1 = this.physics.add.sprite(1584, 657, "board", 0);
-     this.board2 = this.physics.add.sprite(1616, 657, "board", 0);
+    if (!this.game.keyCollected) {
+      this.board1 = this.physics.add.sprite(1584, 657, "board", 0);
+      this.board2 = this.physics.add.sprite(1616, 657, "board", 0);
 
-     this.board1.setImmovable(true);
-     this.board2.setImmovable(true);
+      this.board1.setImmovable(true);
+      this.board2.setImmovable(true);
 
-     this.physics.add.collider(this.character1, this.board1);
-     this.physics.add.collider(this.character1, this.board2);
-   } //cria as placas de segurança se a chave não tiver sido coletada
+      this.physics.add.collider(this.character1, this.board1);
+      this.physics.add.collider(this.character1, this.board2);
+    } //cria as placas de segurança se a chave não tiver sido coletada
 
     this.selectionAirfryer = this.physics.add
       .sprite(this.airfryer.x, this.airfryer.y, "selectionAirfryer", 0) //cria a caixa de seleção
@@ -351,8 +367,8 @@ class scene0 extends Phaser.Scene {
       }),
       frameRate: 1,
       repeat: -1,
-    }); 
-      
+    });
+
     if (this.game.tergioalive === true) {
       this.professor1.play("professor1-idle");
     } else {
@@ -367,7 +383,7 @@ class scene0 extends Phaser.Scene {
     }
 
     // toca animação do Toi
- this.professor3.play("professor3-idle");
+    this.professor3.play("professor3-idle");
 
     this.physics.world.setBounds(
       0,
@@ -446,7 +462,7 @@ class scene0 extends Phaser.Scene {
           if (this.dialogCooldown) return;
           this.dialogCooldown = true;
 
-          const dialog = this.add.text(
+          this.dialog = this.add.text(
             this.professor1.x + 60,
             this.professor1.y - 67,
             "Térgio:\n'Obrigado por me ajudar.\nE lembrem...\no poder é de vocês.'",
@@ -463,158 +479,155 @@ class scene0 extends Phaser.Scene {
           );
 
           this.time.delayedCall(5000, () => {
-            dialog.destroy();
+            this.dialog.destroy();
             this.dialogCooldown = false;
           });
         }
 
-        // TAULO VIVO
+        // TAULO VIVO TUTORIAL ATIVO
         else if (
           this.caninteractTaulo === true &&
-          this.game.tauloalive === true
+          this.game.tauloalive === true &&
+          this.game.taulotutorial === true
         ) {
+          this.game.taulotutorial = false;
           this.scene.stop("scene0");
           this.scene.start("scenetutorial3");
         }
 
-          // TAULO DERROTADO
-          else if (
-  this.caninteractTaulo === true &&
-  this.game.tauloalive === false
-) {
-  if (this.dialogCooldown) return;
-  this.dialogCooldown = true;
+        // TAULO VIVO TUTORIAL JÁ FEITO
+        else if (
+          this.caninteractTaulo === true &&
+          this.game.tauloalive === true &&
+          this.game.taulotutorial === false
+        ) {
+          this.scene.stop("scene0");
+          this.scene.start("scene2");
+        }
 
-  const dialog = this.add.text(
-    this.professor2.x - 167,
-    this.professor2.y - 120,
-    "Taulo:\n'Tentarei não explodir\nmais nada por aqui.\nObrigado pela ajuda.'",
-    {
-      fontSize: "16px",
-      fill: "#ffffff",
-      backgroundColor: "#000000",
-      padding: {
-        x: 10,
-        y: 10,
-      },
-      wordWrap: { width: 220 },
-    },
-  );
-
-  this.time.delayedCall(5000, () => {
-    dialog.destroy();
-    this.dialogCooldown = false;
-  });
-}
-
-       // TOI
-else if (this.caninteractToi === true) {
-  if (this.dialogCooldown) return;
+        // TAULO DERROTADO
+        else if (
+          this.caninteractTaulo === true &&
+          this.game.tauloalive === false
+        ) {
+          if (this.dialogCooldown) return;
           this.dialogCooldown = true;
 
+          this.dialog = this.add.text(
+            this.professor2.x - 167,
+            this.professor2.y - 120,
+            "Taulo:\n'Tentarei não explodir\nmais nada por aqui.\nObrigado pela ajuda.'",
+            {
+              fontSize: "16px",
+              fill: "#ffffff",
+              backgroundColor: "#000000",
+              padding: {
+                x: 10,
+                y: 10,
+              },
+              wordWrap: { width: 220 },
+            },
+          );
+
+          this.time.delayedCall(5000, () => {
+            this.dialog.destroy();
+            this.dialogCooldown = false;
+          });
+        }
+
+        // TOI
+        else if (this.caninteractToi === true) {
+          if (this.dialogCooldown) return;
+          this.dialogCooldown = true;
 
           console.log(this.game.tergioalive, this.game.tauloalive);
 
-  let dialogs = [];
+          this.dialogs = [];
 
-  // Nenhum professor derrotado
-  if (
-    this.game.tergioalive === true &&
-    this.game.tauloalive === true
-  ) {
-    dialogs = [
-      "Toi:\nOlá alunos!",
-      "Nosso campus foi invadido por alienígenas controladores de mentes.",
-      "Descobri que chapéus de alumínio quebram o controle mental.",
-      "Derrotem os professores nos desafios deles.",
-      "Quando estiverem fracos, coloquem os chapéus neles.",
-      "Boa sorte!"
-    ];
-  }
+          // Nenhum professor derrotado
+          if (this.game.tergioalive === true && this.game.tauloalive === true) {
+            this.dialogs = [
+              "Toi:\nOlá alunos!",
+              "Nosso campus foi invadido por alienígenas controladores de mentes.",
+              "Descobri que chapéus de alumínio quebram o controle mental.",
+              "Derrotem os professores nos desafios deles.",
+              "Quando estiverem fracos, coloquem os chapéus neles.",
+              "Boa sorte!",
+            ];
+          }
 
-  // Apenas Térgio derrotado
-  else if (
-    this.game.tergioalive === false &&
-    this.game.tauloalive === true
-  ) {
-    dialogs = [
-      "Toi:\nVocês derrotaram o Térgio?",
-      "Aluno:\nSim, mas no meio do quiz ele começou a fazer perguntas estranhas.",
-      "Perguntas que nem eram de matemática.",
-      "Toi:\n...Estranho.",
-      "Esse realmente deveria ser apenas um quiz para gênios.",
-      "Agora vão derrotar o Taulo!"
-    ];
-  }
+          // Apenas Térgio derrotado
+          else if (
+            this.game.tergioalive === false &&
+            this.game.tauloalive === true
+          ) {
+            this.dialogs = [
+              "Toi:\nVocês derrotaram o Térgio?",
+              "Aluno:\nSim, mas no meio do quiz ele começou a fazer perguntas estranhas.",
+              "Perguntas que nem eram de matemática.",
+              "Toi:\n...Estranho.",
+              "Esse realmente deveria ser apenas um quiz para gênios.",
+              "Agora vão derrotar o Taulo!",
+            ];
+          }
 
-  // Apenas Taulo derrotado
-  else if (
-    this.game.tergioalive === true &&
-    this.game.tauloalive === false
-  ) {
-    dialogs = [
-      "Toi:\nDerrotaram o Taulo?",
-      "Aluno:\nSim, ele estava completamente maluco tentando explodir planetas.",
-      "Toi:\nNossa.",
-      "Espero que vocês não tenham explodido a Terra.",
-      "Agora vão derrotar o Térgio!"
-    ];
-  }
+          // Apenas Taulo derrotado
+          else if (
+            this.game.tergioalive === true &&
+            this.game.tauloalive === false
+          ) {
+            this.dialogs = [
+              "Toi:\nDerrotaram o Taulo?",
+              "Aluno:\nSim, ele estava completamente maluco tentando explodir planetas.",
+              "Toi:\nNossa.",
+              "Espero que vocês não tenham explodido a Terra.",
+              "Agora vão derrotar o Térgio!",
+            ];
+          }
 
-  // Ambos derrotados
-  else if (
-    this.game.tergioalive === false &&
-    this.game.tauloalive === false
-  ) {
-    dialogs = [
-      "Toi:\nVocês conseguiram!",
-      "Os dois professores estão livres do controle mental.",
-      "Parece que os chapéus de alumínio realmente funcionaram.",
-      "Obrigado por salvarem eles!",
-      "E lembrem...\no poder é de vocês."
-    ];
-  }
+          // Ambos derrotados
+          else if (
+            this.game.tergioalive === false &&
+            this.game.tauloalive === false
+          ) {
+            ((this.dialogs = [
+              "Toi:\nVocês conseguiram!",
+              "Os dois professores estão livres do controle mental.",
+              "Parece que os chapéus de alumínio realmente funcionaram.",
+              "Obrigado por salvarem eles!",
+              "E lembrem...\no poder é de vocês.",
+            ]),
+              this.time.delayedCall(5000, this.nextDialog));
 
-  let index = 0;
+            (this.scene.stop("scene0"), this.scene.start("finalFeliz"));
+          }
 
-  const dialog = this.add.text(
-    this.professor3.x - 170,
-    this.professor3.y - 120,
-    dialogs[index],
-    {
-      fontSize: "16px",
-      fill: "#ffffff",
-      backgroundColor: "#000000",
-      padding: {
-        x: 10,
-        y: 10,
-      },
-      wordWrap: { width: 260 },
-    },
-  );
+          this.index = 0;
 
-  const nextDialog = () => {
-    index++;
+          this.dialog = this.add.text(
+            this.professor3.x - 170,
+            this.professor3.y - 120,
+            this.dialogs[this.index],
+            {
+              fontSize: "16px",
+              fill: "#ffffff",
+              backgroundColor: "#000000",
+              padding: {
+                x: 10,
+                y: 10,
+              },
+              wordWrap: { width: 260 },
+            },
+          );
 
-    if (index >= dialogs.length) {
-      dialog.destroy();
-      this.dialogCooldown = false;
-      return;
-    }
-
-    dialog.setText(dialogs[index]);
-
-    this.time.delayedCall(5000, nextDialog);
-  };
-
-  this.time.delayedCall(5000, nextDialog);
+          this.time.delayedCall(5000, this.nextDialog);
         }
         // AIRFRYER
         else if (this.caninteractAirfryer === true) {
           if (this.dialogCooldown) return;
           this.dialogCooldown = true;
 
-          const dialog = this.add.text(
+          this.dialog = this.add.text(
             this.character1.x + 6.7,
             this.character1.y - 67,
             "Uma airfryer\nda Equipe Rocket!",
@@ -631,7 +644,7 @@ else if (this.caninteractToi === true) {
           );
 
           this.time.delayedCall(3000, () => {
-            dialog.destroy();
+            this.dialog.setText("")
             this.dialogCooldown = false;
           });
         }
@@ -748,7 +761,7 @@ else if (this.caninteractToi === true) {
     } else {
       this.caninteractToi = false;
     }
-    
+
     if (
       Phaser.Geom.Intersects.RectangleToRectangle(
         character1Bounds,
@@ -780,8 +793,8 @@ else if (this.caninteractToi === true) {
 
     key.destroy();
 
-     this.board1.destroy();
-     this.board2.destroy();
+    this.board1.destroy();
+    this.board2.destroy();
 
     if (!this.game.keyCollected) {
       this.key = this.physics.add.sprite(1648, 1135, "key", 0);
@@ -804,6 +817,20 @@ else if (this.caninteractToi === true) {
       );
     }
   }
+
+  nextDialog = () => {
+    this.index++;
+
+    if (this.index >= this.airfryerdialogs.length) {
+      this.airfryerdialog.setText("");
+      this.dialogCooldown = false;
+      return;
+    }
+
+    this.airfryerdialog.setText(this.airfryerdialogs[this.index]);
+
+    this.time.delayedCall(5000, this.nextDialog);
+  };
 }
 
 export default scene0;

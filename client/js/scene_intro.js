@@ -70,7 +70,7 @@ antes que algo pior aconteça.`;
         700, // começa abaixo da tela
         texto,
         {
-          fontFamily: "Arial",
+          fontFamily: "news-gothic-bold",
           fontSize: "32px",
           color: "#FFD700", // amarelo 
           align: "center",

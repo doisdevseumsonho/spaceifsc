@@ -15,6 +15,8 @@ class preloader extends Phaser.Scene {
   preload() {
     this.load.setPath("assets/");
 
+    this.load.font("news-gothic-bold", "news-gothic-bold.otf");
+
     //room
     this.load.image("room_background", "room_background.png");
 
