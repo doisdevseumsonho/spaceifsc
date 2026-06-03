@@ -45,5 +45,3 @@ export default class finalFeliz extends Phaser.Scene {
     });
   }
 }
-
-export default finalFeliz;
