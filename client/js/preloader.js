@@ -98,20 +98,10 @@ class preloader extends Phaser.Scene {
       frameHeight: 32,
     });
 
-    this.load.spritesheet("coin", "coin.png", {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-
-    this.load.spritesheet("aluminum_hat_1", "aluminum_hat_1.png", {
+    this.load.spritesheet("aluminum_hat", "aluminum_hat.png", {
       frameWidth: 32,
       frameHeight: 32,
     }); 
-
-    this.load.spritesheet("aluminum_hat_2", "aluminum_hat_2.png", {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
 
     this.load.spritesheet("airfryer", "airfryer.png", {
       frameWidth: 32,

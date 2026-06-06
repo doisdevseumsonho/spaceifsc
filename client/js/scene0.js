@@ -16,26 +16,17 @@ class scene0 extends Phaser.Scene {
     this.tergioalive = true;
     this.tauloalive = true;
     this.toialive = true;
-    this.coincollected = false;
     this.keycollected = false;
     this.index = 0;
-    this.dialogs = []
+    this.dialogs = [];
   }
 
   create() {
     //mapa
 
-  if (this.game.hasHat === undefined) {
-    this.game.hasHat = false;
-  }
-
-  if (this.game.hat1Collected === undefined) {
-    this.game.hat1Collected = false;
-  }
-
-  if (this.game.hat2Collected === undefined) {
-    this.game.hat2Collected = false;
-  }
+    if (this.game.hatCollected === undefined) {
+      this.game.hatCollected = false;
+    }
     console.log("TAULO:", this.game.tauloalive);
     console.log("TERGIO:", this.game.tergioalive);
     this.dialogCooldown = false;
@@ -105,59 +96,88 @@ class scene0 extends Phaser.Scene {
       .setScale(selectionToiScaleX, selectionToiScaleY)
       .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
 
-    if (this.game.localPlayer === "pedro" && this.game.tergioalive === true && this.game.tauloalive === true) {
+    if (
+      this.game.localPlayer === "pedro" &&
+      this.game.tergioalive === true &&
+      this.game.tauloalive === true
+    ) {
       this.character1 = this.physics.add.sprite(
         1800,
         1500,
         "characterPedro",
         20,
       ); //cria o pedro
-    } else if (this.game.localPlayer === "pedro" && this.game.tergioalive === false && this.game.tauloalive === true) {
+    } else if (
+      this.game.localPlayer === "pedro" &&
+      this.game.tergioalive === false &&
+      this.game.tauloalive === true
+    ) {
       this.character1 = this.physics.add.sprite(
         this.professor1.x + 64,
         this.professor1.y,
         "characterPedro",
         20,
       ); //cria o pedro perto do tergio
-    } else if (this.game.localPlayer === "pedro" && this.game.tergioalive === true && this.game.tauloalive === false) {
+    } else if (
+      this.game.localPlayer === "pedro" &&
+      this.game.tergioalive === true &&
+      this.game.tauloalive === false
+    ) {
       this.character1 = this.physics.add.sprite(
         this.professor2.x + 64,
         this.professor2.y,
         "characterPedro",
         20,
       ); //cria o pedro perto do taulo
-    } else if (this.game.localPlayer === "pedro" && this.game.tergioalive === false && this.game.tauloalive === false) {
+    } else if (
+      this.game.localPlayer === "pedro" &&
+      this.game.tergioalive === false &&
+      this.game.tauloalive === false
+    ) {
       this.character1 = this.physics.add.sprite(
         this.professor2.x - 200,
         this.professor2.y,
         "characterPedro",
         20,
       ); //cria o pedro entre os dois professores.
-
-
-
-    } else if (this.game.localPlayer === "pablo" && this.game.tergioalive === true && this.game.tauloalive === true) {
+    } else if (
+      this.game.localPlayer === "pablo" &&
+      this.game.tergioalive === true &&
+      this.game.tauloalive === true
+    ) {
       this.character1 = this.physics.add.sprite(
         1800,
         1500,
         "characterPablo",
         20,
       ); //cria o pablo
-    } else if (this.game.localPlayer === "pablo" && this.game.tergioalive === false && this.game.tauloalive === true) {
+    } else if (
+      this.game.localPlayer === "pablo" &&
+      this.game.tergioalive === false &&
+      this.game.tauloalive === true
+    ) {
       this.character1 = this.physics.add.sprite(
         this.professor1.x + 64,
         this.professor1.y,
         "characterPablo",
         20,
       ); //cria o pablo perto do tergio
-    } else if (this.game.localPlayer === "pablo" && this.game.tergioalive === true && this.game.tauloalive === false) {
+    } else if (
+      this.game.localPlayer === "pablo" &&
+      this.game.tergioalive === true &&
+      this.game.tauloalive === false
+    ) {
       this.character1 = this.physics.add.sprite(
         this.professor2.x + 64,
         this.professor2.y,
         "characterPablo",
         20,
       ); //cria o pablo perto do taulo
-    } else if (this.game.localPlayer === "pablo" && this.game.tergioalive === false && this.game.tauloalive === false) {
+    } else if (
+      this.game.localPlayer === "pablo" &&
+      this.game.tergioalive === false &&
+      this.game.tauloalive === false
+    ) {
       this.character1 = this.physics.add.sprite(
         this.professor2.x - 200,
         this.professor2.y,
@@ -166,13 +186,21 @@ class scene0 extends Phaser.Scene {
       );
     }
 
+    if (this.game.hatCollected) {
+      if (this.game.localPlayer === "pedro") {
+        this.character1.setTexture("characterPedroHat");
+      } else {
+        this.character1.setTexture("characterPabloHat");
+      }
+    }
+
     if (!this.game.hatCollected) {
-      this.hat = this.physics.add.sprite(1648, 1135, "aluminum_hat_1", 0);
+      this.hat = this.physics.add.sprite(1648, 1135, "aluminum_hat", 0);
 
       this.physics.add.overlap(
         this.character1,
         this.hat,
-        this.collectHat1,
+        this.collectHat,
         null,
         this,
       );
@@ -234,24 +262,6 @@ class scene0 extends Phaser.Scene {
     this.professor3.setImmovable(true);
     this.physics.add.collider(this.character1, this.professor3);
 
-    // Função Coleta de moeda - moeda desaparece quando character encostar
-    this.physics.add.overlap(
-      this.character1,
-      this.coin,
-      this.collectCoin,
-      null,
-      this,
-    );
-
-    // Função Coleta de chave - chave desaparece quando character encostar
-    this.physics.add.overlap(
-      this.character1,
-      this.key,
-      this.collectKey,
-      null,
-      this,
-    );
-
     // música
     if (!this.sound.get("hubmusic")) {
       this.hubmusic = this.sound.add("hubmusic", {
@@ -288,20 +298,63 @@ class scene0 extends Phaser.Scene {
     this.anims.create({
       key: "characterPedro-stop-right",
       frames: this.anims.generateFrameNumbers("characterPedro", {
-        start: 86,
-        end: 86,
+        start: 0,
+        end: 1,
       }), //sprites são um a menos que no spritesheet.
-      frameRate: 10,
+      frameRate: 4,
       repeat: -1,
     });
 
     this.anims.create({
       key: "characterPedro-stop-left",
       frames: this.anims.generateFrameNumbers("characterPedro", {
-        start: 69,
-        end: 69,
+        start: 6,
+        end: 7,
       }), //sprites são um a menos que no spritesheet.
-      frameRate: 10,
+      frameRate: 4,
+      repeat: -1,
+    });
+
+    //pedro de chapéu
+
+    this.anims.create({
+      key: "characterPedroHat-walk-right",
+      frames: this.anims.generateFrameNumbers("characterPedroHat", {
+        start: 2,
+        end: 5,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 11,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "characterPedroHat-walk-left",
+      frames: this.anims.generateFrameNumbers("characterPedroHat", {
+        start: 8,
+        end: 11,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 11,
+      repeat: -1,
+    });
+
+    //parada
+    this.anims.create({
+      key: "characterPedroHat-stop-right",
+      frames: this.anims.generateFrameNumbers("characterPedroHat", {
+        start: 0,
+        end: 1,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 4,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "characterPedroHat-stop-left",
+      frames: this.anims.generateFrameNumbers("characterPedroHat", {
+        start: 6,
+        end: 7,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 4,
       repeat: -1,
     });
 
@@ -332,7 +385,7 @@ class scene0 extends Phaser.Scene {
         start: 0,
         end: 1,
       }), //sprites são um a menos que no spritesheet.
-      frameRate: 8,
+      frameRate: 3,
       repeat: -1,
     });
 
@@ -342,7 +395,50 @@ class scene0 extends Phaser.Scene {
         start: 6,
         end: 7,
       }), //sprites são um a menos que no spritesheet.
-      frameRate: 8,
+      frameRate: 3,
+      repeat: -1,
+    });
+
+    //pablo de chapéu
+
+    this.anims.create({
+      key: "characterPabloHat-walk-right",
+      frames: this.anims.generateFrameNumbers("characterPabloHat", {
+        start: 2,
+        end: 5,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 5,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "characterPabloHat-walk-left",
+      frames: this.anims.generateFrameNumbers("characterPabloHat", {
+        start: 8,
+        end: 11,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 5,
+      repeat: -1,
+    });
+
+    //parada
+    this.anims.create({
+      key: "characterPabloHat-stop-right",
+      frames: this.anims.generateFrameNumbers("characterPabloHat", {
+        start: 0,
+        end: 1,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 3,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "characterPabloHat-stop-left",
+      frames: this.anims.generateFrameNumbers("characterPabloHat", {
+        start: 6,
+        end: 7,
+      }), //sprites são um a menos que no spritesheet.
+      frameRate: 3,
       repeat: -1,
     });
 
@@ -453,22 +549,64 @@ class scene0 extends Phaser.Scene {
         );
 
         const angle = this.joystick.angle;
+
         if (angle > -90 && angle < 90) {
+          // DIREITA
+
+          if (this.game.hatCollected) {
+            this.character1.play(
+              this.game.localPlayer === "pedro"
+                ? "characterPedroHat-walk-right"
+                : "characterPabloHat-walk-right",
+              true
+            );
+          } else {
+            this.character1.play(
+              this.game.localPlayer === "pedro"
+                ? "characterPedro-walk-right"
+                : "characterPablo-walk-right",
+              true
+            );
+          }
+
+        } else {
+          // ESQUERDA
+
+          if (this.game.hatCollected) {
+            this.character1.play(
+              this.game.localPlayer === "pedro"
+                ? "characterPedroHat-walk-left"
+                : "characterPabloHat-walk-left",
+              true
+            );
+          } else {
+            this.character1.play(
+              this.game.localPlayer === "pedro"
+                ? "characterPedro-walk-left"
+                : "characterPablo-walk-left",
+              true
+            );
+          }
+        }
+
+      } else {
+        this.character1.setVelocity(0, 0);
+
+        if (this.game.hatCollected) {
           this.character1.play(
             this.game.localPlayer === "pedro"
-              ? "characterPedro-walk-right"
-              : "characterPablo-walk-right",
+              ? "characterPedroHat-stop-right"
+              : "characterPabloHat-stop-right",
+            true
           );
         } else {
           this.character1.play(
             this.game.localPlayer === "pedro"
-              ? "characterPedro-walk-left"
-              : "characterPablo-walk-left",
+              ? "characterPedro-stop-right"
+              : "characterPablo-stop-right",
+            true
           );
         }
-      } else {
-        this.character1.setVelocity(0, 0);
-        this.character1.anims.stop();
       }
     });
 
@@ -676,7 +814,7 @@ class scene0 extends Phaser.Scene {
           );
 
           this.time.delayedCall(3000, () => {
-            this.dialog.setText("")
+            this.dialog.setText("");
             this.dialogCooldown = false;
           });
         }
@@ -806,45 +944,18 @@ class scene0 extends Phaser.Scene {
     }
   }
 
-  //Função para coletar a moeda
-  collectCoin(character1, coin) {
-    this.game.coinCollected = true;
+  collectHat(character1, hat) {
+    this.game.hatCollected = true;
 
-    coin.destroy();
-
-    this.pointsText.setText(
-      "Pontuação:" + (this.game.points + this.game.tergiopoints),
-    );
-  }
-
-  //Função para coletar a chave
-  collectKey(character1, key) {
-    this.game.keyCollected = true;
-
-    key.destroy();
+    hat.destroy();
 
     this.board1.destroy();
     this.board2.destroy();
 
-    if (!this.game.keyCollected) {
-      this.hat1 = this.physics.add.sprite(1648, 1135, "hat1", 0);
-
-      this.board1 = this.physics.add.sprite(1584, 657, "board", 0);
-      this.board2 = this.physics.add.sprite(1616, 657, "board", 0);
-
-      this.board1.setImmovable(true);
-      this.board2.setImmovable(true);
-
-      this.physics.add.collider(this.character1, this.board1);
-      this.physics.add.collider(this.character1, this.board2);
-
-      this.physics.add.overlap(
-        this.character1,
-        this.hat1,
-        this.collectHat1,
-        null,
-        this,
-      );
+    if (this.game.localPlayer === "pedro") {
+      this.character1.setTexture("characterPedroHat");
+    } else {
+      this.character1.setTexture("characterPabloHat");
     }
   }
 
