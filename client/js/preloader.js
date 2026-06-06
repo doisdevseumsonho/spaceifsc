@@ -55,7 +55,15 @@ class preloader extends Phaser.Scene {
           frameWidth: 32,
           frameHeight: 64,
     });
-    
+    this.load.spritesheet("characterPedroHat", "characters/characterbase_pedro_hat.png", {
+          frameWidth: 32,
+          frameHeight: 64,
+    });
+    this.load.spritesheet("characterPabloHat", "characters/characterbase_pablo_hat.png", {
+          frameWidth: 32,
+          frameHeight: 64,
+    });
+
     //scene_intro
     this.load.image("space", "space.png");
     this.load.audio("imperial8bit", "sounds/imperial8bit.mp3");
@@ -95,10 +103,15 @@ class preloader extends Phaser.Scene {
       frameHeight: 32,
     });
 
-    this.load.spritesheet("key", "ziotekey.png", {
+    this.load.spritesheet("aluminum_hat_1", "aluminum_hat_1.png", {
       frameWidth: 32,
       frameHeight: 32,
     }); 
+
+    this.load.spritesheet("aluminum_hat_2", "aluminum_hat_2.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
 
     this.load.spritesheet("airfryer", "airfryer.png", {
       frameWidth: 32,

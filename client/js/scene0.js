@@ -25,6 +25,17 @@ class scene0 extends Phaser.Scene {
   create() {
     //mapa
 
+  if (this.game.hasHat === undefined) {
+    this.game.hasHat = false;
+  }
+
+  if (this.game.hat1Collected === undefined) {
+    this.game.hat1Collected = false;
+  }
+
+  if (this.game.hat2Collected === undefined) {
+    this.game.hat2Collected = false;
+  }
     console.log("TAULO:", this.game.tauloalive);
     console.log("TERGIO:", this.game.tergioalive);
     this.dialogCooldown = false;
@@ -155,19 +166,19 @@ class scene0 extends Phaser.Scene {
       );
     }
 
-    if (!this.game.keyCollected) {
-      this.key = this.physics.add.sprite(1648, 1135, "key", 0);
+    if (!this.game.hatCollected) {
+      this.hat = this.physics.add.sprite(1648, 1135, "aluminum_hat_1", 0);
 
       this.physics.add.overlap(
         this.character1,
-        this.key,
-        this.collectKey,
+        this.hat,
+        this.collectHat1,
         null,
         this,
       );
     }
     this.airfryer = this.physics.add.sprite(1360, 1200, "airfryer", 0); //cria a airfryer
-    if (!this.game.keyCollected) {
+    if (!this.game.hatCollected) {
       this.board1 = this.physics.add.sprite(1584, 657, "board", 0);
       this.board2 = this.physics.add.sprite(1616, 657, "board", 0);
 
@@ -816,7 +827,7 @@ class scene0 extends Phaser.Scene {
     this.board2.destroy();
 
     if (!this.game.keyCollected) {
-      this.key = this.physics.add.sprite(1648, 1135, "key", 0);
+      this.hat1 = this.physics.add.sprite(1648, 1135, "hat1", 0);
 
       this.board1 = this.physics.add.sprite(1584, 657, "board", 0);
       this.board2 = this.physics.add.sprite(1616, 657, "board", 0);
@@ -829,8 +840,8 @@ class scene0 extends Phaser.Scene {
 
       this.physics.add.overlap(
         this.character1,
-        this.key,
-        this.collectKey,
+        this.hat1,
+        this.collectHat1,
         null,
         this,
       );
