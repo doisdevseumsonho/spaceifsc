@@ -109,6 +109,39 @@ antes que algo pior aconteça.`;
        this.scene.start("scenetutorial1");
      });
    });
+    
+    // botão de pular introdução
+this.skipButton = this.add
+  .sprite(
+    this.cameras.main.width - 80,
+    this.cameras.main.height - 105,
+    "skipbutton"
+  )
+  .setInteractive()
+  .setScrollFactor(0)
+  .setScale(1);
+
+this.skipButton.on("pointerdown", () => {
+  this.scene.stop();
+  this.scene.start("scenetutorial1");
+      this.introMusic.stop();
+});
+
+// texto do botão
+this.skipText = this.add
+  .text(
+    this.cameras.main.width - 75,
+    this.cameras.main.height - 105,
+    "Pular\nIntrodução",
+    {
+      fontSize: "14px",
+      fill: "#ffffff",
+      stroke: "#000000",
+      strokeThickness: 4,
+    }
+  )
+  .setOrigin(0.5)
+  .setScrollFactor(0);
   }
 
   update() {}

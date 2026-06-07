@@ -67,6 +67,12 @@ class preloader extends Phaser.Scene {
     //scene_intro
     this.load.image("space", "space.png");
     this.load.audio("imperial8bit", "sounds/imperial8bit.mp3");
+
+    //cenas de transição (tutorials)
+    this.load.spritesheet("skipbutton", "skipbutton.png", {
+      frameWidth: 120,
+      frameHeight: 120,
+    });
 //scene0
     this.load.spritesheet("professor1", "characters/tergio.png", {
       frameWidth: 32,

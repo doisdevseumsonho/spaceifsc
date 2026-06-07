@@ -29,6 +29,38 @@ class scenetutorial2 extends Phaser.Scene {
     this.time.delayedCall(7000, () => {
       this.scene.start("scene1");
     });
+
+    // botão de pular tutorial
+this.skipButton = this.add
+  .sprite(
+    this.cameras.main.width - 80,
+    this.cameras.main.height - 105,
+    "skipbutton"
+  )
+  .setInteractive()
+  .setScrollFactor(0)
+  .setScale(1);
+
+this.skipButton.on("pointerdown", () => {
+  this.scene.stop();
+  this.scene.start("scene1");
+});
+
+// texto do botão
+this.skipText = this.add
+  .text(
+    this.cameras.main.width - 80,
+    this.cameras.main.height - 105,
+    "Pular\nTutorial",
+    {
+      fontSize: "14px",
+      fill: "#ffffff",
+      stroke: "#000000",
+      strokeThickness: 4,
+    }
+  )
+  .setOrigin(0.5)
+  .setScrollFactor(0);
   }
 
   update() {}
