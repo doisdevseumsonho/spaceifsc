@@ -149,8 +149,6 @@ class preloader extends Phaser.Scene {
 
     this.load.audio("selectSound", "sounds/Blip_Select.mp3");
 
-    this.load.audio("Explosion", "sounds/Explosion.mp3");
-
 //scene1
     //Fundo
     this.load.spritesheet("backgroundtergio1", "quiz/tergio_text_box.png", {
@@ -192,6 +190,10 @@ class preloader extends Phaser.Scene {
       frameHeight: 192,
       });
     
+   //sons
+    this.load.audio("correct_question", "sounds/correct_question.mp3");
+    this.load.audio("wrong_question", "sounds/wrong_question.mp3");
+
     //scene2
 
     this.load.spritesheet("aimflag", "minesweeper/aimflag.png", {
@@ -283,6 +285,8 @@ class preloader extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32,
     });
+
+        this.load.audio("explosion", "sounds/explosion.mp3");
   }
 
   create() {

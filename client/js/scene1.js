@@ -256,8 +256,11 @@ class scene1 extends Phaser.Scene {
 
     // Soma pontos se acertou
     if (correct) {
-      this.game.tergiopoints = (this.game.tergiopoints ?? 0) + 10;
+      this.game.tergiopoints = (this.game.tergiopoints ?? 0) + 5;
       this._pointsText.setText("Pontuação: " + this.game.tergiopoints);
+      this.sound.play("correct_question");
+    } else {
+      this.sound.play("wrong_question");
     }
 
     const nextIndex = this._currentIndex + 1;

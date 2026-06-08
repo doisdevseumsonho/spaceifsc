@@ -49,7 +49,7 @@ class scene2 extends Phaser.Scene {
       ROWS:         8,
       MAX_BOMBS:    10,   // total máximo de planetas
       CELL:         48,
-      POINTS_PER_PLANET: 10,  // 10 pts por planeta salvo
+      POINTS_PER_PLANET: 20,  // 20 pts por planeta salvo
     };
   }
 
@@ -355,6 +355,7 @@ class scene2 extends Phaser.Scene {
 
     if (cell.bomb) {
       this._lose(r, c);
+      this.sound.play("explosion");
       return;
     }
 
