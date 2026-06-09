@@ -4,16 +4,16 @@
 const TEXTOS = {
   comentariosTergio: {
     "0-20": "Bom... pelo menos você tentou.",
-    "30-40": "Sobreviveu ao quiz. Por pouco.",
-    "50-60": "Resultado decente. Mas dá pra mais.",
-    "70-80": "Claramente prestou atenção nas aulas.",
+    "30-40": "Sobreviveu ao quiz.",
+    "50-60": "Aluno nota 6.",
+    "70-80": "Claramente tem uma Airfryer em casa.",
     "90-100": "Térgio não vai dormir bem esta noite.",
   },
   comentariosTaulo: {
-    "0-40": "Você ajudou mais o Taulo do que nós.",
+    "0-40": "Você ajudou mais os Gincanáliens do que nós.",
     "50-80": "Alguns planetas ainda existem. Bom sinal.",
     "90-120": "Resultado aceitável para um humano.",
-    "130-160": "Responsabilidade interplanetária exemplar.",
+    "130-160": "Tomara que você não tenha família em algum planeta que explodiu.",
     "170-200": "O universo agradece seus serviços.",
   },
 };
@@ -84,73 +84,73 @@ const POS = {
 
   // ── Coluna Térgio (QP1: x=0..400) ────────────────────────
   // cabeçalho "ESTATÍSTICAS - TÉRGIO"
-  TERGIO_HEADER_X: 100, // centro da coluna esquerda
+  TERGIO_HEADER_X: 160, // centro da coluna esquerda
   TERGIO_HEADER_Y: 58,
 
   // sprite professor1_salvo (QP1-QS2: x=200..400, y=0..112)
-  TERGIO_SPRITE_X: 300,
-  TERGIO_SPRITE_Y: 90,
+  TERGIO_SPRITE_X: 270,
+  TERGIO_SPRITE_Y: 140,
 
   // pontuação (QP1-QS1: x=0..200, y=0..112)
-  TERGIO_PONTOS_X: 100,
-  TERGIO_PONTOS_Y: 90,
+  TERGIO_PONTOS_X: 120,
+  TERGIO_PONTOS_Y: 80,
 
   // comentário (QP1-QS3: x=0..200, y=112..225)
-  TERGIO_COMENT_X: 100,
-  TERGIO_COMENT_Y: 148,
+  TERGIO_COMENT_X: 120,
+  TERGIO_COMENT_Y: 145,
 
   // rank (QP1-QS4: x=200..400, y=112..225)
-  TERGIO_RANK_X: 300,
-  TERGIO_RANK_Y: 175,
+  TERGIO_RANK_X: 260,
+  TERGIO_RANK_Y: 210,
 
   // ── Coluna Taulo (QP2: x=400..800) ───────────────────────
   // cabeçalho "ESTATÍSTICAS - TAULO"
-  TAULO_HEADER_X: 600,
+  TAULO_HEADER_X: 580,
   TAULO_HEADER_Y: 58,
 
   // sprite professor2_salvo (QP2-QS1: x=400..600, y=0..112)
   TAULO_SPRITE_X: 490,
-  TAULO_SPRITE_Y: 90,
+  TAULO_SPRITE_Y: 140,
 
   // pontuação (QP2-QS2: x=600..800, y=0..112)
-  TAULO_PONTOS_X: 700,
-  TAULO_PONTOS_Y: 90,
+  TAULO_PONTOS_X: 670,
+  TAULO_PONTOS_Y: 80,
 
   // comentário (QP2-QS3: x=400..600, y=112..225)
   TAULO_COMENT_X: 490,
-  TAULO_COMENT_Y: 148,
+  TAULO_COMENT_Y: 220,
 
   // planetas destruídos (QP2-QS4: x=600..800, y=112..225)
-  PLANETAS_X: 700, // centro da linha de planetas
-  PLANETAS_Y: 148, // Y do label "Planetas destruídos:"
-  PLANETAS_SPRITES_Y: 170, // Y dos sprites de planetas
+  PLANETAS_X: 670, // centro da linha de planetas
+  PLANETAS_Y: 170, // Y do label "Planetas destruídos:"
+  PLANETAS_SPRITES_Y: 180, // Y dos sprites de planetas
 
   // rank Taulo (logo abaixo do comentário, pode entrar no QP4-QS1)
-  TAULO_RANK_X: 490,
-  TAULO_RANK_Y: 190,
+  TAULO_RANK_X: 667,
+  TAULO_RANK_Y: 120,
 
   // ── Inferior (QP3 e QP4) ──────────────────────────────────
   // "PONTUAÇÃO FINAL" + total (QP3, lado esquerdo)
-  FINAL_HEADER_X: 150,
-  FINAL_HEADER_Y: 248,
-  FINAL_PONTOS_X: 150,
-  FINAL_PONTOS_Y: 272,
+  FINAL_HEADER_X: 400,
+  FINAL_HEADER_Y: 260,
+  FINAL_PONTOS_X: 400,
+  FINAL_PONTOS_Y: 280,
 
   // rank final (centro, entre QP3-QS2 e QP4-QS1)
   RANK_FINAL_X: 400,
-  RANK_FINAL_Y: 310,
+  RANK_FINAL_Y: 360,
 
   // Among Us (QP3-QS3: x=0..200, y=337..450)
   AMONG_X: 56,
   AMONG_Y: 400,
 
   // tijolinhos (QP3-QS3+QS4 e QP4-QS3+QS4, linha inferior)
-  TIJOL_X: 470,
-  TIJOL_Y: 410,
+  TIJOL_X: 400,
+  TIJOL_Y: 425,
 
   // ── Misc ──────────────────────────────────────────────────
-  PLANETA_TAM: 28, // tamanho de cada sprite de planeta
-  PLANETA_GAP: 34, // espaçamento entre centros
+  PLANETA_TAM: 32, // tamanho de cada sprite de planeta
+  PLANETA_GAP: 32, // espaçamento entre centros
   AMONG_SIZE: 64, // tamanho do sprite Among Us
   SPRITE_SCALE: 1.8, // escala dos sprites de professor
 };
@@ -237,7 +237,7 @@ export default class finalStats extends Phaser.Scene {
   _iniciarSequencia(pontosTergio, pontosTaulo, pontosTotal) {
     const rankTergio = calcularRank(pontosTergio, RANKS_TERGIO);
     const rankTaulo = calcularRank(pontosTaulo, RANKS_TAULO);
-    const rankFinal = calcularRank(pontosTotal, RANKS_FINAL);
+    const rankFinal = calcularRank(pontosTergio + pontosTaulo, RANKS_FINAL);
     const comentTergio = calcularComentario(
       pontosTergio,
       TEXTOS.comentariosTergio,
@@ -252,9 +252,9 @@ export default class finalStats extends Phaser.Scene {
       this._texto(
         POS.CX,
         POS.TOTAL_Y,
-        `PARABÉNS! VOCÊ CONSEGUIU ${pontosTotal} PONTOS!`,
+        `PARABÉNS! VOCÊ CONSEGUIU ${pontosTergio + pontosTaulo} PONTOS!`,
         {
-          fontSize: "22px",
+          fontSize: "23px",
           fill: "#ffffff",
           fontStyle: "bold",
           stroke: "#000000",
@@ -300,7 +300,7 @@ export default class finalStats extends Phaser.Scene {
         POS.TERGIO_PONTOS_Y,
         `Pontuação: ${pontosTergio}`,
         {
-          fontSize: "16px",
+          fontSize: "18px",
           fill: "#ffffff",
           stroke: "#000000",
           strokeThickness: 3,
@@ -366,7 +366,7 @@ export default class finalStats extends Phaser.Scene {
         POS.TAULO_PONTOS_Y,
         `Pontuação: ${pontosTaulo}`,
         {
-          fontSize: "16px",
+          fontSize: "18px",
           fill: "#ffffff",
           stroke: "#000000",
           strokeThickness: 3,
@@ -417,7 +417,7 @@ export default class finalStats extends Phaser.Scene {
       this._texto(
         POS.FINAL_PONTOS_X,
         POS.FINAL_PONTOS_Y,
-        `${pontosTotal} pontos`,
+        `${pontosTergio + pontosTaulo} pontos`,
         {
           fontSize: "16px",
           fill: "#ffffff",
