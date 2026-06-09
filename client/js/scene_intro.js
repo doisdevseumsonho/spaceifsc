@@ -123,7 +123,7 @@ this.skipButton = this.add
 
 this.skipButton.on("pointerdown", () => {
   this.scene.stop();
-  this.scene.start("finalStats");
+  this.scene.start("scenetutorial1");
       this.introMusic.stop();
 });
 

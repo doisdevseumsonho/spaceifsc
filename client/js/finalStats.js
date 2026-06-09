@@ -3,18 +3,18 @@
 // ============================================================
 const TEXTOS = {
   comentariosTergio: {
-    "0-20": "Bom... pelo menos você tentou.",
-    "30-40": "Sobreviveu ao quiz.",
-    "50-60": "Aluno nota 6.",
-    "70-80": "Claramente tem uma Airfryer em casa.",
-    "90-100": "Térgio não vai dormir bem esta noite.",
+    "0-40": "Bom... pelo menos você tentou.",
+    "50-80": "Sobreviveu ao quiz.",
+    "90-120": "Aluno nota 6.",
+    "130-160": "Claramente tem uma Airfryer em casa.",
+    "170-200": "Térgio não vai dormir bem esta noite.",
   },
   comentariosTaulo: {
-    "0-40": "Você ajudou mais os Gincanáliens do que nós.",
-    "50-80": "Alguns planetas ainda existem. Bom sinal.",
-    "90-120": "Resultado aceitável para um humano.",
-    "130-160": "Tomara que você não tenha família em algum planeta que explodiu.",
-    "170-200": "O universo agradece seus serviços.",
+    "0-50": "Você ajudou mais os Gincanáliens do que nós.",
+    "60-100": "Alguns planetas ainda existem. Bom sinal.",
+    "110-150": "Resultado aceitável para um humano.",
+    "160-200": "Tomara que você não tenha família em algum planeta que explodiu.",
+    "210-250": "O universo agradece seus serviços.",
   },
 };
 
@@ -36,30 +36,32 @@ const RANK_CORES = {
 //  TABELAS DE RANK
 // ============================================================
 const RANKS_TERGIO = [
-  { min: 0, max: 20, rank: "F" },
-  { min: 30, max: 40, rank: "D" },
-  { min: 50, max: 60, rank: "C" },
-  { min: 70, max: 80, rank: "B" },
-  { min: 90, max: 100, rank: "A" },
+  { min: 0, max: 40, rank: "F" },
+  { min: 50, max: 80, rank: "D" },
+  { min: 90, max: 120, rank: "C" },
+  { min: 130, max: 160, rank: "B" },
+  { min: 170, max: 190, rank: "A" },
+  { min: 200, max: 200, rank: "S" },
 ];
 
 const RANKS_TAULO = [
-  { min: 0, max: 40, rank: "F" },
-  { min: 50, max: 80, rank: "D" },
-  { min: 90, max: 120, rank: "C" },
-  { min: 130, max: 160, rank: "B" },
-  { min: 170, max: 200, rank: "A" },
+  { min: 0, max: 50, rank: "F" },
+  { min: 60, max: 100, rank: "D" },
+  { min: 110, max: 150, rank: "C" },
+  { min: 160, max: 200, rank: "B" },
+  { min: 210, max: 240, rank: "A" },
+  { min: 250, max: 250, rank: "S" },
 ];
 
 const RANKS_FINAL = [
-  { min: 0, max: 40, rank: "F" },
-  { min: 50, max: 80, rank: "D" },
-  { min: 90, max: 120, rank: "C" },
-  { min: 130, max: 160, rank: "B" },
-  { min: 170, max: 200, rank: "A" },
-  { min: 230, max: 260, rank: "A+" },
-  { min: 270, max: 290, rank: "S" },
-  { min: 300, max: 300, rank: "S+" },
+  { min: 0, max: 60, rank: "F" },
+  { min: 70, max: 120, rank: "D" },
+  { min: 130, max: 170, rank: "C" },
+  { min: 180, max: 240, rank: "B" },
+  { min: 250, max: 300, rank: "A" },
+  { min: 310, max: 370, rank: "A+" },
+  { min: 380, max: 440, rank: "S" },
+  { min: 450, max: 450, rank: "S+" },
 ];
 
 // ============================================================
@@ -109,32 +111,32 @@ const POS = {
   TAULO_HEADER_Y: 58,
 
   // sprite professor2_salvo (QP2-QS1: x=400..600, y=0..112)
-  TAULO_SPRITE_X: 490,
+  TAULO_SPRITE_X: 510,
   TAULO_SPRITE_Y: 140,
 
   // pontuação (QP2-QS2: x=600..800, y=0..112)
-  TAULO_PONTOS_X: 670,
+  TAULO_PONTOS_X: 640,
   TAULO_PONTOS_Y: 80,
 
   // comentário (QP2-QS3: x=400..600, y=112..225)
-  TAULO_COMENT_X: 490,
-  TAULO_COMENT_Y: 220,
+  TAULO_COMENT_X: 667,
+  TAULO_COMENT_Y: 145,
 
   // planetas destruídos (QP2-QS4: x=600..800, y=112..225)
   PLANETAS_X: 670, // centro da linha de planetas
-  PLANETAS_Y: 170, // Y do label "Planetas destruídos:"
-  PLANETAS_SPRITES_Y: 180, // Y dos sprites de planetas
+  PLANETAS_Y: 200, // Y do label "Planetas destruídos:"
+  PLANETAS_SPRITES_Y: 220, // Y dos sprites de planetas
 
   // rank Taulo (logo abaixo do comentário, pode entrar no QP4-QS1)
-  TAULO_RANK_X: 667,
-  TAULO_RANK_Y: 120,
+  TAULO_RANK_X: 510,
+  TAULO_RANK_Y: 210,
 
   // ── Inferior (QP3 e QP4) ──────────────────────────────────
   // "PONTUAÇÃO FINAL" + total (QP3, lado esquerdo)
   FINAL_HEADER_X: 400,
   FINAL_HEADER_Y: 260,
   FINAL_PONTOS_X: 400,
-  FINAL_PONTOS_Y: 280,
+  FINAL_PONTOS_Y: 290,
 
   // rank final (centro, entre QP3-QS2 e QP4-QS1)
   RANK_FINAL_X: 400,
@@ -419,7 +421,7 @@ export default class finalStats extends Phaser.Scene {
         POS.FINAL_PONTOS_Y,
         `${pontosTergio + pontosTaulo} pontos`,
         {
-          fontSize: "16px",
+          fontSize: "20px",
           fill: "#ffffff",
           stroke: "#000000",
           strokeThickness: 3,
