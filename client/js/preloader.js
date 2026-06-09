@@ -139,6 +139,11 @@ class preloader extends Phaser.Scene {
       frameHeight: 32,
     });
 
+    this.load.spritesheet("chair", "chair.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+
     this.load.plugin("rexvirtualjoystickplugin", "../js/rexvirtualjoystickplugin.min.js",
       true,
     );
@@ -287,6 +292,18 @@ class preloader extends Phaser.Scene {
     });
 
         this.load.audio("explosion", "sounds/explosion.mp3");
+
+    //Scene4 (final)
+
+    this.load.spritesheet("final_background", "final_background.png", {
+      frameWidth: 450,
+      frameHeight: 384,
+    });
+
+    this.load.spritesheet("Amongus", "amongus.png", {
+      frameWidth: 64,  
+      frameHeight: 64,
+    });
   }
 
   create() {

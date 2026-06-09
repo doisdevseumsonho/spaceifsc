@@ -43,5 +43,12 @@ export default class finalFeliz extends Phaser.Scene {
         globalThis.google.accounts.id.prompt();
       }
     });
+
+    // depois de 2 segundos após o login, te taca pra cena do final
+    //setTimeout(() => {
+      this.scene.stop();
+      this.scene.start("finalStats");
+    //}, 2000);
+    
   }
 }
