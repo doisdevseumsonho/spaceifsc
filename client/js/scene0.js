@@ -648,7 +648,7 @@ class scene0 extends Phaser.Scene {
           if (this.dialogCooldown) return;
           this.dialogCooldown = true;
 
-          this.dialog = this.add.text(
+          const dialog = this.add.text(
             this.professor1.x + 60,
             this.professor1.y - 67,
             "Térgio:\n'Obrigado por me ajudar.\nE lembrem...\no poder é de vocês.'",
@@ -665,7 +665,7 @@ class scene0 extends Phaser.Scene {
           );
 
           this.time.delayedCall(5000, () => {
-            this.dialog.destroy();
+            dialog.destroy();
             this.dialogCooldown = false;
           });
         }
@@ -699,7 +699,7 @@ class scene0 extends Phaser.Scene {
           if (this.dialogCooldown) return;
           this.dialogCooldown = true;
 
-          this.dialog = this.add.text(
+          const dialog = this.add.text(
             this.professor2.x - 167,
             this.professor2.y - 120,
             "Taulo:\n'Tentarei não explodir\nmais nada por aqui.\nObrigado pela ajuda.'",
@@ -716,7 +716,7 @@ class scene0 extends Phaser.Scene {
           );
 
           this.time.delayedCall(5000, () => {
-            this.dialog.destroy();
+            dialog.destroy();
             this.dialogCooldown = false;
           });
         }
@@ -728,17 +728,17 @@ class scene0 extends Phaser.Scene {
 
           console.log(this.game.tergioalive, this.game.tauloalive);
 
-          this.dialogs = [];
+          let dialogs = [];
 
           // Nenhum professor derrotado
           if (this.game.tergioalive === true && this.game.tauloalive === true) {
-            this.dialogs = [
+            dialogs = [
               "Toi:\nOlá alunos!",
               "Nosso campus foi invadido por alienígenas controladores de mentes.",
               "Descobri que chapéus de alumínio quebram o controle mental.",
               "Derrotem os professores nos desafios deles.",
               "Quando estiverem fracos, coloquem os chapéus neles.",
-              "Boa sorte!",
+              "Boa sorte!"
             ];
           }
 
@@ -747,13 +747,13 @@ class scene0 extends Phaser.Scene {
             this.game.tergioalive === false &&
             this.game.tauloalive === true
           ) {
-            this.dialogs = [
+            dialogs = [
               "Toi:\nVocês derrotaram o Térgio?",
               "Aluno:\nSim, mas no meio do quiz ele começou a fazer perguntas estranhas.",
               "Perguntas que nem eram de matemática.",
               "Toi:\n...Estranho.",
               "Esse realmente deveria ser apenas um quiz para gênios.",
-              "Agora vão derrotar o Taulo!",
+              "Agora vão derrotar o Taulo!"
             ];
           }
 
@@ -762,12 +762,12 @@ class scene0 extends Phaser.Scene {
             this.game.tergioalive === true &&
             this.game.tauloalive === false
           ) {
-            this.dialogs = [
+            dialogs = [
               "Toi:\nDerrotaram o Taulo?",
               "Aluno:\nSim, ele estava completamente maluco tentando explodir planetas.",
               "Toi:\nNossa.",
               "Espero que vocês não tenham explodido a Terra.",
-              "Agora vão derrotar o Térgio!",
+              "Agora vão derrotar o Térgio!"
             ];
           }
 
@@ -776,24 +776,24 @@ class scene0 extends Phaser.Scene {
             this.game.tergioalive === false &&
             this.game.tauloalive === false
           ) {
-            ((this.dialogs = [
+            dialogs = [
               "Toi:\nVocês conseguiram!",
               "Os dois professores estão livres do controle mental.",
               "Parece que os chapéus de alumínio realmente funcionaram.",
               "Obrigado por salvarem eles!",
               "E lembrem...\no poder é de vocês.",
-            ]),
-              this.time.delayedCall(5000, this.nextDialog));
+            ];
+            this.time.delayedCall(5000, this.nextDialog);
 
             (this.scene.stop("scene0"), this.scene.start("finalFeliz"));
           }
 
-          this.index = 0;
+          let index = 0;
 
-          this.dialog = this.add.text(
+          const dialog = this.add.text(
             this.professor3.x - 170,
             this.professor3.y - 120,
-            this.dialogs[this.index],
+            dialogs[index],
             {
               fontSize: "16px",
               fill: "#ffffff",
@@ -806,14 +806,28 @@ class scene0 extends Phaser.Scene {
             },
           );
 
-          this.time.delayedCall(5000, this.nextDialog);
+        const nextDialog = () => {
+          index++;
+
+          if (index >= dialogs.length) {
+            dialog.destroy();
+            this.dialogCooldown = false;
+            return;
+          }
+
+          dialog.setText(dialogs[index]);
+
+          this.time.delayedCall(5000, nextDialog);
+        };
+
+        this.time.delayedCall(5000, nextDialog);
         }
         // AIRFRYER
         else if (this.caninteractAirfryer === true) {
           if (this.dialogCooldown) return;
           this.dialogCooldown = true;
 
-          this.dialog = this.add.text(
+          const dialog = this.add.text(
             this.character1.x + 6.7,
             this.character1.y - 67,
             "Uma airfryer\nda Equipe Rocket!",
@@ -830,7 +844,7 @@ class scene0 extends Phaser.Scene {
           );
 
           this.time.delayedCall(3000, () => {
-            this.dialog.setText("");
+            dialog.destroy();
             this.dialogCooldown = false;
           });
         }
@@ -975,19 +989,6 @@ class scene0 extends Phaser.Scene {
     }
   }
 
-  nextDialog = () => {
-    this.index++;
-
-    if (this.index >= this.airfryerdialogs.length) {
-      this.airfryerdialog.setText("");
-      this.dialogCooldown = false;
-      return;
-    }
-
-    this.airfryerdialog.setText(this.airfryerdialogs[this.index]);
-
-    this.time.delayedCall(5000, this.nextDialog);
-  };
 }
 
 export default scene0;
