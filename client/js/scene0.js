@@ -207,7 +207,7 @@ class scene0 extends Phaser.Scene {
     }
     // cria a cadeira
     this.chair = this.physics.add.sprite(1450, 1100, "chair", 0);
-    this.chair.setScale(2);
+    this.chair.setScale(1);
     this.airfryer = this.physics.add.sprite(1360, 1200, "airfryer", 0); //cria a airfryer
     if (!this.game.hatCollected) {
       this.board1 = this.physics.add.sprite(1584, 657, "board", 0);

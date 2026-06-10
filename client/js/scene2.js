@@ -63,7 +63,7 @@ class scene2 extends Phaser.Scene {
       "Saturno",
       "uma lua de Saturno",
       "A lua (da terra)",
-      "A Estrela da Morte",
+      "A lua...?",
       "Urano",
       "O Planeta Vulcânico",
       "Vênus",

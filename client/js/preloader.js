@@ -140,8 +140,8 @@ class preloader extends Phaser.Scene {
     });
 
     this.load.spritesheet("chair", "chair.png", {
-      frameWidth: 32,
-      frameHeight: 32,
+      frameWidth: 64,
+      frameHeight: 64,
     });
 
     this.load.plugin("rexvirtualjoystickplugin", "../js/rexvirtualjoystickplugin.min.js",
