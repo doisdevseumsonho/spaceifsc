@@ -817,10 +817,10 @@ class scene0 extends Phaser.Scene {
 
           dialog.setText(dialogs[index]);
 
-          this.time.delayedCall(3000, nextDialog);
+          this.time.delayedCall(4000, nextDialog);
         };
 
-        this.time.delayedCall(3000, nextDialog);
+        this.time.delayedCall(4000, nextDialog);
         }
         // AIRFRYER
         else if (this.caninteractAirfryer === true) {
