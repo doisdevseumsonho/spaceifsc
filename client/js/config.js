@@ -14,7 +14,7 @@ var config = {
     default: "arcade",
     arcade: {
       gravity: { x: 0, y: 0 }, //1000 é o valor básico da Terra, menor faz ele pular mais, maior faz ele pular menos
-      debug: true,
+      debug: false,
     },
   },
   scale: {
