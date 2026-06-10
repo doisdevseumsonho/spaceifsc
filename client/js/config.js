@@ -10,6 +10,7 @@ var config = {
     activePointers: true, //Habilita o suporte a gamepad
   },
   parent: "game-container",
+  pixelArt: true,
   physics: { //O Phase tem física já implementada
     default: "arcade",
     arcade: {

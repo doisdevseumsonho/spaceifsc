@@ -539,9 +539,9 @@ class scene0 extends Phaser.Scene {
     //Joystick
     this.joystick = this.plugins.get("rexvirtualjoystickplugin").add(this, {
       //puxa o plugin do joystick e cria ele
-      x: 100,
-      y: 350,
-      radius: 50,
+      x: 220,
+      y: 290,
+      radius: 25,
       base: this.add.circle(0, 0, 50, 0x888888),
       thumb: this.add.circle(0, 0, 25, 0xcccccc),
     });
@@ -628,9 +628,9 @@ class scene0 extends Phaser.Scene {
 
     //botão de interação
     this.button = this.add
-      .sprite(700, 350, "interact_buttom", 1)
+      .sprite(580, 290, "interact_buttom", 1)
       .setInteractive()
-      .setScale(2)
+      .setScale(1.25)
       .on("pointerdown", () => {
         this.button.setFrame(1);
 
@@ -859,15 +859,16 @@ class scene0 extends Phaser.Scene {
     // Adiciona texto na tela
     this.pointsText = this.add
       .text(
-        300,
-        10,
+        345,
+        90,
         "Pontuação:" + (this.game.points + this.game.tergiopoints),
         {
           fontSize: "32px",
           fill: "#fff",
         },
       )
-      .setScrollFactor(0);
+      .setScrollFactor(0)
+      .setScale(0.6);
 
     this.game.socket.on("scene0", (state) => {
       if (state.player) {
@@ -907,7 +908,7 @@ class scene0 extends Phaser.Scene {
       }
     });
 
-    //    this.cameras.main.setZoom(2); //aumenta o zoom da câmera para 2x, deixando o mapa maior e mais visível
+    this.cameras.main.setZoom(1.60); //aumenta o zoom da câmera para 2x, deixando o mapa maior e mais visível
   }
 
   update() {
