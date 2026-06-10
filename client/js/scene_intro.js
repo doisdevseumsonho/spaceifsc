@@ -51,17 +51,17 @@ Os professores Térgio e Taulo
 foram as primeiras vítimas.
 
 E os demais professores
-fugiram em suas naves.
+fugiram em suas naves,
 
 Mas, na pressa...
 
-esqueceram dois pendentes
+Esqueceram dois pendentes
 que ainda não haviam terminado suas aulas.
 
 Agora cabe a eles
-salvar seus professores
+aumentarem sua média final
 
-antes que algo pior aconteça.`;
+E, talvez, salvar seus professores.`;
 
     // Texto
     this.introText = this.add
