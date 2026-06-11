@@ -724,8 +724,11 @@ class scene0 extends Phaser.Scene {
 
         // TOI
         else if (this.caninteractToi === true) {
-          if (this.dialogCooldown) return;
-          this.dialogCooldown = true;
+  if (this.dialogCooldown) return;
+  this.dialogCooldown = true;
+
+  this.speed = 15;
+  this.character1.setVelocity(0, 0);
 
           console.log(this.game.tergioalive, this.game.tauloalive);
 
@@ -813,6 +816,7 @@ class scene0 extends Phaser.Scene {
             if (index >= dialogs.length) {
               dialog.destroy();
               this.dialogCooldown = false;
+               this.speed = 200;
               return;
             }
 
