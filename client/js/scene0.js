@@ -41,61 +41,6 @@ class scene0 extends Phaser.Scene {
     this.layerStructure1 = this.tilemap.createLayer("structure1", [
       this.tilesetTileset,
     ]); //cria as camadas de estrutura
-    this.layerStructure2 = this.tilemap.createLayer("structure2", [
-      this.tilesetTileset,
-    ]); //cria as camadas de estrutura
-    if (this.game.tergioalive === true) {
-      this.professor1 = this.physics.add.sprite(1300, 449, "professor1", 0);
-    } //cria o professor térgio
-    else {
-      this.professor1 = this.physics.add.sprite(
-        1300,
-        449,
-        "professor1_salvo",
-        0,
-      );
-    } //cria o professor térgio salvo, caso ele já tenha sido derrotado
-
-    if (this.game.tauloalive === true) {
-      this.professor2 = this.physics.add.sprite(1704, 449, "professor2", 0);
-    } //cria o professor taulo
-    else {
-      this.professor2 = this.physics.add.sprite(
-        1704,
-        449,
-        "professor2_salvo",
-        0,
-      );
-    } //cria o professor taulo salvo, caso ele já tenha sido derrotado
-
-    this.professor3 = this.physics.add.sprite(1740, 1040, "professor3", 0); //cria o professor toi
-    this.professor3.setFlipX(true);
-
-    this.inator = this.physics.add.sprite(1880, 440, "inator", 0); //cria o taulo-inator
-    this.inator.setScale(1.5);
-
-    const selectionTergioScaleX = 4; // escala horizontal da seleção
-    const selectionTergioScaleY = 4; // escala vertical da seleção
-    const debugSelectionVisible = true; // deixa visível para debug
-    this.selectionTergio = this.physics.add
-      .sprite(this.professor1.x, this.professor1.y, "selectionTergio", 0) //cria a caixa de seleção
-      .setScale(selectionTergioScaleX, selectionTergioScaleY)
-      .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
-
-    const selectionTauloScaleX = 4; // escala horizontal da seleção
-    const selectionTauloScaleY = 4; // escala vertical da seleção
-    this.selectionTaulo = this.physics.add
-      .sprite(this.professor2.x, this.professor2.y, "selectionTaulo", 0) //cria a caixa de seleção
-      .setScale(selectionTauloScaleX, selectionTauloScaleY)
-      .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
-
-    const selectionToiScaleX = 4; // escala horizontal da seleção
-    const selectionToiScaleY = 4; // escala vertical da seleção
-    this.selectionToi = this.physics.add
-      .sprite(this.professor3.x, this.professor3.y, "selectionToi", 0) //cria a caixa de seleção
-      .setScale(selectionToiScaleX, selectionToiScaleY)
-      .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
-
     if (
       this.game.localPlayer === "pedro" &&
       this.game.tergioalive === true &&
@@ -205,6 +150,61 @@ class scene0 extends Phaser.Scene {
         this,
       );
     }
+    this.layerStructure2 = this.tilemap.createLayer("structure2", [
+      this.tilesetTileset,
+    ]); //cria as camadas de estrutura
+    if (this.game.tergioalive === true) {
+      this.professor1 = this.physics.add.sprite(1300, 449, "professor1", 0);
+    } //cria o professor térgio
+    else {
+      this.professor1 = this.physics.add.sprite(
+        1300,
+        449,
+        "professor1_salvo",
+        0,
+      );
+    } //cria o professor térgio salvo, caso ele já tenha sido derrotado
+
+    if (this.game.tauloalive === true) {
+      this.professor2 = this.physics.add.sprite(1704, 449, "professor2", 0);
+    } //cria o professor taulo
+    else {
+      this.professor2 = this.physics.add.sprite(
+        1704,
+        449,
+        "professor2_salvo",
+        0,
+      );
+    } //cria o professor taulo salvo, caso ele já tenha sido derrotado
+
+    this.professor3 = this.physics.add.sprite(1740, 1040, "professor3", 0); //cria o professor toi
+    this.professor3.setFlipX(true);
+
+    this.inator = this.physics.add.sprite(1880, 440, "inator", 0); //cria o taulo-inator
+    this.inator.setScale(1.5);
+
+    const selectionTergioScaleX = 4; // escala horizontal da seleção
+    const selectionTergioScaleY = 4; // escala vertical da seleção
+    const debugSelectionVisible = true; // deixa visível para debug
+    this.selectionTergio = this.physics.add
+      .sprite(this.professor1.x, this.professor1.y, "selectionTergio", 0) //cria a caixa de seleção
+      .setScale(selectionTergioScaleX, selectionTergioScaleY)
+      .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
+
+    const selectionTauloScaleX = 4; // escala horizontal da seleção
+    const selectionTauloScaleY = 4; // escala vertical da seleção
+    this.selectionTaulo = this.physics.add
+      .sprite(this.professor2.x, this.professor2.y, "selectionTaulo", 0) //cria a caixa de seleção
+      .setScale(selectionTauloScaleX, selectionTauloScaleY)
+      .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
+
+    const selectionToiScaleX = 4; // escala horizontal da seleção
+    const selectionToiScaleY = 4; // escala vertical da seleção
+    this.selectionToi = this.physics.add
+      .sprite(this.professor3.x, this.professor3.y, "selectionToi", 0) //cria a caixa de seleção
+      .setScale(selectionToiScaleX, selectionToiScaleY)
+      .setAlpha(debugSelectionVisible ? 0.01 : 0); // meio transparente para facilitar o debug
+
     // cria a cadeira
     this.chair = this.physics.add.sprite(1450, 1100, "chair", 0);
     this.chair.setScale(1);
