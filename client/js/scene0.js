@@ -27,8 +27,7 @@ class scene0 extends Phaser.Scene {
     if (this.game.hatCollected === undefined) {
       this.game.hatCollected = false;
     }
-    console.log("TAULO:", this.game.tauloalive);
-    console.log("TERGIO:", this.game.tergioalive);
+    
     this.dialogCooldown = false;
 
     this.tilemap = this.make.tilemap({ key: "map" }); //cria o mapa
@@ -72,7 +71,8 @@ class scene0 extends Phaser.Scene {
     this.professor3 = this.physics.add.sprite(1740, 1040, "professor3", 0); //cria o professor toi
     this.professor3.setFlipX(true);
 
-    this.inator = this.physics.add.sprite(1854, 449, "inator", 0); //cria o taulo-inator
+    this.inator = this.physics.add.sprite(1880, 440, "inator", 0); //cria o taulo-inator
+    this.inator.setScale(1.5);
 
     const selectionTergioScaleX = 4; // escala horizontal da seleção
     const selectionTergioScaleY = 4; // escala vertical da seleção
@@ -124,7 +124,7 @@ class scene0 extends Phaser.Scene {
       this.game.tauloalive === false
     ) {
       this.character1 = this.physics.add.sprite(
-        this.professor2.x + 64,
+        this.professor2.x + 32,
         this.professor2.y,
         "characterPedro",
         20,
@@ -168,7 +168,7 @@ class scene0 extends Phaser.Scene {
       this.game.tauloalive === false
     ) {
       this.character1 = this.physics.add.sprite(
-        this.professor2.x + 64,
+        this.professor2.x + 32,
         this.professor2.y,
         "characterPablo",
         20,
@@ -539,12 +539,15 @@ class scene0 extends Phaser.Scene {
     //Joystick
     this.joystick = this.plugins.get("rexvirtualjoystickplugin").add(this, {
       //puxa o plugin do joystick e cria ele
-      x: 220,
-      y: 290,
+      x: 260,
+      y: 280,
       radius: 25,
-      base: this.add.circle(0, 0, 50, 0x888888),
-      thumb: this.add.circle(0, 0, 25, 0xcccccc),
+      base: this.add.circle(0, 0, 36, 0x888888),
+      thumb: this.add.circle(0, 0, 18, 0xcccccc),
     });
+
+   
+      
 
     this.joystick.on("update", () => {
       //faz o joystick funcionar sempre que ele é atualizado/mexido
@@ -574,17 +577,16 @@ class scene0 extends Phaser.Scene {
               this.game.localPlayer === "pedro"
                 ? "characterPedroHat-walk-right"
                 : "characterPabloHat-walk-right",
-              true
+              true,
             );
           } else {
             this.character1.play(
               this.game.localPlayer === "pedro"
                 ? "characterPedro-walk-right"
                 : "characterPablo-walk-right",
-              true
+              true,
             );
           }
-
         } else {
           // ESQUERDA
 
@@ -593,18 +595,17 @@ class scene0 extends Phaser.Scene {
               this.game.localPlayer === "pedro"
                 ? "characterPedroHat-walk-left"
                 : "characterPabloHat-walk-left",
-              true
+              true,
             );
           } else {
             this.character1.play(
               this.game.localPlayer === "pedro"
                 ? "characterPedro-walk-left"
                 : "characterPablo-walk-left",
-              true
+              true,
             );
           }
         }
-
       } else {
         this.character1.setVelocity(0, 0);
 
@@ -613,14 +614,14 @@ class scene0 extends Phaser.Scene {
             this.game.localPlayer === "pedro"
               ? "characterPedroHat-stop-right"
               : "characterPabloHat-stop-right",
-            true
+            true,
           );
         } else {
           this.character1.play(
             this.game.localPlayer === "pedro"
               ? "characterPedro-stop-right"
               : "characterPablo-stop-right",
-            true
+            true,
           );
         }
       }
@@ -628,9 +629,9 @@ class scene0 extends Phaser.Scene {
 
     //botão de interação
     this.button = this.add
-      .sprite(580, 290, "interact_buttom", 1)
+      .sprite(540, 275, "interact_buttom", 1)
       .setInteractive()
-      .setScale(1.25)
+      .setScale(1.0)
       .on("pointerdown", () => {
         this.button.setFrame(1);
 
@@ -738,7 +739,7 @@ class scene0 extends Phaser.Scene {
               "Descobri que chapéus de alumínio quebram o controle mental.",
               "Derrotem os professores nos desafios deles.",
               "Quando estiverem fracos, coloquem os chapéus neles.",
-              "Boa sorte!"
+              "Boa sorte!",
             ];
           }
 
@@ -753,7 +754,7 @@ class scene0 extends Phaser.Scene {
               "Perguntas que nem eram de matemática.",
               "Toi:\n...Estranho.",
               "Esse realmente deveria ser apenas um quiz para gênios.",
-              "Agora vão derrotar o Taulo!"
+              "Agora vão derrotar o Taulo!",
             ];
           }
 
@@ -767,7 +768,7 @@ class scene0 extends Phaser.Scene {
               "Aluno:\nSim, ele estava completamente maluco tentando explodir planetas.",
               "Toi:\nNossa.",
               "Espero que vocês não tenham explodido a Terra.",
-              "Agora vão derrotar o Térgio!"
+              "Agora vão derrotar o Térgio!",
             ];
           }
 
@@ -806,21 +807,21 @@ class scene0 extends Phaser.Scene {
             },
           );
 
-        const nextDialog = () => {
-          index++;
+          const nextDialog = () => {
+            index++;
 
-          if (index >= dialogs.length) {
-            dialog.destroy();
-            this.dialogCooldown = false;
-            return;
-          }
+            if (index >= dialogs.length) {
+              dialog.destroy();
+              this.dialogCooldown = false;
+              return;
+            }
 
-          dialog.setText(dialogs[index]);
+            dialog.setText(dialogs[index]);
+
+            this.time.delayedCall(4000, nextDialog);
+          };
 
           this.time.delayedCall(4000, nextDialog);
-        };
-
-        this.time.delayedCall(4000, nextDialog);
         }
         // AIRFRYER
         else if (this.caninteractAirfryer === true) {
@@ -860,15 +861,20 @@ class scene0 extends Phaser.Scene {
     this.pointsText = this.add
       .text(
         345,
-        90,
+        120,
         "Pontuação:" + (this.game.points + this.game.tergiopoints),
         {
           fontSize: "32px",
-          fill: "#fff",
+          fontfamily: "Arial",
+          fill: "#ffff",
+          stroke: "#000000",
+          strokeThickness: 6,
         },
       )
       .setScrollFactor(0)
       .setScale(0.6);
+
+  
 
     this.game.socket.on("scene0", (state) => {
       if (state.player) {
@@ -908,7 +914,9 @@ class scene0 extends Phaser.Scene {
       }
     });
 
-    this.cameras.main.setZoom(1.60); //aumenta o zoom da câmera para 2x, deixando o mapa maior e mais visível
+    this.cameras.main.setZoom(2.0); //aumenta o zoom da câmera para 2x, deixando o mapa maior e mais visível
+       
+
   }
 
   update() {

@@ -11,18 +11,24 @@ class endscene1 extends Phaser.Scene {
     this.add.image(400, 230, "tergiosleep")
       .setScale(1.8);
     
-    this.add.text(225, 30, " Parabéns!\nVocê ganhou:", {
+    this.add.text(225, 25, " Parabéns!\nVocê ganhou:", {
       fontSize: "52px",
       fontStyle: "bold",
       fill: "#fff",
+      stroke: "#000",
+      strokeThickness: 6,
     });
-    this.add.text(460, 200, this.game.tergiopoints, {
+    this.add.text(430, 200, this.game.tergiopoints, {
       fontSize: "80px",
       fill: "#fff",
+      stroke: "#000",
+      strokeThickness: 6,
     });
-    this.add.text(430, 260, "Pontos", {
+    this.add.text(410, 260, "Pontos", {
       fontSize: "40px",
       fill: "#fff",
+      stroke: "#000",
+      strokeThickness: 6,
     });
 
     this.time.delayedCall(5000, () => {

@@ -109,7 +109,7 @@ class scene2 extends Phaser.Scene {
     this.add.image(400, 300, "backgroundtergio0");
 
     // ── Sprites decorativos ─────────────────────────────────
-    this.inator    = this.add.sprite(100, 250, "inator").setScale(1.25);
+    this.inator    = this.add.sprite(80, 250, "inator").setScale(1.5);
     this.professor2 = this.add.sprite(130, 300, "professor2");
 
     // ── Botão de alternar modo (mira ↔ flag) ────────────────
