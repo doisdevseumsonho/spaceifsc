@@ -18,7 +18,7 @@ class endscene1 extends Phaser.Scene {
       stroke: "#000",
       strokeThickness: 6,
     });
-    this.add.text(430, 200, this.game.tergiopoints, {
+    this.add.text(420, 200, this.game.tergiopoints, {
       fontSize: "80px",
       fill: "#fff",
       stroke: "#000",
